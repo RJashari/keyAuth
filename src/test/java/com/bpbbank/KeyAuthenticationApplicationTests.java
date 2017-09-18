@@ -1,4 +1,4 @@
-package com.bpbbank.KeyAuthentication;
+package com.bpbbank;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
