@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en"> 
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
         
-       
+        <input type="text" th:value="${listaEcelesave}" ></input>
           <table style='width: 90%; border: 1px; border-color:black; border-style: double; text-align: center; font-size: 15px; font-family: "Arial"'>
             <tr>
                 <th style="background-color: #b3cef5; width: 2%"></th>
@@ -51,7 +52,12 @@
                 <td style=" width: 7%; background-color: #f5b0c5"></td>
             </tr>
             
-       
+            
         </table>
+        <div class="butonat">
+            <form method="get" action="/addKey">
+                <button type="submit">Continue</button>
+            </form>
+        </div>
     </body>
 </html>
