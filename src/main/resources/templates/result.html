@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en"> 
+    <head>
+        
+        <title>Shto Butonin</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    
+    <body>
+        <!--<canvas id="myCanvas" width="960" height="1000">-->
+       
+        <img th:src="@{/bpblogo.jpg}" alt="bpb logo" style="vertical-align: middle"></img>
+        
+        
+           <h1>Result</h1>
+         <p th:text="'Dega : ' + ${dega.dega}"/>
+         <p th:text="'P&euml;rgjegj&euml;si i deg&euml;s : ' + ${dega.pergjegjesiIDeges}" />
+         <p th:text="'&Ccedil;el&euml;si i hyrjes deg&euml; : ' + ${dega.celesiIHyrjesDege}"/>
+         <p th:text="'Kodi i alarmit deg&euml; : ' + ${dega.kodiAlarmitDege}"/>
+         <p th:text="'&Ccedil;el&euml;si i der&euml;s ATM : ' + ${dega.celesiIDeresAtm}"/>
+         <p th:text="'&Ccedil;el&euml;si i Server room : ' + ${dega.celesiIServerRoom}"/>
+         <p th:text="'&Ccedil;el&euml;si Trezor : ' + ${dega.celesiTrezor}"/>
+         <p th:text="'Kodi alarmit trezor(n&euml;se ka): ' + ${dega.kodiAlarmitTrezor}"/>
+         <p th:text="'&Ccedil;el&euml;si Sef 1 : ' + ${dega.celesiSef1}"/>
+         <p th:text="'Kodi shif&euml;r sef : ' + ${dega.kodiShiferSef}"/>
+         <p th:text="'&Ccedil;el&euml;si Sef 2 : ' + ${dega.celesiSef2}"/>
+         
+         <a href="/addKey">Submit another message</a>
+         
+                
+           
+     
+    </body>
+</html>

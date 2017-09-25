@@ -10,10 +10,10 @@
         <input type="text" th:value="${listaEcelesave}" ></input>
           <table style='width: 90%; border: 1px; border-color:black; border-style: double; text-align: center; font-size: 15px; font-family: "Arial"'>
             <tr>
-                <th style="background-color: #b3cef5; width: 2%"></th>
-                <th style="background-color: #b3cef5; width: 20%">Deg&euml;t dhe p&euml;rgjegj&euml;sit p&euml;r celesa dhe kode</th>
-                <th style="background-color: #a9b8cc; width: 21%">&Ccedil;el&euml;sat dhe kodet deg&euml;</th>
-                <th style="background-color: #f5b0c5; width: 35%">&Ccedil;el&euml;sat dhe kodet trezor dhe kodet alarm</th>
+                <th style="background-color: #b3cef5; width: 2.5%"></th>
+                <th style="background-color: #b3cef5; width: 23%">Deg&euml;t dhe p&euml;rgjegj&euml;sit p&euml;r celesa dhe kode</th>
+                <th style="background-color: #a9b8cc; width: 33%">&Ccedil;el&euml;sat dhe kodet deg&euml;</th>
+                <th style="background-color: #f5b0c5; width: auto">&Ccedil;el&euml;sat dhe kodet trezor dhe kodet alarm</th>
             </tr>
         </table>
         <table style='width: 90%; border: 1px; border-color:black; border-style: double; text-align: center;font-size: 12px;  font-family: "Arial"'>
@@ -24,6 +24,7 @@
                 
                 <td style="background-color: #a9b8cc; width: 7%"><b>&Ccedil;el&euml;si i hyrjes deg&euml; (Emri Mbiemri)</b></td>
                 <td style="background-color: #a9b8cc; width: 7%"><b>Kodi i alarmit deg&euml; (Emri Mbiemri)</b></td>
+                <td style="background-color: #a9b8cc; width: 7%"><b>&Ccedil;el&euml;si i der&euml;s ATM (Emri Mbiemri)</b></td>
                 <td style="background-color: #a9b8cc; width: 7%"><b>&Ccedil;el&euml;si i Server room (Emri Mbiemri)</b></td>
                 
                 <td style="background-color: #f5b0c5; width: 7%"><b>&Ccedil;el&euml;si Trezor (Emri Mbiemri)</b></td>
@@ -35,7 +36,7 @@
             </table>
             <table style='width: 90%; border:1px solid black; text-align: center;font-size: 12px;  font-family: "Arial"'>
             <!--<table style="width: 90%; border: 1px; border-color:black; border-style: double; text-align: center;font-size: 12px">-->
-                
+           
             <tr style='height: 30px'>
                 <td style=" width: 2%; background-color: #b3cef5">1</td>
                 <td style=" width: 10%; background-color: #b3cef5"></td>
@@ -43,6 +44,7 @@
                 
                 <td style=" width: 7%; background-color: #a9b8cc"></td>
                 <td style=" width: 7%; background-color: #a9b8cc"></td>
+				<td style=" width: 7%; background-color: #a9b8cc"></td>
                 <td style=" width: 7%; background-color: #a9b8cc"></td>
                 
                 <td style=" width: 7%; background-color: #f5b0c5"></td>
@@ -51,12 +53,13 @@
                 <td style=" width: 7%; background-color: #f5b0c5"></td>
                 <td style=" width: 7%; background-color: #f5b0c5"></td>
             </tr>
+           
             
             
         </table>
         <div class="butonat">
             <form method="get" action="/addKey">
-                <button type="submit">Continue</button>
+                <button type="submit">Shto deget</button>
             </form>
         </div>
     </body>

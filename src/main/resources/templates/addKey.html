@@ -3,22 +3,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en"> 
     <head>
         
-        <title>Shto Butonin</title>
+        <title>Shto Deg&euml;n</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     
     <body>
         <!--<canvas id="myCanvas" width="960" height="1000">-->
-        <img src="bpblogo.jpg" alt="bpb logo" style="width: 300px; height: 300px;"></img>
-                <table style="margin: 30em 0em 0em 50em">
-                    <tr>
-                        <td style="text-align: left">Key</td>
-                        <td> <input type="text" th:value="${key}" ></input></td>
-                        <td> <button type="button" >Ruaj Ndryshimet!</button></td>
-                    </tr>
-        <!--        <input type="text" th:value="${key}" ></input>-->
-                </table>
-            
-        <!--</canvas>--> 
+        
+        <img th:src="@{/bpblogo.jpg}" alt="bpb logo" style="vertical-align: middle"></img>
+        <h3>Shto Deg&euml;n</h3>
+        <form action="#" th:action="@{/addKey}" th:object="${dega}" method="post">
+	    
+        <p>Dega: <input type="text" th:field="${dega.dega}" ></input></p>
+		<p>P&euml;rgjegj&euml;si i deg&euml;s: <input type="text" th:field="${dega.pergjegjesiIDeges}" ></input></p>
+		<p>&Ccedil;el&euml;si i hyrjes deg&euml;: <input type="text" th:field="${dega.celesiIHyrjesDege}" ></input></p>
+		<p>Kodi i alarmit deg&euml; : <input type="text" th:field="${dega.kodiAlarmitDege}" ></input></p>
+		<p>&Ccedil;el&euml;si i der&euml;s ATM  : <input type="text" th:field="${dega.celesiIDeresAtm}" ></input></p>
+		<p>&Ccedil;el&euml;si i Server room : <input type="text" th:field="${dega.celesiIServerRoom}" ></input></p>
+		<p>&Ccedil;el&euml;si Trezor : <input type="text" th:field="${dega.celesiTrezor}" ></input></p>
+		<p>Kodi alarmit trezor(n&euml;se ka) <input type="text" th:field="${dega.kodiAlarmitTrezor}" ></input></p>
+		<p>&Ccedil;el&euml;si Sef 1 : <input type="text" th:field="${dega.celesiSef1}" ></input></p>
+		<p>Kodi shif&euml;r sef : <input type="text" th:field="${dega.kodiShiferSef}" ></input></p>
+		<p>&Ccedil;el&euml;si Sef 2 : <input type="text" th:field="${dega.celesiSef2}" ></input></p>
+		
+		 
+		<p> <input type="submit" value="Submit"/> <input type="reset" value="Reset" /></p>
+        </form>
+           
+         
+                
+           
+      
     </body>
 </html>
