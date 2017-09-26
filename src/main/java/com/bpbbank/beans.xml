@@ -6,6 +6,5 @@
 
 	
 
-	<bean id="keyreport" class="com.bpbbank.KeyReport">
-</bean>
+	
 </beans>

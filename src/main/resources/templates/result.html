@@ -26,9 +26,12 @@
          <p th:text="'Kodi shif&euml;r sef : ' + ${dega.kodiShiferSef}"/>
          <p th:text="'&Ccedil;el&euml;si Sef 2 : ' + ${dega.celesiSef2}"/>
          
-         <a href="/addKey">Submit another message</a>
+         <a href="/addKey">Shto edhe nje dege</a>
          
                 
+           <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
            
      
     </body>

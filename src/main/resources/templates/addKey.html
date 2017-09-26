@@ -9,7 +9,7 @@
     
     <body>
         <!--<canvas id="myCanvas" width="960" height="1000">-->
-        
+        <div style="align-content: center;">
         <img th:src="@{/bpblogo.jpg}" alt="bpb logo" style="vertical-align: middle"></img>
         <h3>Shto Deg&euml;n</h3>
         <form action="#" th:action="@{/addKey}" th:object="${dega}" method="post">
@@ -29,9 +29,12 @@
 		 
 		<p> <input type="submit" value="Submit"/> <input type="reset" value="Reset" /></p>
         </form>
-           
+           </div>
          
                 
+           <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
            
       
     </body>

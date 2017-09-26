@@ -15,10 +15,16 @@ import com.bpbbank.Dega;
 
 @Controller
 public class HomeController {
+	
+	@GetMapping("/login")
+	public String getLogin() {
+		
+		return "login";
+	}
 
 	@GetMapping("/home")
-	public String getHome(Model model) {
-		model.addAttribute("dega", "Rinor");
+	public String getHome() {
+		
 		System.out.println("AKAKUNKAKA");
 		return "s";
 	}
@@ -37,5 +43,6 @@ public class HomeController {
 		System.out.println("key report: " + dega.getDega());
 		return "result";
 	}
+	
 
 }
