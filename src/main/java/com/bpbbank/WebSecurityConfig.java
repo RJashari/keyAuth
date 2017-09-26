@@ -1,7 +1,5 @@
 package com.bpbbank;
 
-
-
 	import org.springframework.beans.factory.annotation.Autowired;
 	import org.springframework.context.annotation.Configuration;
 	import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -31,7 +29,9 @@ package com.bpbbank;
 	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 	        auth
 	            .inMemoryAuthentication()
-	                .withUser("Partin Halimi").password("Banka123!").roles("USER");
+	                .withUser("Partin Halimi").password("Banka123!").roles("USER").and()
+	                .withUser("rinori").password("Banka123!").roles("USER").and()
+	                .withUser("gagi").password("Banka123!").roles("USER");
 	    }
 	}
 	

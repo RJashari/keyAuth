@@ -3,6 +3,7 @@ package com.bpbbank.controllers;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +11,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.bpbbank.Dega;
+import com.bpbbank.Service;
 
 
 
 @Controller
 public class HomeController {
+
+	@Autowired
+	Service service;
 	
 	@GetMapping("/login")
 	public String getLogin() {
@@ -38,7 +43,7 @@ public class HomeController {
 	}
 	@PostMapping("/addKey")
 	public String keySubmit(@ModelAttribute Dega dega, Model model) {
-		
+		service.add(dega);
 		model.addAttribute("dega",  dega);
 		System.out.println("key report: " + dega.getDega());
 		return "result";
