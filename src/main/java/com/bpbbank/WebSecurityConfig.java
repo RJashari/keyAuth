@@ -14,7 +14,7 @@ package com.bpbbank;
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http
 	            .authorizeRequests()
-	                .antMatchers("/", "/home").permitAll()
+	                .antMatchers("/").permitAll()
 	                .anyRequest().authenticated()
 	                .and()
 	            .formLogin()

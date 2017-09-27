@@ -2,9 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title>Spring Security Example </title>
+        <title>Login</title>
     </head>
     <body>
+       
+    <div style="width: 300px; height:300px; margin: 300px auto 0 auto; background-color:#eaeaea; text-align: center">
         <div th:if="${param.error}">
             Invalid username and password.
         </div>
@@ -12,9 +14,10 @@
             You have been logged out.
         </div>
         <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input style="margin:auto; align:center" type="text" name="username"/> </label></div>
-            <div><label> Password: <input style="margin:auto; align:center" type="password" name="password"/> </label></div>
+            <div style="padding-top: 100px;"><label> Username:  <input style="margin: auto auto 10px auto; align:left" type="text" name="username"/> </label></div>
+            <div><label> Password:     <input style="margin: auto auto 10px auto; align:left" type="password" name="password"/></label></div>
             <div><input style="margin:auto; align:center" type="submit" value="Sign In"/></div>
         </form>
+        </div>
     </body>
 </html>
