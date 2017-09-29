@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration">
+
+<hibernate-configuration>
+	<session-factory>
+
+		<property name="connection.username">menaxhimi_celesave</property>
+		
+		<property name="connection.password">Password123</property>
+
+		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+		
+		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+		
+		<property name="hibernate.connection.url">jdbc:sqlserver://192.178.10.57:1433;databaseName=menaxhimi_celesave;</property>
+		
+		<!-- Enable Hibernate's automatic session context management -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hbm2ddl.auto">update</property>
+		<mapping class="com.bpbbank.Dega" />
+<!-- 
+		<mapping class="com.study.domain.Question" />
+		<mapping class="com.study.domain.Answer" />
+		<mapping class="com.study.domain.Test" />
+		<mapping class="com.study.domain.Text" />
+		<mapping class="com.study.domain.User" />
+ -->
+	</session-factory>
+</hibernate-configuration>

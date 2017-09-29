@@ -1,23 +1,36 @@
 package com.bpbbank;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity(name = "dega")
 public class Dega {
 
+	@Id
+	private long id;
+	@Column(name = "dega", nullable = false)
 	private String dega;
+	@Column(name = "pergjegjesi", nullable = false)
 	private String pergjegjesiIDeges;
+	@Column(name = "celesi_hyrjes", nullable = false)
 	private String celesiIHyrjesDege;
+	@Column(name = "kodi_alarmit_deges", nullable = false)
 	private String kodiAlarmitDege;
+	@Column(name = "celesi_deres_atm", nullable = false)
 	private String celesiIDeresAtm;
+	@Column(name = "celesi_server_room", nullable = true)
 	private String celesiIServerRoom;
+	@Column(name = "celesi_trezor", nullable = false)
 	private String celesiTrezor;
+	@Column(name = "kodi_alarmit_trezor", nullable = false)
 	private String kodiAlarmitTrezor;
+	@Column(name = "celesi_sef_1", nullable = false)
 	private String celesiSef1;
+	@Column(name = "celesi_sef_2", nullable = false)
 	private String celesiSef2;
+	@Column(name = "kodi_sef", nullable = false)
 	private String kodiShiferSef;
-
-	
-	
-
-	
 
 	public Dega(String dega, String pergjegjesiIDeges, String celesiIHyrjesDege, String kodiAlarmitDege,
 			String celesiIDeresAtm, String celesiIServerRoom, String celesiTrezor, String kodiAlarmitTrezor,
@@ -129,8 +142,12 @@ public class Dega {
 	public void setPergjegjesiIDeges(String pergjegjesiIDeges) {
 		this.pergjegjesiIDeges = pergjegjesiIDeges;
 	}
-	
-	
-	
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 }

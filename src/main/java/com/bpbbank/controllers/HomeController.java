@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.bpbbank.Dega;
-import com.bpbbank.Service;
+import com.bpbbank.service.MeyAuthenticationService;
 
 
 
@@ -19,7 +19,7 @@ import com.bpbbank.Service;
 public class HomeController {
 
 	@Autowired
-	Service service;
+	MeyAuthenticationService service;
 	
 	@GetMapping("/login")
 	public String getLogin() {
