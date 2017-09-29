@@ -8,10 +8,13 @@
     </head>
     
     <body>
-        <!--<canvas id="myCanvas" width="960" height="1000">-->
-       
+   
         <img th:src="@{/bpblogo.jpg}" alt="bpb logo" style="vertical-align: middle"></img>
-        
+     <div style="width: 1080px; height:960px; margin: 0 auto 0 auto; background-color:#eaeaea; text-align: center">
+        <!--<canvas id="myCanvas" width="960" height="1000">-->
+       <div style="width 200px; height: 100px; margin: 100px auto 0 auto">
+      
+        </div>
         
            <h1>Result</h1>
          <p th:text="'Dega : ' + ${dega.dega}"/>
@@ -29,10 +32,10 @@
          <a href="/addKey">Shto edhe nje dege</a>
          
                 
-           <form th:action="@{/logout}" method="post">
+           <form style="margin: 5px 5px 5x 10px;" th:action="@{/logout}" method="post">
             <input type="submit" value="Sign Out"/>
         </form>
-           
+         </div>  
      
     </body>
 </html>

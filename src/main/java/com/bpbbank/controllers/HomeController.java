@@ -14,12 +14,12 @@ import com.bpbbank.Dega;
 import com.bpbbank.service.MeyAuthenticationService;
 
 
-
 @Controller
 public class HomeController {
 
 	@Autowired
 	MeyAuthenticationService service;
+
 	
 	@GetMapping("/login")
 	public String getLogin() {
@@ -27,9 +27,9 @@ public class HomeController {
 		return "login";
 	}
 
-	@GetMapping("/home")
-	public String getHome() {
-		
+	@GetMapping({"/", "/home"})
+	public String getHome(Model model) {
+		model.addAttribute("dega", new Dega());
 		System.out.println("AKAKUNKAKA");
 		return "s";
 	}
@@ -43,11 +43,12 @@ public class HomeController {
 	}
 	@PostMapping("/addKey")
 	public String keySubmit(@ModelAttribute Dega dega, Model model) {
-		service.add(dega);
+//		service.add(dega);
 		model.addAttribute("dega",  dega);
 		System.out.println("key report: " + dega.getDega());
-		return "result";
+		return "s";
 	}
+	
 	
 
 }

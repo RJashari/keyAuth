@@ -5,9 +5,10 @@
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
-    <body>
-        
-        
+    <body style="background-color:#eaeaea">
+    
+        	
+           <div style="width: 1080px; height:960px; margin: 200px auto 0 auto; background-color:#eaeaea; text-align: center">
           <table style='width: 90%; border: 1px; border-color:black; border-style: double; text-align: center; font-size: 15px; font-family: "Arial"'>
             <tr>
                 <th style="background-color: #b3cef5; width: 2.5%"></th>
@@ -34,33 +35,45 @@
                 <td style="background-color: #f5b0c5; width: 7%"><b>&Ccedil;el&euml;si Sef 2 (Emri Mbiemri)</b></td>
             </tr>
             </table>
+              <form action="#" th:action="@{/home}" th:object="${dega}" method="post">
             <table style='width: 90%; border:1px solid black; text-align: center;font-size: 12px;  font-family: "Arial"'>
             <!--<table style="width: 90%; border: 1px; border-color:black; border-style: double; text-align: center;font-size: 12px">-->
-           
+         
             <tr style='height: 30px'>
                 <td style=" width: 2%; background-color: #b3cef5">1</td>
-                <td style=" width: 10%; background-color: #b3cef5"></td>
-                <td style=" width: 10%; background-color: #b3cef5"></td>
+                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.dega}" ></td>
+                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.pergjegjesiIDeges}"></td>
                 
-                <td style=" width: 7%; background-color: #a9b8cc"></td>
-                <td style=" width: 7%; background-color: #a9b8cc"></td>
-				<td style=" width: 7%; background-color: #a9b8cc"></td>
-                <td style=" width: 7%; background-color: #a9b8cc"></td>
+                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIHyrjesDege}"></td>
+                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.kodiAlarmitDege}"></td>
+				<td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIDeresAtm}"></td>
+                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIServerRoom}"></td>
                 
-                <td style=" width: 7%; background-color: #f5b0c5"></td>
-                <td style=" width: 7%; background-color: #f5b0c5"></td>
-                <td style=" width: 7%; background-color: #f5b0c5"></td>
-                <td style=" width: 7%; background-color: #f5b0c5"></td>
-                <td style=" width: 7%; background-color: #f5b0c5"></td>
-            </tr>
-           
-            
-            
+                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiTrezor}"></td>
+                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiAlarmitTrezor}"></td>
+                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef1}"></td>
+                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiShiferSef}"></td>
+                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef2}"></td>
+            </tr>       
         </table>
-        <div class="butonat">
+        </form>
+        
+        <div style="margin-top:10px; margin-right:110px; float:right"  class="butonat">
             <form method="get" action="/addKey">
-                <button type="submit">Shto deget</button>
+                <button type="submit">Fshij deg&euml;t</button>
             </form>
+        </div>
+         <div style="margin-top:10px; margin-right:3px; float:right" class="butonat">
+            <form method="get" action="/addKey">
+                <button type="submit">Modifiko deg&euml;t</button>
+            </form>
+        </div>
+         <div style="margin-top:10px; margin-right:3px; float:right" class="butonat">
+            <form method="get" action="/addKey">
+                <button type="submit">Shto deg&euml;t</button>
+            </form>
+        </div>
+       
         </div>
     </body>
 </html>
