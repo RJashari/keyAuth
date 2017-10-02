@@ -9,17 +9,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import com.bpbbank.dao.CrudDao;
 
 import com.bpbbank.Dega;
-import com.bpbbank.service.MeyAuthenticationService;
+import com.bpbbank.Service;
+
 
 
 @Controller
 public class HomeController {
 
+//	@Autowired
+	Service service;
 	@Autowired
-	MeyAuthenticationService service;
-
+	CrudDao crudDao;
 	
 	@GetMapping("/login")
 	public String getLogin() {
@@ -43,9 +46,9 @@ public class HomeController {
 	}
 	@PostMapping("/addKey")
 	public String keySubmit(@ModelAttribute Dega dega, Model model) {
-//		service.add(dega);
+		crudDao.save(dega);
 		model.addAttribute("dega",  dega);
-		System.out.println("key report: " + dega.getDega());
+		System.out.println("dega : " + dega.getDega());
 		return "s";
 	}
 	

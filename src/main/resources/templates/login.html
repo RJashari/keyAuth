@@ -6,12 +6,12 @@
     </head>
     <body>
        
-    <div style="width: 300px; height:300px; margin: 300px auto 0 auto; background-color:#eaeaea; text-align: center">
+    <div style="width: 300px; height:300px; margin: 300px auto 0 auto; background-color:#eaeaea; text-align: center; border-style:double; border-size:1px">
         <div th:if="${param.error}">
-            Invalid username and password.
+            <p style="margin:20px auto auto 10px; color:red">Username ose Password &euml;sht&euml; dh&euml;n&euml; gabim</p>
         </div>
         <div th:if="${param.logout}">
-            You have been logged out.
+            <p style="margin:20px auto auto 20px; color:red">Ju jeni &ccedil;kyqur</p>
         </div>
         <form th:action="@{/login}" method="post">
             <div style="padding-top: 100px;"><label> Username:  <input style="margin: auto auto 10px auto; align:left" type="text" name="username"/> </label></div>

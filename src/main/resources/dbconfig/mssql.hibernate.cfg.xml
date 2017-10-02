@@ -26,14 +26,8 @@
 		<property name="show_sql">true</property>
 
 		<!-- Drop and re-create the database schema on startup -->
-		<property name="hbm2ddl.auto">update</property>
+		<property name="hbm2ddl.auto">create</property>
 		<mapping class="com.bpbbank.Dega" />
-<!-- 
-		<mapping class="com.study.domain.Question" />
-		<mapping class="com.study.domain.Answer" />
-		<mapping class="com.study.domain.Test" />
-		<mapping class="com.study.domain.Text" />
-		<mapping class="com.study.domain.User" />
- -->
+
 	</session-factory>
 </hibernate-configuration>
