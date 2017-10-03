@@ -51,10 +51,25 @@ public class DegaImpl extends BaseDao implements CrudDao{
 
 	@Override
 	public Set<Dega> getAllDeget() {
-		StringBuilder sb = new StringBuilder("FROM ");
+		StringBuilder sb = new StringBuilder("from dega");
 		Query query = session.createQuery(sb.toString());
 		return new HashSet<Dega>(query.list());
-		
-		
 	}
+
+	@Override
+	public void remove(long id) {
+		Transaction tx = session.beginTransaction();
+		Dega dega = this.getByID(id);
+		session.delete(dega);
+		tx.commit();
+	}
+	
+	@Override
+	public void update(long id) {
+		Transaction tx = session.beginTransaction();
+		Dega dega = this.getByID(id);
+		session.update(dega);
+		tx.commit();
+	}
+	
 }

@@ -56,20 +56,23 @@
                 <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiShiferSef}"></td>
                 <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef2}"></td>
               	
+              	
             </tr>       
         </table>
         </div>
         
         <div style="width:19%; height:32px; margin-top:85px; background-color:#eaeaea; float:left">
         
-         	<form style="float:left; margin-left: 10px; margin-top:5px" method="get" action="/addKey">
-         		<button type="submit">Fshij deg&euml;t</button>
+         	<form action="/fshijDegen" style="float:left; margin-left: 10px; margin-top:5px" method="get">
+         	<a th:href="@{/fshijDegen/(id=${dega.id})}">Fshij Degen</a>
+         		<!-- <input type="submit" class="button" name="delete" value="Fshij deg&euml;n"/> Fshij deg&euml;t</button>-->
          	</form>
             
-        	<form style="float:left; margin-left: 10px; margin-top:5px" method="get" action="/addKey">
-         		<button type="submit">Modifiko deg&euml;t</button>
+        	<form style="float:left; margin-left: 10px; margin-top:5px" method="get" action="/updateKey">
+        		<a th:href="@{/updateKey/(id=${dega.id})}">Modifiko Degen</a>
+         		<!--  <button type="submit">Modifiko deg&euml;t</button>-->
          	</form>
-        
+        l
         </div>
     
        

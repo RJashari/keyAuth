@@ -14,7 +14,11 @@ public interface CrudDao{
 	
 	void remove(Dega dega);
 	
+	void remove(long id);
+	
 	void update(Dega dega);
+	
+	void update(long id);
 	
 	Set<Dega> getAllDeget();
 	
