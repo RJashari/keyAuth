@@ -3,6 +3,10 @@ package com.bpbbank.controllers;
 
 
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bpbbank.dao.CrudDao;
+
+import antlr.collections.List;
 
 import com.bpbbank.Dega;
 import com.bpbbank.Service;
@@ -35,7 +41,10 @@ public class HomeController {
 	}
 
 	@GetMapping({"/", "/home"})
-	public String getHome(Model model) {
+	public String getHome(Model model, Dega dega) {
+		
+		model.addAttribute("deget",  crudDao.getAllDeget());
+		
 		model.addAttribute("dega", new Dega());
 		System.out.println("AKAKUNKAKA");
 		return "s";
@@ -51,7 +60,7 @@ public class HomeController {
 	@PostMapping("/addKey")
 	public String keySubmit(@ModelAttribute Dega dega, Model model) {
 		crudDao.save(dega);
-		model.addAttribute("dega",  dega);
+//		model.addAttribute("dega",  dega);
 		model.addAttribute("deget",  crudDao.getAllDeget());
 		System.out.println("dega : " + dega.getDega());
 		return "s";
@@ -61,21 +70,21 @@ public class HomeController {
 		System.out.println("na ke myt");
 	    crudDao.remove(id);
 	    System.out.println("u fshi");
-	    return "redirect:/addKey";
+	    return "redirect:/home";
 	}
 	@GetMapping("/updateKey")
-	public String getUpdateKey(Model model) {
+	public String getUpdateKey(@RequestParam("id") long id, Model model) {
 
-		model.addAttribute("dega", new Dega());
+		model.addAttribute("dega", crudDao.getByID(id));
 		return "updateKey";
 
 	}
 	@PostMapping("/updateKey")
-	public String keyUpdate(@RequestParam("id") long id) {
+	public String keyUpdate(Dega dega, Model model) {
 		System.out.println("na ke myt22");
-		crudDao.update(id);
+		crudDao.update(dega);
 		System.out.println("U MODIFIKU");
-		return "updateKey";
+		return "s";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/modifikoDegen")
 	public String handleModifyDege(@RequestParam("id") long id) {

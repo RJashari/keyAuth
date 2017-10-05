@@ -71,5 +71,6 @@ public class DegaImpl extends BaseDao implements CrudDao{
 		session.update(dega);
 		tx.commit();
 	}
+//	public Dega getDega() 
 	
 }

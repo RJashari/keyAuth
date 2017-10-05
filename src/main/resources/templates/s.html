@@ -36,29 +36,32 @@
                 <td style="background-color: #f5b0c5; width: 7%"><b>&Ccedil;el&euml;si Sef 2 (Emri Mbiemri)</b></td>
             </tr>
             </table>
-            
-            <table style='width: 100%; border:1px double #eaeaea; text-align: center;font-size: 12px;  font-family: "Arial"'>
+            <div th:each="dega, iteStat : ${deget}">
+            <table th:if="${not #sets.isEmpty(deget)}" style='width: 100%; border:1px double #eaeaea; text-align: center;font-size: 12px;  font-family: "Arial"'>
             <!--<table style="width: 90%; border: 1px; border-color:black; border-style: double; text-align: center;font-size: 12px">-->
-         
-            <tr style="height: 35px">
-                <td style=" width: 2%; background-color: #b3cef5">1</td>
-                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.dega}" ></td>
-                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.pergjegjesiIDeges}"></td>
-                
-                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIHyrjesDege}"></td>
-                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.kodiAlarmitDege}"></td>
-				<td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIDeresAtm}"></td>
-                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIServerRoom}"></td>
-                
-                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiTrezor}"></td>
-                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiAlarmitTrezor}"></td>
-                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef1}"></td>
-                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiShiferSef}"></td>
-                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef2}"></td>
-              	
-              	
-            </tr>       
+	         <tbody>
+	            <tr style="height: 35px">
+	                <td style=" width: 2%; background-color: #b3cef5">1</td>
+	                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.dega}" ></td>
+	                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.pergjegjesiIDeges}"></td>
+	                
+	                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIHyrjesDege}"></td>
+	                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.kodiAlarmitDege}"></td>
+					<td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIDeresAtm}"></td>
+	                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIServerRoom}"></td>
+	                
+	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiTrezor}"></td>
+	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiAlarmitTrezor}"></td>
+	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef1}"></td>
+	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiShiferSef}"></td>
+	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef2}"></td>
+	              	
+	              	
+	            </tr>
+            </tbody>       
         </table>
+        
+        </div>
         </div>
         
         <div style="width:19%; height:32px; margin-top:85px; background-color:#eaeaea; float:left">
@@ -72,7 +75,7 @@
         		<a th:href="@{/updateKey/(id=${dega.id})}">Modifiko Degen</a>
          		<!--  <button type="submit">Modifiko deg&euml;t</button>-->
          	</form>
-        l
+      
         </div>
     
        
