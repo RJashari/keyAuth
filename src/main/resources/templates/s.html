@@ -8,16 +8,17 @@
     <body style="background-color:#eaeaea">
     
         	
-           <div style="width: 1080px; height:960px; margin: 200px auto 0 auto; background-color:#eaeaea; text-align: center">
-          <table style='width: 90%; border: 1px; border-color:black; border-style: double; text-align: center; font-size: 15px; font-family: "Arial"'>
+           <div style="width: 1800px; height:960px; margin: 200px auto 0 auto; background-color:#eaeaea; text-align: center">
+           <div style="width:80%; background-color:black; float:left">
+          <table style='width: 100%; border: 1px; border-color:#eaeaea; border-style: double; text-align: center; font-size: 15px; font-family: "Arial"'>
             <tr>
-                <th style="background-color: #b3cef5; width: 2.5%"></th>
-                <th style="background-color: #b3cef5; width: 23%">Deg&euml;t dhe p&euml;rgjegj&euml;sit p&euml;r celesa dhe kode</th>
-                <th style="background-color: #a9b8cc; width: 33%">&Ccedil;el&euml;sat dhe kodet deg&euml;</th>
-                <th style="background-color: #f5b0c5; width: auto">&Ccedil;el&euml;sat dhe kodet trezor dhe kodet alarm</th>
+                <th style="background-color: #b3cef5; width: 2%"></th>
+                <th style="background-color: #b3cef5; width: 22%">Deg&euml;t dhe p&euml;rgjegj&euml;sit p&euml;r celesa dhe kode</th>
+                <th style="background-color: #a9b8cc; width: 30%">&Ccedil;el&euml;sat dhe kodet deg&euml;</th>
+                <th style="background-color: #f5b0c5; width: 38%">&Ccedil;el&euml;sat dhe kodet trezor dhe kodet alarm</th>
             </tr>
         </table>
-        <table style='width: 90%; border: 1px; border-color:black; border-style: double; text-align: center;font-size: 12px;  font-family: "Arial"'>
+        <table style='width: 100%; border: 1px; border-color:#eaeaea; border-style: double; text-align: center;font-size: 12px;  font-family: "Arial"'>
             <tr>
                 <td style="background-color: #b3cef5;  width: 2%; text-justify: auto "><b>Nr</b></td>
                 <td style="background-color: #b3cef5; width: 10%"><b>Deg&euml;t</b></td>
@@ -35,41 +36,53 @@
                 <td style="background-color: #f5b0c5; width: 7%"><b>&Ccedil;el&euml;si Sef 2 (Emri Mbiemri)</b></td>
             </tr>
             </table>
-              <form action="#" th:action="@{/home}" th:object="${dega}" method="post">
-            <table style='width: 90%; border:1px solid black; text-align: center;font-size: 12px;  font-family: "Arial"'>
+            <div th:each="dega, iteStat : ${deget}">
+            <table th:if="${not #sets.isEmpty(deget)}" style='width: 100%; border:1px double #eaeaea; text-align: center;font-size: 12px;  font-family: "Arial"'>
             <!--<table style="width: 90%; border: 1px; border-color:black; border-style: double; text-align: center;font-size: 12px">-->
-         
-            <tr style='height: 30px'>
-                <td style=" width: 2%; background-color: #b3cef5">1</td>
-                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.dega}" ></td>
-                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.pergjegjesiIDeges}"></td>
-                
-                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIHyrjesDege}"></td>
-                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.kodiAlarmitDege}"></td>
-				<td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIDeresAtm}"></td>
-                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIServerRoom}"></td>
-                
-                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiTrezor}"></td>
-                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiAlarmitTrezor}"></td>
-                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef1}"></td>
-                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiShiferSef}"></td>
-                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef2}"></td>
-            </tr>       
+	         <tbody>
+	            <tr style="height: 35px">
+	                <td style=" width: 2%; background-color: #b3cef5">1</td>
+	                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.dega}" ></td>
+	                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.pergjegjesiIDeges}"></td>
+	                
+	                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIHyrjesDege}"></td>
+	                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.kodiAlarmitDege}"></td>
+					<td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIDeresAtm}"></td>
+	                <td style=" width: 7%; background-color: #a9b8cc" th:text="${dega.celesiIServerRoom}"></td>
+	                
+	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiTrezor}"></td>
+	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiAlarmitTrezor}"></td>
+	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef1}"></td>
+	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiShiferSef}"></td>
+	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef2}"></td>
+	              	
+	              	
+	            </tr>
+            </tbody>       
         </table>
-        </form>
         
-        <div style="margin-top:10px; margin-right:110px; float:right"  class="butonat">
-            <form method="get" action="/addKey">
-                <button type="submit">Fshij deg&euml;t</button>
-            </form>
         </div>
-         <div style="margin-top:10px; margin-right:3px; float:right" class="butonat">
-            <form method="get" action="/addKey">
-                <button type="submit">Modifiko deg&euml;t</button>
-            </form>
         </div>
-         <div style="margin-top:10px; margin-right:3px; float:right" class="butonat">
-            <form method="get" action="/addKey">
+        
+        <div style="width:19%; height:32px; margin-top:85px; background-color:#eaeaea; float:left">
+        
+         	<form action="/fshijDegen" style="float:left; margin-left: 10px; margin-top:5px" method="get">
+         	<a th:href="@{/fshijDegen/(id=${dega.id})}">Fshij Degen</a>
+         		<!-- <input type="submit" class="button" name="delete" value="Fshij deg&euml;n"/> Fshij deg&euml;t</button>-->
+         	</form>
+            
+        	<form style="float:left; margin-left: 10px; margin-top:5px" method="get" action="/updateKey">
+        		<a th:href="@{/updateKey/(id=${dega.id})}">Modifiko Degen</a>
+         		<!--  <button type="submit">Modifiko deg&euml;t</button>-->
+         	</form>
+      
+        </div>
+    
+       
+        
+        
+         <div style="margin-top:10px; margin-right:3px; float:left" class="butonat">
+            <form style="float:left" method="get" action="/addKey">
                 <button type="submit">Shto deg&euml;t</button>
             </form>
         </div>

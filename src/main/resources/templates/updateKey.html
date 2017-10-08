@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en"> 
+    <head>
+        
+        <title>Shto Deg&euml;n</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    
+    <body>
+    
+        <img th:src="@{/bpblogo.jpg}" alt="bpb logo" style="vertical-align: middle"></img>
+     <div style="width: 1080px; height:960px; margin: 0 auto 0 auto; background-color:#eaeaea; text-align: center">
+        <!--<canvas id="myCanvas" width="960" height="1000">-->
+       <div style="width 200px; height: 100px; margin: 100px auto 0 auto">
+      
+        </div>
+        <!--<canvas id="myCanvas" width="960" height="1000">-->
+       
+        <h2>Modifiko Degen</h2>
+        <form action="#" th:action="@{/updateKey}" th:object="${dega}" method="post">
+	    
+        <p>Dega: <input type="text" th:field="${dega.dega}" ></input></p>
+		<p>P&euml;rgjegj&euml;si i deg&euml;s: <input  type="text" th:field="${dega.pergjegjesiIDeges}" ></input></p>
+		<p>&Ccedil;el&euml;si i hyrjes deg&euml;: <input  type="text" th:field="${dega.celesiIHyrjesDege}" ></input></p>
+		<p>Kodi i alarmit deg&euml; : <input  type="text" th:field="${dega.kodiAlarmitDege}" ></input></p>
+		<p>&Ccedil;el&euml;si i der&euml;s ATM  : <input  type="text" th:field="${dega.celesiIDeresAtm}" ></input></p>
+		<p>&Ccedil;el&euml;si i Server room : <input  type="text" th:field="${dega.celesiIServerRoom}" ></input></p>
+		<p>&Ccedil;el&euml;si Trezor : <input  type="text" th:field="${dega.celesiTrezor}" ></input></p>
+		<p>Kodi alarmit trezor(n&euml;se ka)  <input  type="text" th:field="${dega.kodiAlarmitTrezor}" ></input></p>
+		<p>&Ccedil;el&euml;si Sef 1 : <input  type="text" th:field="${dega.celesiSef1}" ></input></p>
+		<p>Kodi shif&euml;r sef : <input  type="text" th:field="${dega.kodiShiferSef}" ></input></p>
+		<p>&Ccedil;el&euml;si Sef 2 : <input  type="text" th:field="${dega.celesiSef2}" ></input></p>
+		
+		 
+		<p> <input type="submit" value="Submit"/> <input type="reset" value="Reset" /></p>
+		
+        </form>
+        
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+           </div>
+         
+                
+           
+           
+      
+    </body>
+</html>
