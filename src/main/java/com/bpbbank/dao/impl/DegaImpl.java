@@ -39,7 +39,7 @@ public class DegaImpl extends BaseDao implements CrudDao{
 	public void update(Dega dega) {
 		
 		Transaction tx = session.beginTransaction();
-		session.update(dega);
+		session.merge(dega);
 		tx.commit();
 		
 	}

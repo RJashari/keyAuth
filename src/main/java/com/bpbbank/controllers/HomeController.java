@@ -44,7 +44,7 @@ public class HomeController {
 	public String getHome(Model model, Dega dega) {
 		
 		model.addAttribute("deget",  crudDao.getAllDeget());
-		
+		crudDao.getAllDeget();
 		model.addAttribute("dega", new Dega());
 		System.out.println("AKAKUNKAKA");
 		return "s";
@@ -61,6 +61,7 @@ public class HomeController {
 	public String keySubmit(@ModelAttribute Dega dega, Model model) {
 		crudDao.save(dega);
 //		model.addAttribute("dega",  dega);
+		model.addAttribute("nrKolones", dega.getNrKolones()+1);
 		model.addAttribute("deget",  crudDao.getAllDeget());
 		System.out.println("dega : " + dega.getDega());
 		return "s";
@@ -80,11 +81,12 @@ public class HomeController {
 
 	}
 	@PostMapping("/updateKey")
-	public String keyUpdate(Dega dega, Model model) {
+	public String keyUpdate(@ModelAttribute Dega dega, Model model) {
 		System.out.println("na ke myt22");
+		System.out.println("dega id: " + dega.getId() + " " + dega.getCelesiIHyrjesDege() + " " + dega.getCelesiIDeresAtm());
 		crudDao.update(dega);
 		System.out.println("U MODIFIKU");
-		return "s";
+		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/modifikoDegen")
 	public String handleModifyDege(@RequestParam("id") long id) {
