@@ -20,7 +20,7 @@
         <h2>Modifiko Degen</h2>
         <form action="#" th:action="@{/updateKey}" th:object="${dega}" method="post">
         
-		    <p>ID: <input type="text" th:field="${dega.id}"></input></p>
+		    <p >ID: <input type="text" th:field="${dega.id}" readonly="readonly"></input></p>
 			
 	        <p>Dega: <input type="text" th:field="${dega.dega}" ></input></p>
 			<p>P&euml;rgjegj&euml;si i deg&euml;s: <input  type="text" th:field="${dega.pergjegjesiIDeges}" ></input></p>

@@ -41,7 +41,7 @@
            
 	         <tbody>
 	            <tr style="height: 35px">
-	                <td style=" width: 2%; background-color: #b3cef5" >1</td>
+	                <td style=" width: 2%; background-color: #b3cef5" th:text="${dega.id}"></td>
 	                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.dega}" ></td>
 	                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.pergjegjesiIDeges}"></td>
 	                
@@ -55,8 +55,8 @@
 	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef1}"></td>
 	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiShiferSef}"></td>
 	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef2}"></td>
-	               	<td><a th:href="@{/fshijDegen/(id=${dega.id})}">Fshij Degen</a> </td>
-	               	<td><a th:href="@{/updateKey/(id=${dega.id})}">Modifiko Degen</a></td>
+	               	<td><a style="width: 7.5%" th:href="@{/fshijDegen/(id=${dega.id})}">Fshij Degen</a> </td>
+	               	<td><a style="width: 7.5 %" th:href="@{/updateKey/(id=${dega.id})}">Modifiko Degen</a></td>
 	              	
 	              	
 	            </tr>
@@ -64,8 +64,8 @@
         </table>
         
         </div>
-        <div style="margin-top:20px;margin-bottom:20px; margin-left:40%; float:left" class="butonat">
-            <form style="float:left" method="get" action="/addKey">
+        <div style="margin-top:20px; margin-bottom:20px; margin-left:40%; float:left" class="butonat">
+            <form style="float:left; margin-bottom:20px;" method="get" action="/addKey">
                 <button type="submit">Shto deg&euml;t</button>
             </form> 
        		<form style="margin-top:20px" th:action="@{/logout}" method="post">

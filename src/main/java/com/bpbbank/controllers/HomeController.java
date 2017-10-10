@@ -61,7 +61,8 @@ public class HomeController {
 	public String keySubmit(@ModelAttribute Dega dega, Model model) {
 		crudDao.save(dega);
 //		model.addAttribute("dega",  dega);
-		model.addAttribute("nrKolones", dega.getNrKolones()+1);
+//		model.addAttribute("nrKolones", dega.getNrKolones()+1);
+		model.addAttribute("nrKolones", dega.getId());
 		model.addAttribute("deget",  crudDao.getAllDeget());
 		System.out.println("dega : " + dega.getDega());
 		return "s";

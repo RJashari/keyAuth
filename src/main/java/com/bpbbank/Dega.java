@@ -35,7 +35,7 @@ public class Dega {
 	@Column(name = "kodi_sef", nullable = false)
 	private String kodiShiferSef;
 
-	private long nrKolones;
+//	private long nrKolones;
 
 	public Dega(String dega, String pergjegjesiIDeges, String celesiIHyrjesDege, String kodiAlarmitDege,
 			String celesiIDeresAtm, String celesiIServerRoom, String celesiTrezor, String kodiAlarmitTrezor,
@@ -156,12 +156,12 @@ public class Dega {
 		this.id = id;
 	}
 
-	public long getNrKolones() {
-		return nrKolones;
-
-	}
-
-	public void setNrKolones(long nrKolones) {
-		this.nrKolones = nrKolones;
-	}
+//	public long getNrKolones() {
+//		return nrKolones;
+//
+//	}
+//
+//	public void setNrKolones(long nrKolones) {
+//		this.nrKolones = nrKolones;
+//	}
 }

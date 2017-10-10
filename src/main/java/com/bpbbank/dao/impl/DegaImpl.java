@@ -6,13 +6,13 @@ import java.util.Set;
 import org.hibernate.Query;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
-
+import org.springframework.stereotype.Repository;
 
 import com.bpbbank.dao.CrudDao;
 import com.bpbbank.dao.BaseDao;
 import com.bpbbank.Dega;
 
-@Component
+@Repository
 public class DegaImpl extends BaseDao implements CrudDao{
 
 	public void save(Dega dega) {
