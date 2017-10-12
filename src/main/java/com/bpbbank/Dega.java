@@ -52,7 +52,6 @@ public class Dega {
 		this.celesiSef1 = celesiSef1;
 		this.kodiShiferSef = kodiShiferSef;
 		this.celesiSef2 = celesiSef2;
-		
 	}
 
 	public Dega() {
@@ -164,4 +163,5 @@ public class Dega {
 //	public void setNrKolones(long nrKolones) {
 //		this.nrKolones = nrKolones;
 //	}
+//	http://srv-web-02:8080/scm/git/KeyAuthenticationgit 
 }
