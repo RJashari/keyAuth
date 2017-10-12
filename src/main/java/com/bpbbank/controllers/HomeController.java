@@ -3,6 +3,7 @@ package com.bpbbank.controllers;
 
 
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -41,8 +42,8 @@ public class HomeController {
 	}
 
 	@GetMapping({"/", "/home"})
-	public String getHome(Model model, Dega dega) {
-		
+	public String getHome(Model model, Dega dega, Principal principal) {
+		System.out.println("principal name: " + principal.getName());
 		model.addAttribute("deget",  crudDao.getAllDeget());
 		
 		model.addAttribute("dega", new Dega());
