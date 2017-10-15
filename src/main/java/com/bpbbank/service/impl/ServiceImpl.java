@@ -3,8 +3,8 @@ package com.bpbbank.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bpbbank.Dega;
 import com.bpbbank.dao.CrudDao;
+import com.bpbbank.domain.Dega;
 import com.bpbbank.service.MeyAuthenticationService;
 
 @Service

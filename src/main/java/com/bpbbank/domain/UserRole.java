@@ -12,19 +12,18 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "user_roles", catalog = "test",
-	uniqueConstraints = @UniqueConstraint(
+@Table(name = "user_roles", uniqueConstraints = @UniqueConstraint(
 		columnNames = { "role", "username" }))
 public class UserRole{
 
 	private Integer userRoleId;
-	private User user;
+	private KeyAuthenticationUser user;
 	private String role;
 
 	public UserRole() {
 	}
 
-	public UserRole(User user, String role) {
+	public UserRole(KeyAuthenticationUser user, String role) {
 		this.user = user;
 		this.role = role;
 	}
@@ -43,11 +42,11 @@ public class UserRole{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "username", nullable = false)
-	public User getUser() {
+	public KeyAuthenticationUser getUser() {
 		return this.user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(KeyAuthenticationUser user) {
 		this.user = user;
 	}
 

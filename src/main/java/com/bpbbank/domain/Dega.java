@@ -1,4 +1,4 @@
-package com.bpbbank;
+package com.bpbbank.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -11,24 +11,26 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users", catalog = "test")
-public class User {
+@Table(name = "users")
+public class KeyAuthenticationUser {
 
 	private String username;
 	private String password;
 	private boolean enabled;
 	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
-	public User() {
+	public KeyAuthenticationUser() {
+		UserRole role = new UserRole(this, "ROLE_ADMIN");
+		userRole.add(role);
 	}
 
-	public User(String username, String password, boolean enabled) {
+	public KeyAuthenticationUser(String username, String password, boolean enabled) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
 	}
 
-	public User(String username, String password, boolean enabled, Set<UserRole> userRole) {
+	public KeyAuthenticationUser(String username, String password, boolean enabled, Set<UserRole> userRole) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;

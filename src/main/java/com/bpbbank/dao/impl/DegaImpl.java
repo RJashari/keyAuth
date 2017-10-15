@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.bpbbank.dao.CrudDao;
+import com.bpbbank.domain.Dega;
 import com.bpbbank.dao.BaseDao;
-import com.bpbbank.Dega;
 
 @Repository
 public class DegaImpl extends BaseDao implements CrudDao{

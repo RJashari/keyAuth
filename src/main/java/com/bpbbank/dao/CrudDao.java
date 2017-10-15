@@ -2,7 +2,7 @@ package com.bpbbank.dao;
 
 import java.util.Set;
 
-import com.bpbbank.Dega;
+import com.bpbbank.domain.Dega;
 
 public interface CrudDao{
 	

@@ -1,6 +1,6 @@
 package com.bpbbank.service;
 
-import com.bpbbank.Dega;
+import com.bpbbank.domain.Dega;
 
 public interface MeyAuthenticationService {
 

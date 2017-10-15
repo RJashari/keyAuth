@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bpbbank.dao.CrudDao;
+import com.bpbbank.domain.Dega;
 
 import antlr.collections.List;
 
-import com.bpbbank.Dega;
 import com.bpbbank.Service;
 
 
