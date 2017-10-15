@@ -1,19 +1,21 @@
 package com.bpbbank;
 
-import javax.annotation.PostConstruct;
-import javax.naming.Context;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 //import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.ldap.core.LdapTemplate;
-import org.springframework.ldap.core.support.LdapContextSource;
 
 @SpringBootApplication
 public class KeyAuthenticationMainApp {
 
+	@Autowired
+	@Qualifier(value = "dataSource")
+	DataSource dataSource;
+	
 	@Autowired
 	private ApplicationContext applicationContext;
 
@@ -22,8 +24,10 @@ public class KeyAuthenticationMainApp {
 		for(String s: this.applicationContext.getBeanDefinitionNames()) {
 			System.out.println("bean definition name: " + s);
 		}
-		
-		
+	}
+	
+	public DataSource dataSource() {
+		return null;
 	}
 	
 	public static void main(String[] args) {

@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth
+/*		auth
 		.ldapAuthentication()
 //			.userSearchBase(",DC=bpb,DC=com")
 //			.userDnPatterns("CN={0},OU=Sektori i Databazes dhe zhvillimit,OU=Departamenti i IT,OU=HQ Manage Users,OU=Managed Users,DC=bpb,DC=com")
@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.passwordEncoder(new PlaintextPasswordEncoder())
 				.passwordAttribute("mailNickname");
 //		.passwordAttribute("mailNickname");
-	}
+*/	}
 	
 	
 	private String adServer = "hq-dc01.bpb.com";

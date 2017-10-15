@@ -10,13 +10,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.kerberos.authentication.KerberosAuthenticationProvider;
-import org.springframework.security.kerberos.authentication.sun.SunJaasKerberosClient;
-import org.springframework.security.kerberos.client.config.SunJaasKrb5LoginConfig;
-import org.springframework.security.kerberos.client.ldap.KerberosLdapContextSource;
-import org.springframework.security.ldap.search.FilterBasedLdapUserSearch;
-import org.springframework.security.ldap.userdetails.LdapUserDetailsMapper;
-import org.springframework.security.ldap.userdetails.LdapUserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -38,6 +33,8 @@ public class WebSecurityConfigNew extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		/*auth.jdbcAuthentication()
+		.usersByUsernameQuery("select username, password, enabled from users where username=?");
 		auth
 		.authenticationProvider(kerberosAuthenticationProvider());
 //		.ldapAuthentication()
@@ -49,8 +46,12 @@ public class WebSecurityConfigNew extends WebSecurityConfigurerAdapter {
 //				.passwordAttribute("userPassword");
 //				.passwordEncoder(new PlaintextPasswordEncoder())
 //				.passwordAttribute("mailNickname");
-	}
+*/	}
 	
+	@Bean(name="passwordEncoder")
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	
 	private String adServer = "ldap://192.178.10.10";//:389/dc=bpb,dc=com";
 
@@ -68,7 +69,7 @@ public class WebSecurityConfigNew extends WebSecurityConfigurerAdapter {
 //	@Value("${app.ldap-search-filter}")
 	private String ldapSearchFilter = "(|(userPrincipalName={0})(sAMAccountName={0})(mailNickname={0}))";
 	
-	@Bean
+	/*@Bean
 	public KerberosLdapContextSource kerberosLdapContextSource() {
 		System.out.println("SYSOUT: " + new Date());
 	    KerberosLdapContextSource contextSource = new KerberosLdapContextSource(adServer);
@@ -87,9 +88,9 @@ public class WebSecurityConfigNew extends WebSecurityConfigurerAdapter {
 	    contextSource.setLoginConfig(loginConfig);
 	    contextSource.afterPropertiesSet();
 	    return contextSource;
-	}
+	}*/
 
-	@Bean
+	/*@Bean
     public KerberosAuthenticationProvider kerberosAuthenticationProvider() {
         KerberosAuthenticationProvider provider =
         		new KerberosAuthenticationProvider();
@@ -98,16 +99,16 @@ public class WebSecurityConfigNew extends WebSecurityConfigurerAdapter {
         provider.setKerberosClient(client);
         provider.setUserDetailsService(ldapUserDetailsService());
         return provider;
-    }
+    }*/
 	
-	@Bean
+/*	@Bean
 	public LdapUserDetailsService ldapUserDetailsService() {
 	    FilterBasedLdapUserSearch userSearch =
 	            new FilterBasedLdapUserSearch(ldapSearchBase, ldapSearchFilter, kerberosLdapContextSource());
 	    LdapUserDetailsService service = new LdapUserDetailsService(userSearch);
 	    service.setUserDetailsMapper(new LdapUserDetailsMapper());
 	    return service;
-	}
+	}*/
 	
 	/*@Override
     protected void configure(HttpSecurity http) throws Exception {

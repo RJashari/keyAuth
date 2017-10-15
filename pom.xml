@@ -37,15 +37,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.ldap</groupId>
 			<artifactId>spring-ldap-core</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-ldap -->
+		https://mvnrepository.com/artifact/org.springframework.security/spring-security-ldap
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-ldap</artifactId>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>com.unboundid</groupId>
 			<artifactId>unboundid-ldapsdk</artifactId>
@@ -62,7 +62,7 @@
 			<version>5.2.11.Final</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.security.kerberos/spring-security-kerberos-client -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.security.kerberos</groupId>
 			<artifactId>spring-security-kerberos-client</artifactId>
 			<version>1.0.1.RELEASE</version>
@@ -71,7 +71,7 @@
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>sqljdbc4</artifactId>
 			<version>4.0</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -103,6 +103,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
