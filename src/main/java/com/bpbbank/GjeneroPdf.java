@@ -26,9 +26,9 @@ import com.itextpdf.layout.property.TextAlignment;
 
 public class GjeneroPdf {
 
-	private String locationForPdf;
-	private String dayOfModification;
-	private String user;
+	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\";
+	private String dayOfModification = "12.10.2017";
+	private String user = "Rinor Jashari";
 	 private static final Logger LOGGER = Logger.getLogger(GjeneroPdf.class.getName());
 
 	public GjeneroPdf(String locationForPdf, String user, String dayOfModification) {
@@ -37,6 +37,7 @@ public class GjeneroPdf {
 		this.user = user;
 		this.dayOfModification = dayOfModification;
 	}
+	
 	
 	public String gjeneroPdf(Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
 		
@@ -55,7 +56,7 @@ public class GjeneroPdf {
 		PdfDocument pdfDocument = new PdfDocument(pdfWriter);
 		Document document = new Document(pdfDocument);
 		
-		Image bpbLogo = new Image(ImageDataFactory.create("bpblogo.bmp"));
+		Image bpbLogo = new Image(ImageDataFactory.create("C:\\Users\\rinor.jashari\\eclipse-workspace\\KeyAuthentication\\src\\main\\java\\com\\bpbbank\\bpblogo.bmp"));
 		bpbLogo.scaleToFit(150,150);
 		
 		Table header = new Table(2);
@@ -95,7 +96,7 @@ public class GjeneroPdf {
 				.setFontSize(8.0f));
 		t.addCell(cell);
 		
-		user = "Rinor Jashari";
+		
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph(user)
 				.setBorder(Border.NO_BORDER)
@@ -110,11 +111,11 @@ public class GjeneroPdf {
                 .setFontSize(8.0f));
 		t.addCell(cell);
 		
-		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph(dega.getDega())
-				.setBorder(Border.NO_BORDER)
-                .setFontSize(8.0f));
-		t.addCell(cell);
+////		cell = this.getCellWithDefaultParametersUpper();
+//		cell.add(new Paragraph(dega.getDega())
+//				.setBorder(Border.NO_BORDER)
+//                .setFontSize(8.0f));
+//		t.addCell(cell);
 		
 		String id = "ID: ";
 		cell = this.getCellWithDefaultParametersUpper();
@@ -150,7 +151,7 @@ public class GjeneroPdf {
                 	.addCell(this.getCellWithDefaultParameters().add("Pergjegjesi i Deges: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().add(dega.getPergjegjesiIDeges()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().add("Celesi i hyrjes Dege: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getCelesiIHyrjesDege()).setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().add("dega.getCelesiIHyrjesDege()").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().add("Kodi i Alarmit Dege: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().add(dega.getKodiAlarmitDege()).setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().add("Celesi i Deres Atm: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
@@ -186,7 +187,6 @@ public class GjeneroPdf {
         cell.setHeight(2.0f);
         cell.setBorder(Border.NO_BORDER);
         cell.setBorderTop(new SolidBorder(0.5f));
-//        cell.setBorderBottom(new SolidBorder(0.5f));
         return cell;
     }
 	
