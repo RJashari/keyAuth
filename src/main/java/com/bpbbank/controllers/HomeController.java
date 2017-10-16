@@ -3,6 +3,7 @@ package com.bpbbank.controllers;
 
 
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bpbbank.dao.CrudDao;
+import com.bpbbank.domain.Dega;
 
 import antlr.collections.List;
 
-import com.bpbbank.Dega;
 import com.bpbbank.Service;
 
 
@@ -41,8 +42,8 @@ public class HomeController {
 	}
 
 	@GetMapping({"/", "/home"})
-	public String getHome(Model model, Dega dega) {
-		
+	public String getHome(Model model, Dega dega, Principal principal) {
+		System.out.println("principal name: " + principal.getName());
 		model.addAttribute("deget",  crudDao.getAllDeget());
 		crudDao.getAllDeget();
 		model.addAttribute("dega", new Dega());
