@@ -32,9 +32,6 @@ public class KeyAuthenticationUserDaoImpl extends BaseDao implements KeyAuthenti
 	public void saveUser(KeyAuthenticationUser user) {
 		LOGGER.info("Saving user: " + user.getUsername());
 		Transaction transaction = session.beginTransaction();
-		for(UserRole ur : user.getUserRole()) {
-			System.out.println(user.getUsername() + " " + ur.getRole());
-		}
 		try {
 			session.save(user);
 			transaction.commit();
