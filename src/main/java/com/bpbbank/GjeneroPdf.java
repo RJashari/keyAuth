@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import java.util.logging.Logger;
 
 import org.springframework.stereotype.Component;
@@ -92,11 +93,11 @@ public class GjeneroPdf {
         document.add(headerParagraf);
 		
         Table t = new Table(new float[]{80.0f, 100.0f});
-        Table t1 = new Table(new float[]{500.0f});
+        Table t1 = new Table(new float[]{350.0f, 50.0f});
 //        Table t2 = new Table(new float[]{80.0f, 100.0f});
 //        Table t3 = new Table(new float[]{265.0f,65.0f,65.0f,65.0f,65.0f});
 //        Table t4 = new Table(new float[]{80.0f, 100.0f, 40.0f, 80.0f});
-//        Table t5 = new Table(new float[]{80.0f, 100.0f});
+        Table t5 = new Table(new float[]{65.0f, 80.0f});
 
 		String labelUser = "Modifikuesi: ";
 		Cell cell = this.getCellWithDefaultParametersUpper();
@@ -161,16 +162,7 @@ public class GjeneroPdf {
 		document.add(t);
 		document.add(t1);
 			
-		document.add(this.getTransactionsTable(dega));
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		document.add(this.getTransactionsTable(dega));		
 		
 		document.close();
 		
@@ -209,6 +201,7 @@ public class GjeneroPdf {
         table.setBorderBottom(new SolidBorder(0.5f));
         return table;
     }
+	
 	
 	
 	Cell getCellWithDefaultParametersUpper() {

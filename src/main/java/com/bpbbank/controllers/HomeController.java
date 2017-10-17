@@ -46,6 +46,15 @@ public class HomeController {
 		
 		return "login";
 	}
+	@RequestMapping(value="/add_users", method=RequestMethod.POST)
+	public String handlePost(@RequestParam String action){
+
+	    if( action.equals("add_users") ){
+	       
+	    	return "add_users";
+	    }
+	   return "add_users";
+	} 
 
 	@GetMapping({"/", "/home"})
 	public String getHome(Model model, Dega dega, Principal principal) {
@@ -105,6 +114,7 @@ public class HomeController {
 	    System.out.println("u modifiku");
 	    return "redirect:/updateKey";
 	}
+	
 	
 	
 
