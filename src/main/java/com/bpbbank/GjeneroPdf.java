@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import org.springframework.stereotype.Component;
+
 import com.bpbbank.domain.Dega;
 //import org.apache.log4j.Logger;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -23,13 +25,15 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.text.*;
 import com.itextpdf.layout.property.TextAlignment;
-
+import com.itextpdf.text.Chunk;
+@Component
 public class GjeneroPdf {
 
-	private String locationForPdf;
-	private String dayOfModification;
-	private String user;
+	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\";
+	private String dayOfModification = "12.10.2017";
+	private String user = "Rinor Jashari";
 	 private static final Logger LOGGER = Logger.getLogger(GjeneroPdf.class.getName());
 
 	public GjeneroPdf(String locationForPdf, String user, String dayOfModification) {
@@ -38,6 +42,10 @@ public class GjeneroPdf {
 		this.user = user;
 		this.dayOfModification = dayOfModification;
 	}
+	public GjeneroPdf() {
+		
+	}
+	
 	
 	public String gjeneroPdf(Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
 		
@@ -56,7 +64,7 @@ public class GjeneroPdf {
 		PdfDocument pdfDocument = new PdfDocument(pdfWriter);
 		Document document = new Document(pdfDocument);
 		
-		Image bpbLogo = new Image(ImageDataFactory.create("bpblogo.bmp"));
+		Image bpbLogo = new Image(ImageDataFactory.create("C:\\Users\\rinor.jashari\\eclipse-workspace\\KeyAuthentication\\src\\main\\java\\com\\bpbbank\\bpblogo.bmp"));
 		bpbLogo.scaleToFit(150,150);
 		
 		Table header = new Table(2);
@@ -64,6 +72,7 @@ public class GjeneroPdf {
 		
 		Date dNow = new Date();
 		SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		
 		
 		
 		String dataEShtypjes = "Data e shtypjes";
@@ -83,7 +92,7 @@ public class GjeneroPdf {
         document.add(headerParagraf);
 		
         Table t = new Table(new float[]{80.0f, 100.0f});
-//        Table t1 = new Table(new float[]{370.0f,100.0f, 50.0f});
+        Table t1 = new Table(new float[]{500.0f});
 //        Table t2 = new Table(new float[]{80.0f, 100.0f});
 //        Table t3 = new Table(new float[]{265.0f,65.0f,65.0f,65.0f,65.0f});
 //        Table t4 = new Table(new float[]{80.0f, 100.0f, 40.0f, 80.0f});
@@ -96,7 +105,7 @@ public class GjeneroPdf {
 				.setFontSize(8.0f));
 		t.addCell(cell);
 		
-		user = "Rinor Jashari";
+		
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph(user)
 				.setBorder(Border.NO_BORDER)
@@ -130,10 +139,38 @@ public class GjeneroPdf {
                 .setFontSize(8.0f));
 		t.addCell(cell);
 		
-				
-		document.add(t);
+		cell = this.getCellWithDefaultParametersUpper();
+		cell.add(new Paragraph("")
+				.setBorder(Border.NO_BORDER)
+                .setFontSize(8.0f));
+		t1.addCell(cell);
 		
+		cell = this.getCellWithDefaultParametersUpper();
+		cell.add(new Paragraph("")
+				.setBorder(Border.NO_BORDER)
+                .setFontSize(8.0f));
+		t1.addCell(cell);
+		
+		cell = this.getCellWithDefaultParametersUpper();
+		cell.add(new Paragraph("")
+				.setBorder(Border.NO_BORDER)
+                .setFontSize(8.0f));
+		t1.addCell(cell);
+		
+		
+		document.add(t);
+		document.add(t1);
+			
 		document.add(this.getTransactionsTable(dega));
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		document.close();
 		
@@ -141,33 +178,33 @@ public class GjeneroPdf {
 	}
 	protected Table getTransactionsTable(Dega dega) {
         LOGGER.info("Writing transactions in pdf.");
-        Table table = new Table(new float[]{150, 150});
+        Table table = new Table(new float[]{250, 250});
         table
-                .addHeaderCell(this.getCellWithDefaultParameters().add("Pershkrimi").setFontSize(9.0f).setTextAlignment(TextAlignment.LEFT))
-                .addHeaderCell(this.getCellWithDefaultParameters().add("Personi/at e autorizuar").setFontSize(9.0f).setTextAlignment(TextAlignment.LEFT))
+                .addHeaderCell(this.getCellWithDefaultParameters().add("Pershkrimi").setFontSize(11.0f).setBold().setTextAlignment(TextAlignment.LEFT))
+                .addHeaderCell(this.getCellWithDefaultParameters().add("Personi/at e autorizuar").setFontSize(11.0f).setBold().setTextAlignment(TextAlignment.RIGHT))
                 
-                	.addCell(this.getCellWithDefaultParameters().add("Dega: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                	.addCell(this.getCellWithDefaultParameters().add(dega.getDega()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                	.addCell(this.getCellWithDefaultParameters().add("Pergjegjesi i Deges: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getPergjegjesiIDeges()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add("Celesi i hyrjes Dege: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getCelesiIHyrjesDege()).setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add("Kodi i Alarmit Dege: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getKodiAlarmitDege()).setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add("Celesi i Deres Atm: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getCelesiIDeresAtm()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().add("Celesi i Server Room: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getCelesiIServerRoom()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().add("Celesi Trezor: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getCelesiTrezor()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().add("Kodi Alarmit Trezor: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getKodiAlarmitTrezor()).setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add("Celesi Sef : ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getCelesiSef1()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().add("Kodi Shifer Sef: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getKodiShiferSef()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().add("Celesi Sef 2: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().add(dega.getCelesiSef2()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.RIGHT));
+//                	.addCell(this.getCellWithDefaultParameters().add("Dega: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
+//                	.addCell(this.getCellWithDefaultParameters().add(dega.getDega()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.RIGHT))
+                	.addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Pergjegjesi i Deges: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getPergjegjesiIDeges()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi i hyrjes Dege: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiIHyrjesDege()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi i Alarmit Dege: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiAlarmitDege()).setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi i Deres Atm: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiIDeresAtm()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi i Server Room: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiIServerRoom()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi Trezor: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiTrezor()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi Alarmit Trezor: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiAlarmitTrezor()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi Sef : ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiSef1()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi Shifer Sef: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiShiferSef()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi Sef 2: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiSef2()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT));
         
         table.setBorderBottom(new SolidBorder(0.5f));
         return table;
@@ -187,7 +224,6 @@ public class GjeneroPdf {
         cell.setHeight(2.0f);
         cell.setBorder(Border.NO_BORDER);
         cell.setBorderTop(new SolidBorder(0.5f));
-//        cell.setBorderBottom(new SolidBorder(0.5f));
         return cell;
     }
 	
