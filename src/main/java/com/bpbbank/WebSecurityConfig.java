@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.bpbbank.domain.UserRoleNames;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -22,15 +24,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login").permitAll()
-        .anyRequest().authenticated().antMatchers("/user/**")
-		.access("hasRole('ADMIN')").and().formLogin()
-		.loginPage("/login").failureUrl("/login?error")
-		.usernameParameter("username")
-		.passwordParameter("password")
-		.and().logout().logoutSuccessUrl("/login?logout")
-		.and().csrf()
-		.and().exceptionHandling().accessDeniedPage("/403");
+		http.authorizeRequests()
+				.antMatchers("/users/**")
+				.hasAuthority("ADMIN")
+				.and().formLogin()
+				.loginPage("/login").failureUrl("/login?error")
+				.usernameParameter("username")
+				.passwordParameter("password")
+				.and().logout().logoutSuccessUrl("/login?logout")
+				.and().csrf()
+				.and().exceptionHandling().accessDeniedPage("/403");
 	}
 
 	@Override
