@@ -6,11 +6,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body style="background-color:#eaeaea">
-    
-   			<a style="width: 7.5%" th:href="@{/users/add}">Modifiko Shfrytzuesit</a> 
-    
+    		 
         	
-           <div style="width: 95%; height:960px; margin: 200px auto 0 auto; background-color:#eaeaea; text-align: center">
+           <div style="width: 95%; height:960px; margin: 200px auto 0 auto; background-color:#eaeaea; text-align: left">
+           <a style="width: 7.5%" th:href="@{/users/add}"><button>Modifiko Shfrytzuesit</button></a> 
            <div style="width:100%; background-color:#eaeaea; float:left">
           <table style='width: 85%; border: 1px; border-color:black; border-style: double; text-align: center; font-size: 15px; font-family: "Arial"'>
             <tr>
@@ -57,8 +56,8 @@
 	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef1}"></td>
 	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiShiferSef}"></td>
 	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef2}"></td>
-	               	<td><a style="width: 7.5%" th:href="@{/fshijDegen/(id=${dega.id})}">Fshij Degen</a> </td>
-	               	<td><a style="width: 7.5 %" th:href="@{/updateKey/(id=${dega.id})}">Modifiko Degen</a></td>
+	               	<td><a style="width: 7.5%" th:href="@{/fshijDegen/(id=${dega.id})}"><button>Fshij Degen</button></a> </td>
+	               	<td><a style="width: 7.5 %" th:href="@{/updateKey/(id=${dega.id})}"><button>Modifiko Degen</button></a></td>
 	              	
 	              	
 	            </tr>
@@ -72,6 +71,7 @@
             </form> 
        		<form style="margin-top:20px" th:action="@{/logout}" method="post">
             	<input type="submit" value="Sign Out"/>
+            	
         	</form>
       	 </div>
         </div>

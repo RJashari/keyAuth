@@ -9,8 +9,7 @@
 <body style="background-color: #eaeaea">
 
 
-	<div
-		style="width: 95%; height: 960px; margin: 200px auto 0 auto; background-color: #eaeaea; text-align: center">
+	<div style="width: 95%; height: 960px; margin: 200px auto 0 auto; background-color: #eaeaea; text-align: center">
 		<div style="width: 100%; background-color: #eaeaea; float: left">
 			<div
 				style="margin-top: 20px; margin-bottom: 20px; margin-left: 40%; float: left"
@@ -32,10 +31,10 @@
 			<table th:if="${not #lists.isEmpty(allUsers)}" style="width: 80%; border: 1px double black; text-align: center; font-size: 12px; float: left; font-family: 'Arial'">
 				<thead>
 					<tr>
-						<td style="background-color: #b3cef5; width: 20%">Username</td>
-						<td style="background-color: #b3cef5; width: 20%">Email</td>
-						<td style="background-color: #b3cef5; width: 20%">Statusi</td>
-						<td style="background-color: #b3cef5; width: 40%">Veprimet</td>
+						<td style="background-color: #b3cef5; width: 20%"><b>Username</b></td>
+						<td style="background-color: #b3cef5; width: 20%"><b>Email</b></td>
+						<td style="background-color: #b3cef5; width: 20%"><b>Statusi</b></td>
+						<td style="background-color: #b3cef5; width: 40%"><b>Veprimet</b></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -47,7 +46,10 @@
 					</tr>
 				</tbody>
 			</table>
+			<a style="width: 7.5%" th:href="@{/home}"><button>Back</button></a> 
 		</div>
 	</div>
+	
+	
 </body>
 </html>
