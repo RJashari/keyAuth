@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<title>Start Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body style="background-color: #eaeaea">
+
+
+	<div
+		style="width: 95%; height: 960px; margin: 200px auto 0 auto; background-color: #eaeaea; text-align: center">
+		<div style="width: 100%; background-color: #eaeaea; float: left">
+			<div
+				style="margin-top: 20px; margin-bottom: 20px; margin-left: 40%; float: left"
+				class="butonat">
+				<form style="float: left; margin-bottom: 20px;" method="post" th:object="${user}"
+					th:action="@{/users/add}">
+					<p>Username: <input type="text" th:field="${user.username}" ></input></p>
+					<button type="submit">Shto shfrytezuesin</button>
+				</form>
+			</div>
+		</div>
+		<div style="width: 95%; height: 960px; margin: 200px auto 0 auto; background-color: #eaeaea; text-align: center">
+			<table th:if="${not #lists.isEmpty(allUsers)}" style="width: 100%; border:1px double black; text-align: center;font-size: 12px; float:left;  font-family: 'Arial'">
+           
+	         <tbody>
+	            <tr th:each="user, iteStat : ${allUsers}" style="height: 35px">
+	                <td style=" width: 2%; background-color: #b3cef5" th:text="${user.username}"></td>
+	                <td style=" width: 10%; background-color: #b3cef5" th:text="${user.enabled}" ></td>
+	               	<td><a style="width: 7.5 %" th:href="@{/users/change/status/{username}/(username=__${user.username}__)}">Enable/disable</a></td>
+	               	<td><a style="width: 7.5%" th:href="@{/users/remove/{username}/(username=__${user.username}__)}">Fshij shfrytezuesin</a> </td>
+	               	<td><a style="width: 7.5 %" th:href="@{/users/password/reset/{username}/(username=__${user.username}__)}">Reset password</a></td>
+	            </tr>
+            </tbody>       
+        </table>
+		</div>
+	</div>
+</body>
+</html>

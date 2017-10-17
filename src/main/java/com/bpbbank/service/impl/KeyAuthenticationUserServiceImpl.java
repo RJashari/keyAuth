@@ -38,6 +38,31 @@ public class KeyAuthenticationUserServiceImpl implements KeyAuthenticationUserSe
 		userDao.saveUser(user);
 	}
 	
+	@Override
+	public void resetUserPassword(String username) {
+		userDao.resetUserPassword(username);
+	}
+	
+	@Override
+	public void initializeUser(KeyAuthenticationUser user) {
+		userDao.initializeUser(user);
+	}
+	
+	@Override
+	public List<KeyAuthenticationUser> getAll() {
+		return userDao.getAll();
+	}
+	
+	@Override
+	public void removeUser(String username) {
+		userDao.removeUser(username);
+	}
+	
+	@Override
+	public void changeUserStatus(String username) {
+		userDao.changeUserStatus(username);
+	}
+	
 	private User buildUserForAuthentication(KeyAuthenticationUser user, List<GrantedAuthority> authorities) {
 		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, authorities);
 	}
