@@ -1,15 +1,12 @@
 package com.bpbbank;
 
-<<<<<<< HEAD
 
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 
-//import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
-=======
 import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> eb33deb52d1aa719d23cde8234478afc02b35d0a
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -17,8 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class KeyAuthenticationMainApp {
-
-<<<<<<< HEAD
 	public static void main(String[] args) throws FileNotFoundException, MalformedURLException, ParseException {
 		SpringApplication.run(KeyAuthenticationMainApp.class, args);
 		
@@ -43,7 +38,7 @@ public class KeyAuthenticationMainApp {
 		
 		
 }
-=======
+
 	@Autowired
 	private ApplicationContext applicationContext;
 
@@ -55,11 +50,5 @@ public class KeyAuthenticationMainApp {
 	}
 	
 	
-	public static void main(String[] args) {
-		System.out.println("password00: " + new BCryptPasswordEncoder().encode("password00"));
-		SpringApplication.run(KeyAuthenticationMainApp.class, args);
 
-	}
-
->>>>>>> eb33deb52d1aa719d23cde8234478afc02b35d0a
 }

@@ -3,7 +3,10 @@ package com.bpbbank.controllers;
 
 
 
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.security.Principal;
+import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -23,6 +26,7 @@ import com.bpbbank.domain.Dega;
 
 import antlr.collections.List;
 
+import com.bpbbank.GjeneroPdf;
 import com.bpbbank.Service;
 
 
@@ -34,6 +38,8 @@ public class HomeController {
 	Service service;
 	@Autowired
 	CrudDao crudDao;
+	@Autowired
+	GjeneroPdf gjeneroPdf;
 	
 	@GetMapping("/login")
 	public String getLogin() {
@@ -83,16 +89,18 @@ public class HomeController {
 
 	}
 	@PostMapping("/updateKey")
-	public String keyUpdate(@ModelAttribute Dega dega, Model model) {
+	public String keyUpdate(@ModelAttribute Dega dega, Model model) throws FileNotFoundException, MalformedURLException, ParseException {
 		System.out.println("na ke myt22");
 		System.out.println("dega id: " + dega.getId() + " " + dega.getCelesiIHyrjesDege() + " " + dega.getCelesiIDeresAtm());
 		crudDao.update(dega);
+		gjeneroPdf.gjeneroPdf(dega);
 		System.out.println("U MODIFIKU");
 		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/modifikoDegen")
-	public String handleModifyDege(@RequestParam("id") long id) {
+	public String handleModifyDege(@RequestParam("id") long id, Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
 		System.out.println("sssna ke myt");
+		gjeneroPdf.gjeneroPdf(dega);
 	    crudDao.update(id);
 	    System.out.println("u modifiku");
 	    return "redirect:/updateKey";
