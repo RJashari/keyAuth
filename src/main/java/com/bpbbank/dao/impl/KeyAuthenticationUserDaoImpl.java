@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.bpbbank.dao.BaseDao;
 import com.bpbbank.dao.KeyAuthenticationUserDao;
 import com.bpbbank.domain.KeyAuthenticationUser;
+import com.bpbbank.domain.UserRole;
 
 @Repository
 public class KeyAuthenticationUserDaoImpl extends BaseDao implements KeyAuthenticationUserDao {
@@ -31,6 +32,9 @@ public class KeyAuthenticationUserDaoImpl extends BaseDao implements KeyAuthenti
 	public void saveUser(KeyAuthenticationUser user) {
 		LOGGER.info("Saving user: " + user.getUsername());
 		Transaction transaction = session.beginTransaction();
+		for(UserRole ur : user.getUserRole()) {
+			System.out.println(user.getUsername() + " " + ur.getRole());
+		}
 		try {
 			session.save(user);
 			transaction.commit();
@@ -62,7 +66,7 @@ public class KeyAuthenticationUserDaoImpl extends BaseDao implements KeyAuthenti
 		try {
 			user.setPassword(DEFAULT_PASSWORD);
 			user.setEnabled(true);
-			session.merge(user);
+			session.save(user);
 			transaction.commit();
 		} catch (Exception e) {
 			LOGGER.error("Some error occured: " + e);

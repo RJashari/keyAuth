@@ -15,26 +15,38 @@
 			<div
 				style="margin-top: 20px; margin-bottom: 20px; margin-left: 40%; float: left"
 				class="butonat">
-				<form style="float: left; margin-bottom: 20px;" method="post" th:object="${user}"
-					th:action="@{/users/add}">
-					<p>Username: <input type="text" th:field="${user.username}" ></input></p>
+				<form style="float: left; margin-bottom: 20px;" method="post"
+					th:object="${user}" th:action="@{/users/add}">
+					<p>
+						Username: <input type="text" th:field="${user.username}"></input>
+					</p>
+					<p>
+						Email: <input type="text" th:field="${user.email}"></input>
+					</p>
 					<button type="submit">Shto shfrytezuesin</button>
 				</form>
 			</div>
 		</div>
-		<div style="width: 95%; height: 960px; margin: 200px auto 0 auto; background-color: #eaeaea; text-align: center">
-			<table th:if="${not #lists.isEmpty(allUsers)}" style="width: 100%; border:1px double black; text-align: center;font-size: 12px; float:left;  font-family: 'Arial'">
-           
-	         <tbody>
-	            <tr th:each="user, iteStat : ${allUsers}" style="height: 35px">
-	                <td style=" width: 2%; background-color: #b3cef5" th:text="${user.username}"></td>
-	                <td style=" width: 10%; background-color: #b3cef5" th:text="${user.enabled}" ></td>
-	               	<td><a style="width: 7.5 %" th:href="@{/users/change/status/{username}/(username=__${user.username}__)}">Enable/disable</a></td>
-	               	<td><a style="width: 7.5%" th:href="@{/users/remove/{username}/(username=__${user.username}__)}">Fshij shfrytezuesin</a> </td>
-	               	<td><a style="width: 7.5 %" th:href="@{/users/password/reset/{username}/(username=__${user.username}__)}">Reset password</a></td>
-	            </tr>
-            </tbody>       
-        </table>
+		<div
+			style="width: 95%; height: 960px; margin: 200px auto 0 auto; background-color: #eaeaea; text-align: center">
+			<table th:if="${not #lists.isEmpty(allUsers)}" style="width: 80%; border: 1px double black; text-align: center; font-size: 12px; float: left; font-family: 'Arial'">
+				<thead>
+					<tr>
+						<td style="background-color: #b3cef5; width: 20%">Username</td>
+						<td style="background-color: #b3cef5; width: 20%">Email</td>
+						<td style="background-color: #b3cef5; width: 20%">Statusi</td>
+						<td style="background-color: #b3cef5; width: 40%">Veprimet</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr style="height: 35px" th:each="user, iteStat : ${allUsers}">
+						<td style="width: 25%; background-color: #b3cef5" th:text="${user.username}"></td>
+						<td style="width: 25%; background-color: #b3cef5" th:text="${user.email}"></td>
+						<td style="width: 25%; background-color: #b3cef5" th:text="${user.enabled}"></td>
+						<td style="width: 25%; background-color: #b3cef5"><a th:href="@{/users/change/status/{username}/(username=${user.username})}">Enable/disable</a> | <a th:href="@{/users/remove/{username}/(username=${user.username})}">Fshij shfrytezuesin</a> | <a th:href="@{/users/password/reset/{username}/(username=${user.username})}">Reset password</a></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </body>

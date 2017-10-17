@@ -3,6 +3,7 @@ package com.bpbbank.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,11 +18,11 @@ public class KeyAuthenticationUser {
 	private String username;
 	private String password;
 	private boolean enabled = true;
+	private String email;
 	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
 	public KeyAuthenticationUser() {
-		UserRole role = new UserRole(this, "ROLE_ADMIN");
-		userRole.add(role);
+		
 	}
 
 	public KeyAuthenticationUser(String username, String password, boolean enabled) {
@@ -65,13 +66,22 @@ public class KeyAuthenticationUser {
 		this.enabled = enabled;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	public Set<UserRole> getUserRole() {
 		return this.userRole;
 	}
 
 	public void setUserRole(Set<UserRole> userRole) {
 		this.userRole = userRole;
+	}
+
+	@Column(name = "e_mail", nullable = true)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

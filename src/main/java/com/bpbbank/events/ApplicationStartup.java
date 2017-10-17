@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.bpbbank.domain.KeyAuthenticationUser;
+import com.bpbbank.domain.UserRole;
+import com.bpbbank.domain.UserRoleNames;
 import com.bpbbank.service.impl.KeyAuthenticationUserServiceImpl;
 
 @Component
@@ -25,7 +27,10 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 		}
 		catch (UsernameNotFoundException exception) {
 			LOGGER.info("Meqe useri admin nuk ekzistuaka ne aplikacion, po e inicializoj duke e futur te ri ne databaze");
-			service.saveUser(new KeyAuthenticationUser("admin", "$2a$10$5kCKO/IAcqcrAy0IzrHFK.kEVBeBKVn8j/m4xcN7TTBhb1RJ3GJ7S", true));
+			KeyAuthenticationUser user = new KeyAuthenticationUser("admin", "$2a$10$5kCKO/IAcqcrAy0IzrHFK.kEVBeBKVn8j/m4xcN7TTBhb1RJ3GJ7S", true);
+			UserRole userRole = new UserRole(user, UserRoleNames.ADMIN.name());
+			user.getUserRole().add(userRole);
+			service.saveUser(user);
 		}
 	}
 

@@ -20,9 +20,10 @@ public class UserRole{
 	private KeyAuthenticationUser user;
 	private String role;
 
-	public UserRole() {
+	protected UserRole() {
+		
 	}
-
+	
 	public UserRole(KeyAuthenticationUser user, String role) {
 		this.user = user;
 		this.role = role;
