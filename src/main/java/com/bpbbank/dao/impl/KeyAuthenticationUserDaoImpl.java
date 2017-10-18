@@ -112,4 +112,17 @@ public class KeyAuthenticationUserDaoImpl extends BaseDao implements KeyAuthenti
 		}
 		return false;
 	}
+
+	public void updateUser(KeyAuthenticationUser user) {
+		LOGGER.info("Updating user: " + user.getUsername());
+		Transaction transaction = session.beginTransaction();
+		try {
+			session.update(user);
+			transaction.commit();
+		} catch (Exception e) {
+			LOGGER.error("Some error occured: " + e);
+			transaction.rollback();
+		}
+	}
+
 }

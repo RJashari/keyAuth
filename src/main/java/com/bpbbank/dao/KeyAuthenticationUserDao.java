@@ -21,4 +21,6 @@ public interface KeyAuthenticationUserDao {
 	void changeUserStatus(String username);
 	
 	boolean comparePassword(String password, String confirmPassword);
+	
+	void updateUser(KeyAuthenticationUser user);
 }

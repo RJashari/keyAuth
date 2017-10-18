@@ -4,6 +4,8 @@ import java.security.Principal;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ import com.bpbbank.dao.impl.KeyAuthenticationUserDaoImpl;
 import com.bpbbank.domain.KeyAuthenticationUser;
 import com.bpbbank.service.KeyAuthenticationUserService;
 
+
+
 @Controller
 public class UserController {
 
@@ -27,6 +31,8 @@ public class UserController {
 	KeyAuthenticationUserService userService;
 	@Autowired
 	KeyAuthenticationUserDaoImpl userImpl;
+	
+	private BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
 	
 	@GetMapping({"/users/add", "/users"})
 	public String addUser(Model model, Principal principal) {
@@ -67,17 +73,33 @@ public class UserController {
 		model.addAttribute("allUsers", userService.getAll());
 		return "add_user";
 	}
-	@RequestMapping(method = RequestMethod.GET, path="/home/changePassword/{username}")
-	public String changePassword(@RequestParam("passi") String password,@RequestParam("confirmPass") String confirmPassword, KeyAuthenticationUser user, Model model, Principal principal) {
+	@GetMapping("/changePassword")
+		public String changePassword(Model model, Principal principal) {
+			model.addAttribute("user", new KeyAuthenticationUser(principal.getName(),"",true));
+			return "changePassword";
+		}
+		
 	
+
+	@RequestMapping(method = RequestMethod.POST, path="/home/changePassword")
+	public String changePassword(@RequestParam("iRi")String password,@RequestParam("confirm") String confirmPassword, Model model, Principal principal) {
+	
+		System.out.println("AkunKAKAJA");
 		if(userService.comparePassword(password, confirmPassword)) {
 			
-			LOGGER.info("Passwordi u nderrua me sukses"+user);
-			user.setPassword(password);
+			KeyAuthenticationUser user = userService.getByUsername(principal.getName());
+			LOGGER.info("Passwordi u nderrua me sukses");
+			System.out.println("VESAJA");
+			
+			
+			user.setPassword(encode.encode(password));
+			user.setEnabled(true);
+			
+			userService.updateUser(user);
 			
 			return "redirect:/home";
 		}
-
+	System.out.println("Gaguaja");
 	 return "changePassword";
 		
 	}

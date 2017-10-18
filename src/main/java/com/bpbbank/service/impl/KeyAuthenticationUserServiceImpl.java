@@ -82,4 +82,16 @@ public class KeyAuthenticationUserServiceImpl implements KeyAuthenticationUserSe
 		}
 		return false;
 	}
+
+	@Override
+	public KeyAuthenticationUser getByUsername(String username) {
+		
+		return userDao.findUserByUsername(username);
+	}
+
+	@Override
+	public void updateUser(KeyAuthenticationUser user) {
+		userDao.updateUser(user);
+		
+	}
 }

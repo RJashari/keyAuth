@@ -21,4 +21,8 @@ public interface KeyAuthenticationUserService extends UserDetailsService {
 	void changeUserStatus(String username);
 	
 	boolean comparePassword(String password, String confirmPassword);
+	
+	KeyAuthenticationUser getByUsername(String username);
+	
+	void updateUser(KeyAuthenticationUser user);
 }

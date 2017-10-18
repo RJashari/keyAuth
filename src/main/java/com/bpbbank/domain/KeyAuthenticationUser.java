@@ -26,6 +26,7 @@ public class KeyAuthenticationUser {
 	public KeyAuthenticationUser() {
 		
 	}
+	
 
 	public KeyAuthenticationUser(String username, String password, boolean enabled) {
 		this.username = username;
