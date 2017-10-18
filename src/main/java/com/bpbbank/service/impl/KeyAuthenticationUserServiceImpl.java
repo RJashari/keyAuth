@@ -74,4 +74,12 @@ public class KeyAuthenticationUserServiceImpl implements KeyAuthenticationUserSe
 		}
 		return new ArrayList<>(authos);
 	}
+
+	@Override
+	public boolean comparePassword(String password, String confirmPassword) {
+		if(password.equals(confirmPassword)) {
+			return true;
+		}
+		return false;
+	}
 }

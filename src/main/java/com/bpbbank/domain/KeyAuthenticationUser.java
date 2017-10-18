@@ -10,12 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "users")
 public class KeyAuthenticationUser {
 
 	private String username;
+	private String confirmPassword;
 	private String password;
 	private boolean enabled = true;
 	private String email;
@@ -83,5 +85,13 @@ public class KeyAuthenticationUser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	@Transient
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 
 }

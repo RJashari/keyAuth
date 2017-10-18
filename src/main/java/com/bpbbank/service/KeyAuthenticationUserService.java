@@ -19,4 +19,6 @@ public interface KeyAuthenticationUserService extends UserDetailsService {
 	void removeUser(String username);
 	
 	void changeUserStatus(String username);
+	
+	boolean comparePassword(String password, String confirmPassword);
 }

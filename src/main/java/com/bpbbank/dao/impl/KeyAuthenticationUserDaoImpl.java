@@ -104,4 +104,12 @@ public class KeyAuthenticationUserDaoImpl extends BaseDao implements KeyAuthenti
 			transaction.rollback();
 		}
 	}
+
+	@Override
+	public boolean comparePassword(String password, String confirmPassword) {
+		if(password.equals(confirmPassword)) {
+			return true;
+		}
+		return false;
+	}
 }

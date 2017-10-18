@@ -93,7 +93,7 @@ public class GjeneroPdf {
         document.add(headerParagraf);
 		
         Table t = new Table(new float[]{80.0f, 100.0f});
-        Table t1 = new Table(new float[]{350.0f, 50.0f});
+        Table t1 = new Table(new float[]{180.0f,180.0f,180.0f});
 //        Table t2 = new Table(new float[]{80.0f, 100.0f});
 //        Table t3 = new Table(new float[]{265.0f,65.0f,65.0f,65.0f,65.0f});
 //        Table t4 = new Table(new float[]{80.0f, 100.0f, 40.0f, 80.0f});
@@ -141,29 +141,57 @@ public class GjeneroPdf {
 		t.addCell(cell);
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("")
+		cell.add(new Paragraph("z.Partin Halimi")
 				.setBorder(Border.NO_BORDER)
-                .setFontSize(8.0f));
+				.setBold()
+				.setHeight(20.0f)
+                .setFontSize(10.0f));
 		t1.addCell(cell);
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("")
+		cell.add(new Paragraph("z/znj. ___________________")
 				.setBorder(Border.NO_BORDER)
-                .setFontSize(8.0f));
+				.setBold()
+				.setHeight(20.0f)
+                .setFontSize(10.0f));
 		t1.addCell(cell);
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("")
+		cell.add(new Paragraph("z/znj. ___________________")
 				.setBorder(Border.NO_BORDER)
-                .setFontSize(8.0f));
+				.setBold()
+				.setHeight(20.0f)
+                .setFontSize(10.0f));
 		t1.addCell(cell);
+		cell = this.getCellWithDefaultParametersUpper();
+		cell.add(new Paragraph("______________________")
+				.setBorder(Border.NO_BORDER)
+				.setBold()
+                .setFontSize(10.0f));
+		t1.addCell(cell);
+		
+		cell = this.getCellWithDefaultParametersUpper();
+		cell.add(new Paragraph("______________________")
+				.setBorder(Border.NO_BORDER)
+				.setBold()
+                .setFontSize(10.0f));
+		t1.addCell(cell);
+		
+		cell = this.getCellWithDefaultParametersUpper();
+		cell.add(new Paragraph("______________________")
+				.setBorder(Border.NO_BORDER)
+				.setBold()
+                .setFontSize(10.0f));
+		t1.addCell(cell);
+		
 		
 		
 		document.add(t);
-		document.add(t1);
+		
 			
 		document.add(this.getTransactionsTable(dega));		
 		
+		document.add(t1);
 		document.close();
 		
 		return fileName;

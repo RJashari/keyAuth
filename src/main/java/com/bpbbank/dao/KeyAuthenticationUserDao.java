@@ -19,4 +19,6 @@ public interface KeyAuthenticationUserDao {
 	void removeUser(String username);
 	
 	void changeUserStatus(String username);
+	
+	boolean comparePassword(String password, String confirmPassword);
 }

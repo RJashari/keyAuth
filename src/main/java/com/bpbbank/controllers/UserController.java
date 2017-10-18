@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bpbbank.dao.impl.KeyAuthenticationUserDaoImpl;
 import com.bpbbank.domain.KeyAuthenticationUser;
 import com.bpbbank.service.KeyAuthenticationUserService;
 
@@ -21,6 +25,8 @@ public class UserController {
 	
 	@Autowired
 	KeyAuthenticationUserService userService;
+	@Autowired
+	KeyAuthenticationUserDaoImpl userImpl;
 	
 	@GetMapping({"/users/add", "/users"})
 	public String addUser(Model model, Principal principal) {
@@ -61,4 +67,20 @@ public class UserController {
 		model.addAttribute("allUsers", userService.getAll());
 		return "add_user";
 	}
+	@RequestMapping(method = RequestMethod.GET, path="/home/changePassword/{username}")
+	public String changePassword(@RequestParam("passi") String password,@RequestParam("confirmPass") String confirmPassword, KeyAuthenticationUser user, Model model, Principal principal) {
+	
+		if(userService.comparePassword(password, confirmPassword)) {
+			
+			LOGGER.info("Passwordi u nderrua me sukses"+user);
+			user.setPassword(password);
+			
+			return "redirect:/home";
+		}
+
+	 return "changePassword";
+		
+	}
+	
 }
+
