@@ -12,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.bpbbank.domain.UserRoleNames;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,8 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/users/**")
-				.hasAuthority("ADMIN")
+				.antMatchers("/login").permitAll()
+				.antMatchers("/users/**").hasAuthority("ADMIN")
+				.anyRequest().authenticated()
 				.and().formLogin()
 				.loginPage("/login").failureUrl("/login?error")
 				.usernameParameter("username")
