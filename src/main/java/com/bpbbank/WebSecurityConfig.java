@@ -1,4 +1,4 @@
-package com.bpbbank.config;
+package com.bpbbank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
