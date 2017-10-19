@@ -65,7 +65,7 @@ public class GjeneroPdf {
 		PdfDocument pdfDocument = new PdfDocument(pdfWriter);
 		Document document = new Document(pdfDocument);
 		
-		Image bpbLogo = new Image(ImageDataFactory.create("C:\\Users\\rinor.jashari\\eclipse-workspace\\KeyAuthentication\\src\\main\\java\\com\\bpbbank\\bpblogo.bmp"));
+		Image bpbLogo = new Image(ImageDataFactory.create("src\\main\\java\\com\\bpbbank\\bpblogo.bmp"));
 		bpbLogo.scaleToFit(150,150);
 		
 		Table header = new Table(2);

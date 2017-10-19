@@ -71,6 +71,13 @@ public class DegaImpl extends BaseDao implements CrudDao{
 		session.update(dega);
 		tx.commit();
 	}
-//	public Dega getDega() 
 	
+	@Override
+	public Set<Dega> getAllDegetForUser(String username) {
+		return new HashSet<>(session
+				.createQuery("from dega where pergjegjesi=?")
+				.setParameter(0, username)
+				.list()
+				);
+	}
 }

@@ -9,6 +9,8 @@ import java.security.Principal;
 import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +23,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bpbbank.GjeneroPdf;
 import com.bpbbank.dao.CrudDao;
 import com.bpbbank.domain.Dega;
+import com.bpbbank.service.KeyAuthenticationUserService;
 
 
 
 @Controller
 public class HomeController {
 
+	@Autowired
+	KeyAuthenticationUserService userService;
 	@Autowired
 	CrudDao crudDao;
 	@Autowired
@@ -40,9 +45,13 @@ public class HomeController {
 
 	@GetMapping({"/", "/home"})
 	public String getHome(Model model, Dega dega, Principal principal) {
-		model.addAttribute("deget",  crudDao.getAllDeget());
-		crudDao.getAllDeget();
-		model.addAttribute("dega", new Dega());
+		UserDetails userDetails = userService.loadUserByUsername(principal.getName());
+		model.addAttribute("deget",  crudDao.getAllDegetForUser(principal.getName()));
+		
+		SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority("ADMIN");
+		if(userDetails.getAuthorities().contains(adminAuthority)){
+			model.addAttribute("deget",  crudDao.getAllDeget());
+		}
 		return "s";
 	}
 
@@ -55,7 +64,6 @@ public class HomeController {
 	@PostMapping("/addKey")
 	public String keySubmit(@ModelAttribute Dega dega, Model model) {
 		crudDao.save(dega);
-		model.addAttribute("nrKolones", dega.getId());
 		model.addAttribute("deget",  crudDao.getAllDeget());
 		return "s";
 	}

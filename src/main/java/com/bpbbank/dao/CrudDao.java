@@ -22,5 +22,5 @@ public interface CrudDao{
 	
 	Set<Dega> getAllDeget();
 	
-
+	Set<Dega> getAllDegetForUser(String username);
 }
