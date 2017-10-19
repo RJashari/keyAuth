@@ -12,37 +12,39 @@
            <a style="width: 7.5%" th:href="@{/users/add}"><button>Modifiko Shfrytzuesit</button></a> 
            <a style="width: 7.5%" th:href="@{/changePassword}"><button>Ndrysho fjalekalimin</button></a> 
            <div style="width:100%; background-color:#eaeaea; float:left">
-          <table style='width: 85%; border: 1px; border-color:black; border-style: double; text-align: center; font-size: 15px; font-family: "Arial"'>
-            <tr>
-                <th style="background-color: #b3cef5; width: 2%"></th>
-                <th style="background-color: #b3cef5; width: 22%">Deg&euml;t dhe p&euml;rgjegj&euml;sit p&euml;r celesa dhe kode</th>
-                <th style="background-color: #a9b8cc; width: 30%">&Ccedil;el&euml;sat dhe kodet deg&euml;</th>
-                <th style="background-color: #f5b0c5; width: 38%">&Ccedil;el&euml;sat dhe kodet trezor dhe kodet alarm</th>
-            </tr>
-        </table>
-        <table style='width: 85%; border: 1px; border-color:black; border-style: double; text-align: center;font-size: 12px;  font-family: "Arial"'>
-            <tr>
-                <td style="background-color: #b3cef5;  width: 2%; text-justify: auto "><b>Nr</b></td>
-                <td style="background-color: #b3cef5; width: 10%"><b>Deg&euml;t</b></td>
-                <td style="background-color: #b3cef5; width: 10%"><b>P&euml;rgjegj&euml;si i deg&euml;s</b></td>
-                
-                <td style="background-color: #a9b8cc; width: 7%"><b>&Ccedil;el&euml;si i hyrjes deg&euml; (Emri Mbiemri)</b></td>
-                <td style="background-color: #a9b8cc; width: 7%"><b>Kodi i alarmit deg&euml; (Emri Mbiemri)</b></td>
-                <td style="background-color: #a9b8cc; width: 7%"><b>&Ccedil;el&euml;si i der&euml;s ATM (Emri Mbiemri)</b></td>
-                <td style="background-color: #a9b8cc; width: 7%"><b>&Ccedil;el&euml;si i Server room (Emri Mbiemri)</b></td>
-                
-                <td style="background-color: #f5b0c5; width: 7%"><b>&Ccedil;el&euml;si Trezor (Emri Mbiemri)</b></td>
-                <td style="background-color: #f5b0c5; width: 7%"><b>Kodi alarmit trezor(n&euml;se ka)(Emri Mbiemri)</b></td>
-                <td style="background-color: #f5b0c5; width: 7%"><b>&Ccedil;el&euml;si Sef 1 (Emri Mbiemri)</b></td>
-                <td style="background-color: #f5b0c5; width: 7%"><b>Kodi shif&euml;r sef (Emri Mbiemri)</b></td>
-                <td style="background-color: #f5b0c5; width: 7%"><b>&Ccedil;el&euml;si Sef 2 (Emri Mbiemri)</b></td>
-            </tr>
-            </table>
-            <div th:each="dega, iteStat : ${deget}">
+          
+            <div>
             <table th:if="${not #sets.isEmpty(deget)}" style="width: 100%; border:1px double black; text-align: center;font-size: 12px; float:left;  font-family: 'Arial'">
            
+           <thead style='width: 85%; border: 1px; border-color:black; border-style: double; text-align: center; font-size: 15px; font-family: "Arial"'>
+	            <tr>
+	                <th colspan="1" style="background-color: #b3cef5; width: 2%"></th>
+	                <th colspan="2" style="background-color: #b3cef5; width: 22%">Deg&euml;t dhe p&euml;rgjegj&euml;sit p&euml;r celesa dhe kode</th>
+	                <th colspan="4" style="background-color: #a9b8cc; width: 30%">&Ccedil;el&euml;sat dhe kodet deg&euml;</th>
+	                <th colspan="6" style="background-color: #f5b0c5; width: 38%">&Ccedil;el&euml;sat dhe kodet trezor dhe kodet alarm</th>
+	                <!-- <th colspan="1" style="background-color: #f5b0c5; width: 38%">Veprimet</th> -->
+	            </tr>
+	            <tr>
+	                <td style="background-color: #b3cef5;  width: 2%; text-justify: auto "><b>Nr</b></td>
+	                <td style="background-color: #b3cef5; width: 10%"><b>Deg&euml;t</b></td>
+	                <td style="background-color: #b3cef5; width: 10%"><b>P&euml;rgjegj&euml;si i deg&euml;s</b></td>
+	                
+	                <td style="background-color: #a9b8cc; width: 7%"><b>&Ccedil;el&euml;si i hyrjes deg&euml; (Emri Mbiemri)</b></td>
+	                <td style="background-color: #a9b8cc; width: 7%"><b>Kodi i alarmit deg&euml; (Emri Mbiemri)</b></td>
+	                <td style="background-color: #a9b8cc; width: 7%"><b>&Ccedil;el&euml;si i der&euml;s ATM (Emri Mbiemri)</b></td>
+	                <td style="background-color: #a9b8cc; width: 7%"><b>&Ccedil;el&euml;si i Server room (Emri Mbiemri)</b></td>
+	                
+	                <td style="background-color: #f5b0c5; width: 7%"><b>&Ccedil;el&euml;si Trezor (Emri Mbiemri)</b></td>
+	                <td style="background-color: #f5b0c5; width: 7%"><b>Kodi alarmit trezor(n&euml;se ka)(Emri Mbiemri)</b></td>
+	                <td style="background-color: #f5b0c5; width: 7%"><b>&Ccedil;el&euml;si Sef 1 (Emri Mbiemri)</b></td>
+	                <td style="background-color: #f5b0c5; width: 7%"><b>Kodi shif&euml;r sef (Emri Mbiemri)</b></td>
+	                <td style="background-color: #f5b0c5; width: 7%"><b>&Ccedil;el&euml;si Sef 2 (Emri Mbiemri)</b></td>
+	                <td style="background-color: #f5b0c5; width: 15%"><b>Veprimet</b></td>
+	            </tr>
+            </thead>
+           
 	         <tbody>
-	            <tr style="height: 35px">
+	            <tr style="height: 35px"  th:each="dega, iteStat : ${deget}">
 	                <td style=" width: 2%; background-color: #b3cef5" th:text="${dega.id}"></td>
 	                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.dega}" ></td>
 	                <td style=" width: 10%; background-color: #b3cef5" th:text="${dega.pergjegjesiIDeges}"></td>
@@ -57,8 +59,7 @@
 	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef1}"></td>
 	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.kodiShiferSef}"></td>
 	                <td style=" width: 7%; background-color: #f5b0c5" th:text="${dega.celesiSef2}"></td>
-	               	<td><a style="width: 7.5%" th:href="@{/fshijDegen/(id=${dega.id})}"><button>Fshij Degen</button></a> </td>
-	               	<td><a style="width: 7.5 %" th:href="@{/updateKey/(id=${dega.id})}"><button>Modifiko Degen</button></a></td>
+	               	<td style=" width: 7%; background-color: #f5b0c5"><a style="width: 7.5%" th:href="@{/fshijDegen/(id=${dega.id})}"><button>Fshij Degen</button></a> | <a style="width: 7.5 %" th:href="@{/updateKey/(id=${dega.id})}"><button>Modifiko Degen</button></a></td>
 	              	
 	              	
 	            </tr>
