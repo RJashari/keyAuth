@@ -7,12 +7,8 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.security.Principal;
 import java.text.ParseException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,21 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bpbbank.GjeneroPdf;
 import com.bpbbank.dao.CrudDao;
 import com.bpbbank.domain.Dega;
-
-import antlr.collections.List;
-
-import com.bpbbank.GjeneroPdf;
-import com.bpbbank.Service;
 
 
 
 @Controller
 public class HomeController {
 
-//	@Autowired
-	Service service;
 	@Autowired
 	CrudDao crudDao;
 	@Autowired
@@ -47,29 +37,17 @@ public class HomeController {
 		
 		return "login";
 	}
-	@RequestMapping(value="/add_users", method=RequestMethod.POST)
-	public String handlePost(@RequestParam String action){
-
-	    if( action.equals("add_users") ){
-	       
-	    	return "add_users";
-	    }
-	   return "add_users";
-	} 
 
 	@GetMapping({"/", "/home"})
 	public String getHome(Model model, Dega dega, Principal principal) {
-		System.out.println("principal name: " + principal.getName());
 		model.addAttribute("deget",  crudDao.getAllDeget());
 		crudDao.getAllDeget();
 		model.addAttribute("dega", new Dega());
-		System.out.println("AKAKUNKAKA");
 		return "s";
 	}
 
 	@GetMapping("/addKey")
 	public String getAddKey(Model model) {
-
 		model.addAttribute("dega", new Dega());
 		return "addKey";
 
@@ -77,46 +55,31 @@ public class HomeController {
 	@PostMapping("/addKey")
 	public String keySubmit(@ModelAttribute Dega dega, Model model) {
 		crudDao.save(dega);
-//		model.addAttribute("dega",  dega);
-//		model.addAttribute("nrKolones", dega.getNrKolones()+1);
 		model.addAttribute("nrKolones", dega.getId());
 		model.addAttribute("deget",  crudDao.getAllDeget());
-		System.out.println("dega : " + dega.getDega());
 		return "s";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/fshijDegen")
 	public String handleDeleteDega(@RequestParam("id") long id) {
-		System.out.println("na ke myt");
 	    crudDao.remove(id);
-	    System.out.println("u fshi");
 	    return "redirect:/home";
 	}
 	@GetMapping("/updateKey")
 	public String getUpdateKey(@RequestParam("id") long id, Model model) {
-
 		model.addAttribute("dega", crudDao.getByID(id));
 		return "updateKey";
 
 	}
 	@PostMapping("/updateKey")
 	public String keyUpdate(@ModelAttribute Dega dega, Model model) throws FileNotFoundException, MalformedURLException, ParseException {
-		System.out.println("na ke myt22");
-		System.out.println("dega id: " + dega.getId() + " " + dega.getCelesiIHyrjesDege() + " " + dega.getCelesiIDeresAtm());
 		crudDao.update(dega);
 		gjeneroPdf.gjeneroPdf(dega);
-		System.out.println("U MODIFIKU");
 		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/modifikoDegen")
 	public String handleModifyDege(@RequestParam("id") long id, Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
-		System.out.println("sssna ke myt");
 		gjeneroPdf.gjeneroPdf(dega);
 	    crudDao.update(id);
-	    System.out.println("u modifiku");
 	    return "redirect:/updateKey";
 	}
-	
-	
-	
-
 }

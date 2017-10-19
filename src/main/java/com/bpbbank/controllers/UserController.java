@@ -36,6 +36,7 @@ public class UserController {
 	
 	@GetMapping({"/users/add", "/users"})
 	public String addUser(Model model, Principal principal) {
+		LOGGER.info("Duke shfaqur formen per te shtuar user");
 		model.addAttribute("user", new KeyAuthenticationUser());
 		model.addAttribute("allUsers", userService.getAll());
 		return "add_user";
@@ -43,6 +44,7 @@ public class UserController {
 	
 	@PostMapping("/users/add")
 	public String addUser(@ModelAttribute KeyAuthenticationUser user, Model model, Principal principal) {
+		LOGGER.info("Duke shtuar nje user");
 		userService.initializeUser(user);
 		model.addAttribute("user", new KeyAuthenticationUser());
 		model.addAttribute("allUsers", userService.getAll());
@@ -51,6 +53,7 @@ public class UserController {
 	
 	@GetMapping("/users/password/reset/{username}")
 	public String resetUserPassword(@PathVariable String username, Model model) {
+		LOGGER.info("Duke resetuar passwordin per userin me username: " + username);
 		userService.resetUserPassword(username);
 		model.addAttribute("user", new KeyAuthenticationUser());
 		model.addAttribute("allUsers", userService.getAll());
@@ -59,6 +62,7 @@ public class UserController {
 	
 	@GetMapping("/users/remove/{username}")
 	public String removeUser(@PathVariable String username, Model model) {
+		LOGGER.info("Duke fshire userin me username: " + username);
 		userService.removeUser(username);
 		model.addAttribute("user", new KeyAuthenticationUser());
 		model.addAttribute("allUsers", userService.getAll());
@@ -67,41 +71,31 @@ public class UserController {
 	
 	@GetMapping("/users/change/status/{username}")
 	public String changeUserStatus(@PathVariable String username, Model model) {
-		LOGGER.info("Changing status of the user: " + username);
+		LOGGER.info("Duke ndryshuar statusin e userit: " + username);
 		userService.changeUserStatus(username);
 		model.addAttribute("user", new KeyAuthenticationUser());
 		model.addAttribute("allUsers", userService.getAll());
 		return "add_user";
 	}
 	@GetMapping("/changePassword")
-		public String changePassword(Model model, Principal principal) {
-			model.addAttribute("user", new KeyAuthenticationUser(principal.getName(),"",true));
-			return "changePassword";
-		}
-		
-	
+	public String changePassword(Model model, Principal principal) {
+		LOGGER.info("Duke shfaqur formen per ndryshimin e passwordit");
+		model.addAttribute("user", new KeyAuthenticationUser(principal.getName(),"",true));
+		return "changePassword";
+	}
 
 	@RequestMapping(method = RequestMethod.POST, path="/home/changePassword")
 	public String changePassword(@RequestParam("iRi")String password,@RequestParam("confirm") String confirmPassword, Model model, Principal principal) {
-	
-		System.out.println("AkunKAKAJA");
+		LOGGER.info("Duke ndryshuar passwordin");
 		if(userService.comparePassword(password, confirmPassword)) {
-			
 			KeyAuthenticationUser user = userService.getByUsername(principal.getName());
 			LOGGER.info("Passwordi u nderrua me sukses");
-			System.out.println("VESAJA");
-			
-			
 			user.setPassword(encode.encode(password));
 			user.setEnabled(true);
-			
 			userService.updateUser(user);
-			
 			return "redirect:/home";
 		}
-	System.out.println("Gaguaja");
-	 return "changePassword";
-		
+		return "changePassword";
 	}
 	
 }
