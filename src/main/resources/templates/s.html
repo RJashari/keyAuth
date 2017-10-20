@@ -11,13 +11,13 @@
            <div style="width: 95%; height:960px; margin: 200px auto 0 auto; background-color:#eaeaea; text-align: left">
            <a style="width: 7.5%" th:href="@{/users/add}"><button>Modifiko Shfrytzuesit</button></a> 
            <a style="width: 7.5%" th:href="@{/changePassword}"><button>Ndrysho fjalekalimin</button></a> 
-           <div style="width:100%; background-color:#eaeaea; float:left">
+           <div style="width:100%; background-color:#eaeaee; float:left">
           
             <div>
-            <table th:if="${not #sets.isEmpty(deget)}" style="width: 100%; border:1px double black; text-align: center;font-size: 12px; float:left;  font-family: 'Arial'">
+            <table th:if="${not #sets.isEmpty(deget)}" style="width: 100%; border:1px double #eaeaea; border-radius:15px; text-align: center;font-size: 12px; float:left;  font-family: 'Arial'">
            
            <thead style='width: 85%; border: 1px; border-color:black; border-style: double; text-align: center; font-size: 12px; font-family: "Arial"'>
-	            <tr>
+	            <tr style="height:15px">
 	                <th colspan="1" style="background-color: #ffb366; width: 2%"></th>
 	                <th colspan="2" style="background-color: #ffb366; width: 22%">Deg&euml;t dhe p&euml;rgjegj&euml;sit p&euml;r celesa dhe kode</th>
 	                <th colspan="4" style="background-color: #ffb366; width: 30%">&Ccedil;el&euml;sat dhe kodet deg&euml;</th>

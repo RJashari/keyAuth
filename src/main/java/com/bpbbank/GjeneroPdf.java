@@ -214,31 +214,32 @@ public class GjeneroPdf {
         LOGGER.info("Writing transactions in pdf.");
         Table table = new Table(new float[]{250, 250});
         table
-                .addHeaderCell(this.getCellWithDefaultParameters().add("Pershkrimi").setFontSize(11.0f).setBold().setTextAlignment(TextAlignment.LEFT))
+                .addHeaderCell(this.getCellWithDefaultParameters().add("Përshkrimi").setFontSize(11.0f).setBold().setTextAlignment(TextAlignment.LEFT))
                 .addHeaderCell(this.getCellWithDefaultParameters().add("Personi/at e autorizuar").setFontSize(11.0f).setBold().setTextAlignment(TextAlignment.RIGHT))
                 
 //                	.addCell(this.getCellWithDefaultParameters().add("Dega: ").setFontSize(8.0f).setTextAlignment(TextAlignment.LEFT))
 //                	.addCell(this.getCellWithDefaultParameters().add(dega.getDega()+"").setFontSize(8.0f).setTextAlignment(TextAlignment.RIGHT))
-                	.addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Pergjegjesi i Deges: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                	.addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Përgjegjësi i Degës: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getPergjegjesiIDeges()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi i hyrjes Dege: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Çelësi i hyrjes Degë: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiIHyrjesDege()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi i Alarmit Dege: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiAlarmitDege()).setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi i Deres Atm: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiIDeresAtm()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi i Server Room: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Çelësi i Server Room: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiIServerRoom()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi Trezor: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi i Kasafortës ATM: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiIDeresAtm()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi i Alarmit Degë: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiAlarmitDege()).setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Çelesi Trezor: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiTrezor()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Çelësi Kasafortë 1: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiSef1()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Çelësi Kasafortë 2  ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiSef2()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi Alarmit Trezor: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiAlarmitTrezor()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi Sef : ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiSef1()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi Shifer Sef: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiShiferSef()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Celesi Sef 2: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getCelesiSef2()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT));
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi Shifër i Kasafortës: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiShiferSef()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT));
+                    
         
         table.setBorderBottom(new SolidBorder(0.5f));
         return table;
