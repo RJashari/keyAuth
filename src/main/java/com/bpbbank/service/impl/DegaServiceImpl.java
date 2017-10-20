@@ -6,64 +6,64 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bpbbank.dao.DegaDao;
-import com.bpbbank.service.KeyAuthenticationService;
+import com.bpbbank.domain.Dega;
+import com.bpbbank.service.DegaService;
 
 @Service("crudService")
-public class DegaServiceImpl implements KeyAuthenticationService{
+public class DegaServiceImpl implements DegaService{
 
 	@Autowired
-	DegaDao crudDao;
+	DegaDao degaDao;
 
 	@Override
 	public void save(Dega dega) {
-		crudDao.save(dega);
+		degaDao.save(dega);
 	}
 
 	@Override
 	public Dega getByID(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return degaDao.getByID(id);
 	}
 
 	@Override
 	public Dega getByName(String dega) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return degaDao.getByName(dega);
 	}
 
 	@Override
 	public void remove(Dega dega) {
-		// TODO Auto-generated method stub
-		
+		degaDao.remove(dega);
 	}
 
 	@Override
 	public void remove(long id) {
-		// TODO Auto-generated method stub
+		degaDao.remove(id);
 		
 	}
 
 	@Override
 	public void update(Dega dega) {
-		// TODO Auto-generated method stub
+		degaDao.update(dega);
 		
 	}
 
 	@Override
 	public void update(long id) {
-		// TODO Auto-generated method stub
+		degaDao.update(id);
 		
 	}
 
 	@Override
 	public Set<Dega> getAllDeget() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return degaDao.getAllDeget();
 	}
 
 	@Override
 	public Set<Dega> getAllDegetForUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return degaDao.getAllDegetForUser(username);
 	}
 }

@@ -4,7 +4,8 @@ import java.util.Set;
 
 import com.bpbbank.domain.Dega;
 
-public interface KeyAuthenticationService {
+
+public interface DegaService {
 
 	void save(Dega dega);
 	

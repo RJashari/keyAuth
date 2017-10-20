@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bpbbank.GjeneroPdf;
 import com.bpbbank.dao.DegaDao;
 import com.bpbbank.domain.Dega;
+import com.bpbbank.service.DegaService;
 import com.bpbbank.service.KeyAuthenticationUserService;
 
 
@@ -33,7 +34,7 @@ public class HomeController {
 	@Autowired
 	KeyAuthenticationUserService userService;
 	@Autowired
-	DegaDao crudDao;
+	DegaService degaService;
 	@Autowired
 	GjeneroPdf gjeneroPdf;
 	
@@ -46,11 +47,11 @@ public class HomeController {
 	@GetMapping({"/", "/home"})
 	public String getHome(Model model, Dega dega, Principal principal) {
 		UserDetails userDetails = userService.loadUserByUsername(principal.getName());
-		model.addAttribute("deget",  crudDao.getAllDegetForUser(principal.getName()));
+		model.addAttribute("deget",  degaService.getAllDegetForUser(principal.getName()));
 		
 		SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority("ADMIN");
 		if(userDetails.getAuthorities().contains(adminAuthority)){
-			model.addAttribute("deget",  crudDao.getAllDeget());
+			model.addAttribute("deget",  degaService.getAllDeget());
 		}
 		return "s";
 	}
@@ -63,31 +64,31 @@ public class HomeController {
 	}
 	@PostMapping("/addKey")
 	public String keySubmit(@ModelAttribute Dega dega, Model model) {
-		crudDao.save(dega);
-		model.addAttribute("deget",  crudDao.getAllDeget());
+		degaService.save(dega);
+		model.addAttribute("deget",  degaService.getAllDeget());
 		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/fshijDegen")
 	public String handleDeleteDega(@RequestParam("id") long id) {
-	    crudDao.remove(id);
+	    degaService.remove(id);
 	    return "redirect:/home";
 	}
 	@GetMapping("/updateKey")
 	public String getUpdateKey(@RequestParam("id") long id, Model model) {
-		model.addAttribute("dega", crudDao.getByID(id));
+		model.addAttribute("dega", degaService.getByID(id));
 		return "updateKey";
 
 	}
 	@PostMapping("/updateKey")
 	public String keyUpdate(@ModelAttribute Dega dega, Model model) throws FileNotFoundException, MalformedURLException, ParseException {
-		crudDao.update(dega);
+		degaService.update(dega);
 		gjeneroPdf.gjeneroPdf(dega);
 		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/modifikoDegen")
 	public String handleModifyDege(@RequestParam("id") long id, Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
 		gjeneroPdf.gjeneroPdf(dega);
-	    crudDao.update(id);
+	    degaService.update(id);
 	    return "redirect:/updateKey";
 	}
 }
