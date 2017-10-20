@@ -8,13 +8,14 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import com.bpbbank.dao.CrudDao;
+import com.bpbbank.dao.DegaDao;
 import com.bpbbank.domain.Dega;
 import com.bpbbank.dao.BaseDao;
 
 @Repository
-public class DegaImpl extends BaseDao implements CrudDao{
+public class DegaDaoImpl extends BaseDao implements DegaDao{
 
+	@Override
 	public void save(Dega dega) {
 		
 		Transaction tx = session.beginTransaction();

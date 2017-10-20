@@ -108,13 +108,28 @@ public class GjeneroPdf {
 		
         Table t = new Table(new float[]{80.0f, 100.0f});
         Table t1 = new Table(new float[]{180.0f,180.0f,180.0f});
-//        Table t2 = new Table(new float[]{80.0f, 100.0f});
+        Table t2 = new Table(new float[]{80.0f, 200.0f});
 //        Table t3 = new Table(new float[]{265.0f,65.0f,65.0f,65.0f,65.0f});
 //        Table t4 = new Table(new float[]{80.0f, 100.0f, 40.0f, 80.0f});
         Table t5 = new Table(new float[]{65.0f, 80.0f});
+        
+    	String pershkrimi = "Përshkrimi: ";
+    	Cell cell = this.getCellWithDefaultParametersUpper();
+		cell.add(new Paragraph(pershkrimi)
+				.setPaddingTop(10.0f)
+				.setBorder(Border.NO_BORDER)
+                .setFontSize(8.0f));
+		t2.addCell(cell);
+		
+		cell = this.getCellWithDefaultParametersUpper();
+		cell.add(new Paragraph("Pranim dorëzim i celsave / kodeve")
+				.setPaddingTop(10.0f)
+				.setBorder(Border.NO_BORDER)
+                .setFontSize(8.0f));
+		t2.addCell(cell);
 
 		String labelUser = "Modifikuesi: ";
-		Cell cell = this.getCellWithDefaultParametersUpper();
+		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph(labelUser)
 				.setBorder(Border.NO_BORDER)
 				.setFontSize(8.0f));
@@ -131,31 +146,22 @@ public class GjeneroPdf {
 		String labelDega = "Dega: ";
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph(labelDega)
+				.setPaddingBottom(20.0f)
 				.setBorder(Border.NO_BORDER)
                 .setFontSize(8.0f));
 		t.addCell(cell);
 		
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph(dega.getDega())
+				.setPaddingBottom(20.0f)
 				.setBorder(Border.NO_BORDER)
                 .setFontSize(8.0f));
 		t.addCell(cell);
 		
-		String id = "ID: ";
-		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph(id)
-				.setBorder(Border.NO_BORDER)
-                .setFontSize(8.0f));
-		t.addCell(cell);
-		
-		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph(dega.getId()+"")
-				.setBorder(Border.NO_BORDER)
-                .setFontSize(8.0f));
-		t.addCell(cell);
 		
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("z.Partin Halimi")
+				.setPaddingTop(30.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
 				.setHeight(20.0f)
@@ -164,6 +170,7 @@ public class GjeneroPdf {
 		
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("z/znj. ___________________")
+				.setPaddingTop(30.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
 				.setHeight(20.0f)
@@ -172,6 +179,7 @@ public class GjeneroPdf {
 		
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("z/znj. ___________________")
+				.setPaddingTop(30.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
 				.setHeight(20.0f)
@@ -180,26 +188,29 @@ public class GjeneroPdf {
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("______________________")
 				.setBorder(Border.NO_BORDER)
+				.setPaddingTop(5.0f)
 				.setBold()
                 .setFontSize(10.0f));
 		t1.addCell(cell);
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("______________________")
+		cell.add(new Paragraph("  ________________________")
+				.setPaddingTop(5.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
                 .setFontSize(10.0f));
 		t1.addCell(cell);
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("______________________")
+		cell.add(new Paragraph("  ________________________")
+				.setPaddingTop(5.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
                 .setFontSize(10.0f));
 		t1.addCell(cell);
 		
 		
-		
+		document.add(t2);
 		document.add(t);
 		
 			

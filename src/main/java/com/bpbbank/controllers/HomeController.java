@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bpbbank.GjeneroPdf;
-import com.bpbbank.dao.CrudDao;
+import com.bpbbank.dao.DegaDao;
 import com.bpbbank.domain.Dega;
 import com.bpbbank.service.KeyAuthenticationUserService;
 
@@ -33,7 +33,7 @@ public class HomeController {
 	@Autowired
 	KeyAuthenticationUserService userService;
 	@Autowired
-	CrudDao crudDao;
+	DegaDao crudDao;
 	@Autowired
 	GjeneroPdf gjeneroPdf;
 	

@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.bpbbank.domain.Dega;
 
-public interface CrudDao{
+public interface DegaDao{
 	
 	void save(Dega dega);
 	

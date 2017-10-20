@@ -22,7 +22,6 @@
 	                <th colspan="2" style="background-color: #ffb366; width: 22%">Deg&euml;t dhe p&euml;rgjegj&euml;sit p&euml;r celesa dhe kode</th>
 	                <th colspan="4" style="background-color: #ffb366; width: 30%">&Ccedil;el&euml;sat dhe kodet deg&euml;</th>
 	                <th colspan="6" style="background-color: #ffb366; width: 38%">&Ccedil;el&euml;sat dhe kodet trezor dhe kodet alarm</th>
-	                <!-- <th colspan="1" style="background-color: #f5b0c5; width: 38%">Veprimet</th> -->
 	            </tr>
 	            <tr>
 	                <td style="background-color: #ffb366;  width: 2%; text-justify: auto "><b>Nr</b></td>
@@ -60,7 +59,7 @@
 	                <td style=" width: 7%; background-color: #f0f5f5" th:text="${dega.kodiAlarmitTrezor}"></td>
 	                <td style=" width: 7%; background-color: #f0f5f5" th:text="${dega.kodiShiferSef}"></td>
 	                
-	               	<td style=" width: 7%; background-color: #f0f5f5"><a style="width: 7.5%" th:href="@{/fshijDegen/(id=${dega.id})}"><button>Fshij Degen</button></a> | <a style="width: 7.5 %" th:href="@{/updateKey/(id=${dega.id})}"><button>Modifiko Degen</button></a></td>
+	               	<td style=" width: 7%; background-color: #d0d4db"><a style="width: 7.5%" th:href="@{/fshijDegen/(id=${dega.id})}"><button>Fshij Degen</button></a> | <a style="width: 7.5 %" th:href="@{/updateKey/(id=${dega.id})}"><button>Modifiko Degen</button></a></td>
 	              	
 	              	
 	            </tr>
