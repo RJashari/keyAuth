@@ -65,7 +65,7 @@ public class HomeController {
 	public String keySubmit(@ModelAttribute Dega dega, Model model) {
 		crudDao.save(dega);
 		model.addAttribute("deget",  crudDao.getAllDeget());
-		return "s";
+		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/fshijDegen")
 	public String handleDeleteDega(@RequestParam("id") long id) {

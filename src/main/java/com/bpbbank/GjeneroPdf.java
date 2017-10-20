@@ -3,16 +3,26 @@ package com.bpbbank;
 
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.Properties;
 import java.util.logging.Logger;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.*;
+import javax.mail.Session;
+import javax.mail.internet.*;
 
 import org.springframework.stereotype.Component;
 
 import com.bpbbank.domain.Dega;
+
 //import org.apache.log4j.Logger;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -26,15 +36,18 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.text.*;
 import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.text.Chunk;
 @Component
+
 public class GjeneroPdf {
+	
+	private Principal principal;
 
 	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\";
 	private String dayOfModification = "12.10.2017";
+
 	private String user = "Rinor Jashari";
+	
 	 private static final Logger LOGGER = Logger.getLogger(GjeneroPdf.class.getName());
 
 	public GjeneroPdf(String locationForPdf, String user, String dayOfModification) {
@@ -51,6 +64,7 @@ public class GjeneroPdf {
 	public String gjeneroPdf(Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
 		
 		String fileName = new StringBuilder()
+		.append(locationForPdf)
 		.append(dayOfModification)
 		.append("_")
 		.append("Dega")
@@ -246,6 +260,44 @@ public class GjeneroPdf {
         cell.setBorder(Border.NO_BORDER);
         cell.setBorderTop(new SolidBorder(0.5f));
         return cell;
+    }
+    private MimeMessage getMailMessage(GjeneroPdf gjeneroPdf,Principal principal, Session session, String extraMessage,Dega dega) throws IOException {
+        MimeMessage message = new MimeMessage(session);
+        
+        Properties properties = System.getProperties();
+        properties.load(GjeneroPdf.class.getClassLoader().getResourceAsStream("application.properties"));
+        try {
+            message.setFrom("menaxhimicelsave@bpbbank.com");
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(properties.getProperty("send.to.email")));
+            message.setSubject("Pranimi/Dorezimi i kodeve ose celsave");
+ 
+            MimeBodyPart attachment = new MimeBodyPart();
+            DataSource source = new FileDataSource(locationForPdf);
+            attachment.setDataHandler(new DataHandler(source));
+            attachment.setFileName(locationForPdf+"");
+ 
+            MimeBodyPart textPart = new MimeBodyPart();
+            textPart.setText(extraMessage, "utf-8", "html");
+             
+            Multipart wholeMessage = new MimeMultipart();
+            wholeMessage.addBodyPart(attachment);
+            wholeMessage.addBodyPart(textPart);
+            message.setContent(wholeMessage);
+        } catch (MessagingException e) {
+            LOGGER.info("Failed to generate a mime message for  " + principal.getName()  + " for Branch " + dega.getDega()+ e);
+        }
+        return message;
+    }
+    public void sendReport(Session session, GjeneroPdf filename, String extraMessage, String user, String password, Principal principal, Dega dega) throws IOException {
+        LOGGER.info("Sending email for changes in KeyAuthentification by: " + principal.getName()+"for Branch: " + dega.getDega());
+        MimeMessage message = this.getMailMessage(filename,principal,  session, extraMessage, dega);
+        try {
+            Transport.send(message, user, password);
+            
+        } catch (MessagingException e) {
+           
+            LOGGER.info("Failed to send report for modification by: " +principal.getName() + " for Branch " + dega.getDega()+ e);
+        }
     }
 	
 	
