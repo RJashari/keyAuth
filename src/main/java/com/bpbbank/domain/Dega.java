@@ -34,12 +34,16 @@ public class Dega {
 	private String celesiSef2;
 	@Column(name = "kodi_sef", nullable = false)
 	private String kodiShiferSef;
+	@Column(name = "kodet_digjitale_kasaforte_1", nullable = true, unique = false)
+	private String kodetDigjitaleKasaforte1 = "";
+	@Column(name = "kodet_digjitale_kasaforte_2", nullable = true)
+	private String kodetDigjitaleKasaforte2;
 
 //	private long nrKolones;
 
 	public Dega(String dega, String pergjegjesiIDeges, String celesiIHyrjesDege, String kodiAlarmitDege,
 			String celesiIDeresAtm, String celesiIServerRoom, String celesiTrezor, String kodiAlarmitTrezor,
-			String celesiSef1, String celesiSef2, String kodiShiferSef, Dega dega1) {
+			String celesiSef1, String celesiSef2, String kodiShiferSef, Dega dega1, String kodetDigjitaleKasaforte1, String kodetDigjitaleKasaforte2) {
 		super();
 		this.dega = dega;
 		this.pergjegjesiIDeges = pergjegjesiIDeges;
@@ -52,6 +56,8 @@ public class Dega {
 		this.celesiSef1 = celesiSef1;
 		this.kodiShiferSef = kodiShiferSef;
 		this.celesiSef2 = celesiSef2;
+		this.kodetDigjitaleKasaforte1 = kodetDigjitaleKasaforte1;
+		this.kodetDigjitaleKasaforte2 = kodetDigjitaleKasaforte2;
 	}
 
 	public Dega() {
@@ -154,6 +160,23 @@ public class Dega {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public String getKodetDigjitaleKasaforte1() {
+		return kodetDigjitaleKasaforte1;
+	}
+
+	public void setKodetDigjitaleKasaforte1(String kodetDigjitaleKasaforte1) {
+		this.kodetDigjitaleKasaforte1 = kodetDigjitaleKasaforte1;
+	}
+
+	public String getKodetDigjitaleKasaforte2() {
+		return kodetDigjitaleKasaforte2;
+	}
+
+	public void setKodetDigjitaleKasaforte2(String kodetDigjitaleKasaforte2) {
+		this.kodetDigjitaleKasaforte2 = kodetDigjitaleKasaforte2;
+	}
+	
 
 //	public long getNrKolones() {
 //		return nrKolones;
