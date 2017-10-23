@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.security.Principal;
 import java.text.ParseException;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -48,16 +49,20 @@ public class HomeController {
 	}
 
 	@GetMapping({"/", "/home"})
-	public String getHome(Model model, Dega dega, Principal principal) {
+	public String getHome(Model model, Dega dega, Principal principal) throws FileNotFoundException, MalformedURLException, ParseException {
 		UserDetails userDetails = userService.loadUserByUsername(principal.getName());
 		model.addAttribute("deget",  degaService.getAllDegetForUser(principal.getName()));
 		
 		SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority("ADMIN");
 		if(userDetails.getAuthorities().contains(adminAuthority)){
 			model.addAttribute("deget",  degaService.getAllDeget());
+			Set<Dega>deget = degaService.getAllDeget();
+			gjeneroAllPdf = new GjeneroAllPdf(principal.getName());
+			gjeneroAllPdf.gjeneroPdf(deget);
 		}
 		return "s";
 	}
+
 
 	@GetMapping("/addKey")
 	public String getAddKey(Model model) {
