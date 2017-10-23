@@ -39,25 +39,24 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 @Component
 
-public class GjeneroPdf {
+public class GjeneroAllPdf {
 	
 	private Principal principal;
 
 	Date dateNow = new Date();
-	SimpleDateFormat ft1 = new SimpleDateFormat("dd.MM.yyyy");
+	SimpleDateFormat ft1 = new SimpleDateFormat("dd_MM_yyyy");
 	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\";
 	private String dayOfModification = ft1.format(dateNow);
 
 	private String user;// = "Rinor Jashari";
 	
-	
-	 private static final Logger LOGGER = Logger.getLogger(GjeneroPdf.class.getName());
+	 private static final Logger LOGGER = Logger.getLogger(GjeneroAllPdf.class.getName());
 
-	public GjeneroPdf(String user) {
+	public GjeneroAllPdf(String user) {
 		
 		this.user = user;
 	}
-	public GjeneroPdf() {
+	public GjeneroAllPdf() {
 		
 	}
 	
@@ -250,11 +249,7 @@ public class GjeneroPdf {
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi Alarmit Trezor: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiAlarmitTrezor()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi Shifër i Kasafortës: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiShiferSef()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodet digjitale kasafortë 1: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodetDigjitaleKasaforte1()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodet digjitale kasafortë 2: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodetDigjitaleKasaforte2()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT));;
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiShiferSef()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT));
                     
         
         table.setBorderBottom(new SolidBorder(0.5f));
@@ -278,11 +273,11 @@ public class GjeneroPdf {
         cell.setBorderTop(new SolidBorder(0.5f));
         return cell;
     }
-    private MimeMessage getMailMessage(GjeneroPdf gjeneroPdf,Principal principal, Session session, String extraMessage,Dega dega) throws IOException {
+    private MimeMessage getMailMessage(GjeneroAllPdf gjeneroPdf,Principal principal, Session session, String extraMessage,Dega dega) throws IOException {
         MimeMessage message = new MimeMessage(session);
         
         Properties properties = System.getProperties();
-        properties.load(GjeneroPdf.class.getClassLoader().getResourceAsStream("application.properties"));
+        properties.load(GjeneroAllPdf.class.getClassLoader().getResourceAsStream("application.properties"));
         try {
             message.setFrom("menaxhimicelsave@bpbbank.com");
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(properties.getProperty("send.to.email")));
@@ -305,7 +300,7 @@ public class GjeneroPdf {
         }
         return message;
     }
-    public void sendReport(Session session, GjeneroPdf filename, String extraMessage, String user, String password, Principal principal, Dega dega) throws IOException {
+    public void sendReport(Session session, GjeneroAllPdf filename, String extraMessage, String user, String password, Principal principal, Dega dega) throws IOException {
         LOGGER.info("Sending email for changes in KeyAuthentification by: " + principal.getName()+"for Branch: " + dega.getDega());
         MimeMessage message = this.getMailMessage(filename,principal,  session, extraMessage, dega);
         try {

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bpbbank.GjeneroAllPdf;
 import com.bpbbank.GjeneroPdf;
 import com.bpbbank.dao.DegaDao;
 import com.bpbbank.domain.Dega;
@@ -37,6 +38,8 @@ public class HomeController {
 	DegaService degaService;
 	@Autowired
 	GjeneroPdf gjeneroPdf;
+	
+	GjeneroAllPdf gjeneroAllPdf;
 	
 	@GetMapping("/login")
 	public String getLogin() {
@@ -80,8 +83,10 @@ public class HomeController {
 
 	}
 	@PostMapping("/updateKey")
-	public String keyUpdate(@ModelAttribute Dega dega, Model model) throws FileNotFoundException, MalformedURLException, ParseException {
+	public String keyUpdate(@ModelAttribute Dega dega, Model model, Principal principal) throws FileNotFoundException, MalformedURLException, ParseException {
 		degaService.update(dega);
+		String user = principal.getName();
+		gjeneroPdf = new GjeneroPdf(user);
 		gjeneroPdf.gjeneroPdf(dega);
 		return "redirect:/home";
 	}
