@@ -21,7 +21,7 @@
 	                <th colspan="1" style="background-color: #ffb366; width: 2%"></th>
 	                <th colspan="2" style="background-color: #ffb366; width: 22%">Deg&euml;t dhe p&euml;rgjegj&euml;sit p&euml;r celesa dhe kode</th>
 	                <th colspan="4" style="background-color: #ffb366; width: 30%">&Ccedil;el&euml;sat dhe kodet deg&euml;</th>
-	                <th colspan="6" style="background-color: #ffb366; width: 38%">&Ccedil;el&euml;sat dhe kodet trezor dhe kodet alarm</th>
+	                <th colspan="8" style="background-color: #ffb366; width: 38%">&Ccedil;el&euml;sat dhe kodet trezor dhe kodet alarm</th>
 	            </tr>
 	            <tr>
 	                <td style="background-color: #ffb366;  width: 2%; text-justify: auto "><b>Nr</b></td>
@@ -38,6 +38,8 @@
 	                <td style="background-color: #ffb366; width: 7%"><b>&Ccedil;el&euml;si kasafort&euml; 2 (Emri Mbiemri)</b></td>
 	                <td style="background-color: #ffb366; width: 7%"><b>Kodi alarmit trezor(n&euml;se ka)(Emri Mbiemri)</b></td>
 	                <td style="background-color: #ffb366; width: 7%"><b>Kodi shif&euml;r i kasafort&euml;s (Emri Mbiemri)</b></td>
+	                <td style="background-color: #ffb366; width: 7%"><b>Kodet digjitale kasafort&euml; 1 (Emri Mbiemri)</b></td>
+	                <td style="background-color: #ffb366; width: 7%"><b>Kodet digjitale kasafort&euml; 2 (Emri Mbiemri)</b></td>
 	                <td style="background-color: #ffb366; width: 15%"><b>Veprimet</b></td>
 	            </tr>
             </thead>
@@ -58,6 +60,8 @@
 	                <td style=" width: 7%; background-color: #f0f5f5" th:text="${dega.celesiSef2}"></td>
 	                <td style=" width: 7%; background-color: #f0f5f5" th:text="${dega.kodiAlarmitTrezor}"></td>
 	                <td style=" width: 7%; background-color: #f0f5f5" th:text="${dega.kodiShiferSef}"></td>
+	                <td style=" width: 7%; background-color: #f0f5f5" th:text="${dega.kodetDigjitaleKasaforte1}"></td>
+	                <td style=" width: 7%; background-color: #f0f5f5" th:text="${dega.kodetDigjitaleKasaforte2}"></td>
 	                
 	               	<td style=" width: 7%; background-color: #d0d4db"><a style="width: 7.5%" th:href="@{/fshijDegen/(id=${dega.id})}"><button>Fshij Degen</button></a> | <a style="width: 7.5 %" th:href="@{/updateKey/(id=${dega.id})}"><button>Modifiko Degen</button></a></td>
 	              	
