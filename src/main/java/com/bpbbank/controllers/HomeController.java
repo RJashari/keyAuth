@@ -93,6 +93,7 @@ public class HomeController {
 		String user = principal.getName();
 		gjeneroPdf = new GjeneroPdf(user);
 		gjeneroPdf.gjeneroPdf(dega);
+//		/*gjeneroPdf.sendReport(session, filename, extraMessage, user, password, principal, dega);*/
 		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/modifikoDegen")

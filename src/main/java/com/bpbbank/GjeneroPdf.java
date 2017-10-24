@@ -281,20 +281,21 @@ public class GjeneroPdf {
         cell.setBorderTop(new SolidBorder(0.5f));
         return cell;
     }
-    private MimeMessage getMailMessage(GjeneroPdf gjeneroPdf,Principal principal, Session session, String extraMessage,Dega dega) throws IOException {
+    private MimeMessage getMailMessage(Session session, String extraMessage,Dega dega) throws IOException {
         MimeMessage message = new MimeMessage(session);
         
         Properties properties = System.getProperties();
         properties.load(GjeneroPdf.class.getClassLoader().getResourceAsStream("application.properties"));
         try {
             message.setFrom("menaxhimicelsave@bpbbank.com");
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(properties.getProperty("send.to.email")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(properties.getProperty("rinor.jashari@bpbbank.com")));
             message.setSubject("Pranimi/Dorezimi i kodeve ose celsave");
  
             MimeBodyPart attachment = new MimeBodyPart();
-            DataSource source = new FileDataSource(locationForPdf);
+            String fileSource = getFileName(dega);
+            DataSource source = new FileDataSource(fileSource);
             attachment.setDataHandler(new DataHandler(source));
-            attachment.setFileName(locationForPdf+"");
+            attachment.setFileName(dayOfModification+"_Dega_"+dega.getDega());
  
             MimeBodyPart textPart = new MimeBodyPart();
             textPart.setText(extraMessage, "utf-8", "html");
@@ -310,7 +311,7 @@ public class GjeneroPdf {
     }
     public void sendReport(Session session, GjeneroPdf filename, String extraMessage, String user, String password, Principal principal, Dega dega) throws IOException {
         LOGGER.info("Sending email for changes in KeyAuthentification by: " + principal.getName()+"for Branch: " + dega.getDega());
-        MimeMessage message = this.getMailMessage(filename,principal,  session, extraMessage, dega);
+        MimeMessage message = this.getMailMessage(session, extraMessage, dega);
         try {
             Transport.send(message, user, password);
             
@@ -318,6 +319,22 @@ public class GjeneroPdf {
            
             LOGGER.info("Failed to send report for modification by: " +principal.getName() + " for Branch " + dega.getDega()+ e);
         }
+      
+    				
+        }
+    public String getFileName(Dega dega) {
+    	
+		String fileName = new StringBuilder()
+				.append(locationForPdf)
+				.append(dayOfModification)
+				.append("_")
+				.append("Dega")
+				.append("_")
+				.append(dega.getDega())
+				.append(".pdf")
+				.toString();
+		
+		return fileName;
     }
 	
 	
