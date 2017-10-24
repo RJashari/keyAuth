@@ -4,6 +4,7 @@ package com.bpbbank.controllers;
 
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.Principal;
 import java.text.ParseException;
@@ -74,7 +75,7 @@ public class HomeController {
 
 	}
 	@PostMapping("/addKey")
-	public String keySubmit(@ModelAttribute Dega dega, Model model, Principal principal) throws FileNotFoundException, MalformedURLException, ParseException {
+	public String keySubmit(@ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException {
 		degaService.save(dega);
 		String user = principal.getName();
 		gjeneroAddPdf = new GjeneroAddPdf(user);

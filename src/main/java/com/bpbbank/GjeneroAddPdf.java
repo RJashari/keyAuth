@@ -62,7 +62,7 @@ public class GjeneroAddPdf {
 	}
 	
 	
-	public String gjeneroAddPdf(Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
+	public String gjeneroAddPdf(Dega dega) throws ParseException, IOException {
 		
 		String fileName = new StringBuilder()
 		.append(locationForPdf)
@@ -207,6 +207,10 @@ public class GjeneroAddPdf {
 		
 		document.add(t1);
 		document.close();
+		
+		SendMail sendMail = new SendMail();
+		sendMail.sendEmail(fileName);
+		
 		
 		return fileName;
 	}

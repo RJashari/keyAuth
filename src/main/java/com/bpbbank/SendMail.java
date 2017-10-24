@@ -23,7 +23,7 @@ public class SendMail
 
         //1) get the session object      
           
-        properties.setProperty("mail.smtp.host", "localhost");   
+        properties.setProperty("mail.smtp.host", "online.bpbbank.com");   
 //        properties.put("mail.smtp.auth", "true");    
 
         Session session = Session.getDefaultInstance(properties);       
@@ -43,9 +43,9 @@ public class SendMail
 
             MimeBodyPart attachment = new MimeBodyPart();      
             //change accordingly     
-            DataSource source = new FileDataSource(properties.getProperty("locationForPdf"));    
+            DataSource source = new FileDataSource(fileName);    
             attachment.setDataHandler(new DataHandler(source));    
-            attachment.setFileName(fileName);             
+            attachment.setFileName("Menaxhimi_i_celesave");             
 
 
             //5) create Multipart object and add MimeBodyPart objects to this object        
