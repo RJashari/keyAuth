@@ -45,7 +45,7 @@ public class GjeneroPdf {
 
 	Date dateNow = new Date();
 	SimpleDateFormat ft1 = new SimpleDateFormat("dd.MM.yyyy");
-	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\";
+	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\modifikoDegen\\";
 	private String dayOfModification = ft1.format(dateNow);
 
 	private String user;// = "Rinor Jashari";
@@ -118,6 +118,7 @@ public class GjeneroPdf {
     	Cell cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph(pershkrimi)
 				.setPaddingTop(10.0f)
+				.setBold()
 				.setBorder(Border.NO_BORDER)
                 .setFontSize(8.0f));
 		t2.addCell(cell);
@@ -132,6 +133,7 @@ public class GjeneroPdf {
 		String labelUser = "Modifikuesi: ";
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph(labelUser)
+				.setBold()
 				.setBorder(Border.NO_BORDER)
 				.setFontSize(8.0f));
 		t.addCell(cell);
@@ -148,6 +150,7 @@ public class GjeneroPdf {
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph(labelDega)
 				.setPaddingBottom(20.0f)
+				.setBold()
 				.setBorder(Border.NO_BORDER)
                 .setFontSize(8.0f));
 		t.addCell(cell);

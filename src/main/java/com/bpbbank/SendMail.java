@@ -39,16 +39,16 @@ public class SendMail
             messageBodyPart1.setText("This is message body");          
 
             //4) create new MimeBodyPart object and set DataHandler object to this object        
-            MimeBodyPart messageBodyPart2 = new MimeBodyPart();      
+            MimeBodyPart attachment = new MimeBodyPart();      
             //change accordingly     
             DataSource source = new FileDataSource(fileName);    
-            messageBodyPart2.setDataHandler(new DataHandler(source));    
-            messageBodyPart2.setFileName(fileName);             
+            attachment.setDataHandler(new DataHandler(source));    
+            attachment.setFileName(fileName);             
 
             //5) create Multipart object and add MimeBodyPart objects to this object        
             Multipart multipart = new MimeMultipart();    
             multipart.addBodyPart(messageBodyPart1);     
-            multipart.addBodyPart(messageBodyPart2);      
+            multipart.addBodyPart(attachment);      
 
             //6) set the multiplart object to the message object    
             message.setContent(multipart );        

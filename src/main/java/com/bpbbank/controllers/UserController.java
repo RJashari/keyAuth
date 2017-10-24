@@ -1,6 +1,10 @@
 package com.bpbbank.controllers;
 
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.security.Principal;
+import java.text.ParseException;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.bpbbank.GjeneroAllPdf;
 import com.bpbbank.dao.impl.KeyAuthenticationUserDaoImpl;
+import com.bpbbank.domain.Dega;
 import com.bpbbank.domain.KeyAuthenticationUser;
+import com.bpbbank.service.DegaService;
 import com.bpbbank.service.KeyAuthenticationUserService;
 
 
@@ -30,6 +38,10 @@ public class UserController {
 	KeyAuthenticationUserService userService;
 	@Autowired
 	KeyAuthenticationUserDaoImpl userImpl;
+	@Autowired
+	GjeneroAllPdf gjeneroAllPdf = new GjeneroAllPdf();
+	@Autowired
+	DegaService degaService;
 	
 	private BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
 	
@@ -40,6 +52,13 @@ public class UserController {
 		model.addAttribute("allUsers", userService.getAll());
 		return "add_user";
 	}
+//	@RequestMapping(method=RequestMethod.POST, params="action=ruajPdf")
+//	public String gjeneroAllPdf(Principal principal, Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
+//		Set<Dega>deget = degaService.getAllDeget();
+//		gjeneroAllPdf.gjeneroPdf(deget);
+//	
+//		return "add_user";
+//	}
 	
 	@PostMapping("/users/add")
 	public String addUser(@ModelAttribute KeyAuthenticationUser user, Model model, Principal principal) {
