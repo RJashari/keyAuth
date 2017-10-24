@@ -278,7 +278,7 @@ public class GjeneroPdf {
         cell.setBorderTop(new SolidBorder(0.5f));
         return cell;
     }
-    private MimeMessage getMailMessage(GjeneroPdf gjeneroPdf,Session session, String extraMessage,Dega dega) throws IOException {
+    private MimeMessage getMailMessage(Session session, String extraMessage,Dega dega) throws IOException {
         MimeMessage message = new MimeMessage(session);
         
         Properties properties = System.getProperties();
@@ -289,10 +289,10 @@ public class GjeneroPdf {
             message.setSubject("Pranimi/Dorezimi i kodeve ose celsave");
  
             MimeBodyPart attachment = new MimeBodyPart();
-            DataSource source = new FileDataSource(locationForPdf);
+            String fileSource = getFileName(dega);
+            DataSource source = new FileDataSource(fileSource);
             attachment.setDataHandler(new DataHandler(source));
-            String fileName = getFileName(dega);
-            attachment.setFileName(fileName);
+            attachment.setFileName(dayOfModification+"_Dega_"+dega.getDega());
  
             MimeBodyPart textPart = new MimeBodyPart();
             textPart.setText(extraMessage, "utf-8", "html");
@@ -308,7 +308,7 @@ public class GjeneroPdf {
     }
     public void sendReport(Session session, GjeneroPdf filename, String extraMessage, String user, String password, Principal principal, Dega dega) throws IOException {
         LOGGER.info("Sending email for changes in KeyAuthentification by: " + principal.getName()+"for Branch: " + dega.getDega());
-        MimeMessage message = this.getMailMessage(filename, session, extraMessage, dega);
+        MimeMessage message = this.getMailMessage(session, extraMessage, dega);
         try {
             Transport.send(message, user, password);
             
