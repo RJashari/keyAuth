@@ -10,19 +10,25 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
-import javax.mail.internet.*;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.bpbbank.domain.Dega;
-
 //import org.apache.log4j.Logger;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -37,12 +43,10 @@ import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
-@Component
 
+@Component
 public class GjeneroPdf {
 	
-	private Principal principal;
-
 	Date dateNow = new Date();
 	SimpleDateFormat ft1 = new SimpleDateFormat("dd.MM.yyyy");
 	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\modifikoDegen\\";
@@ -51,10 +55,9 @@ public class GjeneroPdf {
 	private String user;// = "Rinor Jashari";
 	
 	
-	 private static final Logger LOGGER = Logger.getLogger(GjeneroPdf.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(GjeneroPdf.class.getName());
 
 	public GjeneroPdf(String user) {
-		
 		this.user = user;
 	}
 	public GjeneroPdf() {
@@ -305,7 +308,7 @@ public class GjeneroPdf {
             wholeMessage.addBodyPart(textPart);
             message.setContent(wholeMessage);
         } catch (MessagingException e) {
-            LOGGER.info("Failed to generate a mime message for  " + principal.getName()  + " for Branch " + dega.getDega()+ e);
+            LOGGER.info("Failed to generate a mime message for Branch " + dega.getDega(), e);
         }
         return message;
     }

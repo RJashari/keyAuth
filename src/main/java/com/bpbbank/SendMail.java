@@ -1,13 +1,17 @@
 package com.bpbbank;
+
 import java.io.IOException;
 import java.util.*;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;  
 
 public class SendMail 
 { 
-    public void SendEmail(String fileName) throws IOException
+    public void sendEmail(String fileName) throws IOException
     {    
         
         Properties properties = System.getProperties();
@@ -20,12 +24,9 @@ public class SendMail
         //1) get the session object      
           
         properties.setProperty("mail.smtp.host", "localhost");   
-        properties.put("mail.smtp.auth", "true");    
+//        properties.put("mail.smtp.auth", "true");    
 
-        Session session = Session.getDefaultInstance(properties,   
-                new javax.mail.Authenticator() {   
-            protected PasswordAuthentication getPasswordAuthentication() {   
-                return new PasswordAuthentication(fromEmail,password);    }   });       
+        Session session = Session.getDefaultInstance(properties);       
 
         //2) compose message      
         try{    
@@ -39,11 +40,13 @@ public class SendMail
             messageBodyPart1.setText("This is message body");          
 
             //4) create new MimeBodyPart object and set DataHandler object to this object        
+
             MimeBodyPart attachment = new MimeBodyPart();      
             //change accordingly     
-            DataSource source = new FileDataSource(fileName);    
+            DataSource source = new FileDataSource(properties.getProperty("locationForPdf"));    
             attachment.setDataHandler(new DataHandler(source));    
             attachment.setFileName(fileName);             
+
 
             //5) create Multipart object and add MimeBodyPart objects to this object        
             Multipart multipart = new MimeMultipart();    
@@ -51,7 +54,7 @@ public class SendMail
             multipart.addBodyPart(attachment);      
 
             //6) set the multiplart object to the message object    
-            message.setContent(multipart );        
+            message.setContent(multipart);        
 
             //7) send message    
             Transport.send(message);      
