@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -25,6 +24,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -305,7 +305,7 @@ public class GjeneroPdf {
             wholeMessage.addBodyPart(textPart);
             message.setContent(wholeMessage);
         } catch (MessagingException e) {
-            LOGGER.info("Failed to generate a mime message for  " + principal.getName()  + " for Branch " + dega.getDega()+ e);
+            LOGGER.info("Failed to generate a mime message for Branch " + dega.getDega(), e);
         }
         return message;
     }
