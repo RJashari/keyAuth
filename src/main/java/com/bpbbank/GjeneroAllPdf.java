@@ -17,7 +17,6 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.Session;
 import javax.mail.internet.*;
 
 import org.springframework.stereotype.Component;
@@ -63,7 +62,7 @@ public class GjeneroAllPdf {
 	}
 	
 	
-	public String gjeneroPdf(Set <Dega> deget) throws ParseException, IOException {
+	public String gjeneroPdf(Set <Dega> deget) throws ParseException, IOException, NoSuchProviderException {
 		
 		String fileName = new StringBuilder()
 		.append(locationForPdf)

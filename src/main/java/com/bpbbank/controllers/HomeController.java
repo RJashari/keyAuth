@@ -10,6 +10,8 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.util.Set;
 
+import javax.mail.NoSuchProviderException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -75,7 +77,7 @@ public class HomeController {
 
 	}
 	@PostMapping("/addKey")
-	public String keySubmit(@ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException {
+	public String keySubmit(@ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException, NoSuchProviderException {
 		degaService.save(dega);
 		String user = principal.getName();
 		gjeneroAddPdf = new GjeneroAddPdf(user);
@@ -96,7 +98,7 @@ public class HomeController {
 
 	}
 	@PostMapping("/updateKey")
-	public String keyUpdate(@ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException {
+	public String keyUpdate(@ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException, NoSuchProviderException {
 		degaService.update(dega);
 		String user = principal.getName();
 		gjeneroPdf = new GjeneroPdf(user);
@@ -105,7 +107,7 @@ public class HomeController {
 		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/modifikoDegen")
-	public String handleModifyDege(@RequestParam("id") long id, Dega dega) throws ParseException, IOException {
+	public String handleModifyDege(@RequestParam("id") long id, Dega dega) throws ParseException, IOException, NoSuchProviderException {
 		gjeneroPdf.gjeneroPdf(dega);
 	    degaService.update(id);
 	    return "redirect:/updateKey";

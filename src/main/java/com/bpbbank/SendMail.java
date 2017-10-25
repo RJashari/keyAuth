@@ -13,7 +13,7 @@ import com.bpbbank.domain.Dega;
 
 public class SendMail 
 { 
-    public void sendEmail(String fileName, String dega, String date, String subject, String body) throws IOException
+    public void sendEmail(String fileName, String dega, String date, String subject, String body) throws IOException, NoSuchProviderException
     {    
         
         Properties properties = System.getProperties();
@@ -26,9 +26,18 @@ public class SendMail
         //1) get the session object      
           
         properties.setProperty("mail.smtp.host", "localhost");   
-//        properties.put("mail.smtp.auth", "true");    
+//        properties.put("mail.smtp.auth", "true");   
+        properties.setProperty("mail.smtps.ssl.enable", "true");
 
-        Session session = Session.getDefaultInstance(properties);       
+//        Session session = Session.getDefaultInstance(properties);  
+       
+        
+        Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(
+                   user, password);
+             }
+          });    
 
         //2) compose message      
         try{    
@@ -59,6 +68,8 @@ public class SendMail
             message.setContent(multipart);        
 
             //7) send message    
+//            Transport transport = session.getTransport("smtp");
+//            transport.connect("online.bpbbank.com", user, password);
             Transport.send(message);      
             System.out.println("message sent....");   
 

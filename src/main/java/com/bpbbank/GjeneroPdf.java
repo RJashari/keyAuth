@@ -17,6 +17,7 @@ import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -65,7 +66,7 @@ public class GjeneroPdf {
 	}
 	
 	
-	public String gjeneroPdf(Dega dega) throws ParseException, IOException {
+	public String gjeneroPdf(Dega dega) throws ParseException, IOException, NoSuchProviderException {
 		
 		String fileName = new StringBuilder()
 		.append(locationForPdf)
