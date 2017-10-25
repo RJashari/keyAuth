@@ -53,7 +53,7 @@ public class HomeController {
 	}
 
 	@GetMapping({"/", "/home"})
-	public String getHome(Model model, Dega dega, Principal principal) throws FileNotFoundException, MalformedURLException, ParseException {
+	public String getHome(Model model, Dega dega, Principal principal) throws ParseException, IOException {
 		UserDetails userDetails = userService.loadUserByUsername(principal.getName());
 		model.addAttribute("deget",  degaService.getAllDegetForUser(principal.getName()));
 		
@@ -96,7 +96,7 @@ public class HomeController {
 
 	}
 	@PostMapping("/updateKey")
-	public String keyUpdate(@ModelAttribute Dega dega, Model model, Principal principal) throws FileNotFoundException, MalformedURLException, ParseException {
+	public String keyUpdate(@ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException {
 		degaService.update(dega);
 		String user = principal.getName();
 		gjeneroPdf = new GjeneroPdf(user);
@@ -105,7 +105,7 @@ public class HomeController {
 		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/modifikoDegen")
-	public String handleModifyDege(@RequestParam("id") long id, Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
+	public String handleModifyDege(@RequestParam("id") long id, Dega dega) throws ParseException, IOException {
 		gjeneroPdf.gjeneroPdf(dega);
 	    degaService.update(id);
 	    return "redirect:/updateKey";

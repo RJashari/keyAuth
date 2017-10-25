@@ -65,7 +65,7 @@ public class GjeneroPdf {
 	}
 	
 	
-	public String gjeneroPdf(Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
+	public String gjeneroPdf(Dega dega) throws ParseException, IOException {
 		
 		String fileName = new StringBuilder()
 		.append(locationForPdf)
@@ -92,7 +92,8 @@ public class GjeneroPdf {
 		Date dNow = new Date();
 		SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		
-		
+		String subjectEmail = "Modifikimi i degës";
+		String bodyEmail ="Modifikimi i degës \""+dega.getDega()+"\" në datën: "+dayOfModification; 
 		
 		String dataEShtypjes = "Data e shtypjes";
 		document.add(new Paragraph(dataEShtypjes + "              " + ft.format(dNow))
@@ -225,6 +226,9 @@ public class GjeneroPdf {
 		
 		document.add(t1);
 		document.close();
+		
+		SendMail sendMail = new SendMail();
+		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail);
 		
 		return fileName;
 	}

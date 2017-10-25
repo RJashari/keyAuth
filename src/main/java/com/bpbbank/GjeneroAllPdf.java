@@ -48,6 +48,7 @@ public class GjeneroAllPdf {
 	SimpleDateFormat ft1 = new SimpleDateFormat("dd_MM_yyyy");
 	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\gjithaDeget\\";
 	private String dayOfModification = ft1.format(dateNow);
+	
 
 	private String user;// = "Rinor Jashari";
 	
@@ -62,7 +63,7 @@ public class GjeneroAllPdf {
 	}
 	
 	
-	public String gjeneroPdf(Set <Dega> deget) throws FileNotFoundException, MalformedURLException, ParseException {
+	public String gjeneroPdf(Set <Dega> deget) throws ParseException, IOException {
 		
 		String fileName = new StringBuilder()
 		.append(locationForPdf)
@@ -87,7 +88,8 @@ public class GjeneroAllPdf {
 		Date dNow = new Date();
 		SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		
-		
+		String subjectEmail = "Të gjitha degët pdf file";
+		String bodyEmail ="Pasqyrimi i te gjitha degëve për datën: "+dayOfModification; 
 		
 		String dataEShtypjes = "Data e shtypjes";
 		document.add(new Paragraph(dataEShtypjes + "              " + ft.format(dNow))
@@ -219,6 +221,9 @@ public class GjeneroAllPdf {
 		
 		document.add(t1);
 		document.close();
+		
+		SendMail sendMail = new SendMail();
+		sendMail.sendEmail(fileName,"TeGjithaDeget", dayOfModification, subjectEmail, bodyEmail);
 		
 		return fileName;
 	}

@@ -89,7 +89,8 @@ public class GjeneroAddPdf {
 		Date dNow = new Date();
 		SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		
-		
+		String subjectEmail = "Shtim i degës";
+		String bodyEmail ="Shtimi i Degës \""+dega.getDega()+"\" në datën: "+dayOfModification; 
 		
 		String dataEShtypjes = "Data e shtypjes";
 		document.add(new Paragraph(dataEShtypjes + "              " + ft.format(dNow))
@@ -210,7 +211,7 @@ public class GjeneroAddPdf {
 		
 		
 		SendMail sendMail = new SendMail();
-		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification);
+		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail);
 		System.out.println("u qu");
 		
 		

@@ -13,7 +13,7 @@ import com.bpbbank.domain.Dega;
 
 public class SendMail 
 { 
-    public void sendEmail(String fileName, String dega, String date) throws IOException
+    public void sendEmail(String fileName, String dega, String date, String subject, String body) throws IOException
     {    
         
         Properties properties = System.getProperties();
@@ -35,11 +35,11 @@ public class SendMail
             MimeMessage message = new MimeMessage(session);    
             message.setFrom(new InternetAddress(fromEmail));     
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
-            message.setSubject("Ndryshim në menaxhimin e celësave");         
+            message.setSubject(subject);         
 
             //3) create MimeBodyPart object and set your message text        
             BodyPart messageBodyPart1 = new MimeBodyPart();     
-            messageBodyPart1.setText("TEST");          
+            messageBodyPart1.setText(body);          
 
             //4) create new MimeBodyPart object and set DataHandler object to this object        
 
