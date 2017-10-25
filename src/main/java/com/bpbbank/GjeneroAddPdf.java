@@ -208,8 +208,10 @@ public class GjeneroAddPdf {
 		document.add(t1);
 		document.close();
 		
+		
 		SendMail sendMail = new SendMail();
-		sendMail.sendEmail(fileName);
+		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification);
+		System.out.println("u qu");
 		
 		
 		return fileName;

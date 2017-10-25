@@ -9,9 +9,11 @@ import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import com.bpbbank.domain.Dega;
+
 public class SendMail 
 { 
-    public void sendEmail(String fileName) throws IOException
+    public void sendEmail(String fileName, String dega, String date) throws IOException
     {    
         
         Properties properties = System.getProperties();
@@ -23,7 +25,7 @@ public class SendMail
 
         //1) get the session object      
           
-        properties.setProperty("mail.smtp.host", "online.bpbbank.com");   
+        properties.setProperty("mail.smtp.host", "localhost");   
 //        properties.put("mail.smtp.auth", "true");    
 
         Session session = Session.getDefaultInstance(properties);       
@@ -33,11 +35,11 @@ public class SendMail
             MimeMessage message = new MimeMessage(session);    
             message.setFrom(new InternetAddress(fromEmail));     
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
-            message.setSubject("Message Aleart");         
+            message.setSubject("Ndryshim në menaxhimin e celësave");         
 
             //3) create MimeBodyPart object and set your message text        
             BodyPart messageBodyPart1 = new MimeBodyPart();     
-            messageBodyPart1.setText("This is message body");          
+            messageBodyPart1.setText("TEST");          
 
             //4) create new MimeBodyPart object and set DataHandler object to this object        
 
@@ -45,7 +47,7 @@ public class SendMail
             //change accordingly     
             DataSource source = new FileDataSource(fileName);    
             attachment.setDataHandler(new DataHandler(source));    
-            attachment.setFileName("Menaxhimi_i_celesave");             
+            attachment.setFileName(dega+"_"+date);             
 
 
             //5) create Multipart object and add MimeBodyPart objects to this object        
