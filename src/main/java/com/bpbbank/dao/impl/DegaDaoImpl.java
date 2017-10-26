@@ -69,7 +69,7 @@ public class DegaDaoImpl extends BaseDao implements DegaDao{
 	public void update(long id) {
 		Transaction tx = session.beginTransaction();
 		Dega dega = this.getByID(id);
-		session.update(dega);
+		session.merge(dega);
 		tx.commit();
 	}
 	

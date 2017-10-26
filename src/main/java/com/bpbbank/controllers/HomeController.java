@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.Principal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 
 import javax.mail.NoSuchProviderException;
@@ -48,6 +50,7 @@ public class HomeController {
 	@Autowired
 	GjeneroAllPdf gjeneroAllPdf;
 	
+	public String krijimiDeges;
 	@GetMapping("/login")
 	public String getLogin() {
 		
@@ -78,6 +81,19 @@ public class HomeController {
 	}
 	@PostMapping("/addKey")
 	public String keySubmit(@ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException, NoSuchProviderException {
+		Date dNow = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+		String date= ft.format(dNow);
+		if(dega.getKrijimiDeges().isEmpty() || dega.getKrijimiDeges().equals("")) {
+			dega.setKrijimiDeges(date);
+			String krijimiDeges=dega.getKrijimiDeges();
+			System.out.println("AAAAAAAA"+krijimiDeges);
+			dega.setModifikimiDeges("Ska");
+		}else {
+			dega.setModifikimiDeges(date);
+			
+		}
+		
 		degaService.save(dega);
 		String user = principal.getName();
 		gjeneroAddPdf = new GjeneroAddPdf(user);
@@ -98,16 +114,32 @@ public class HomeController {
 
 	}
 	@PostMapping("/updateKey")
-	public String keyUpdate(@ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException, NoSuchProviderException {
+	public String keyUpdate(@RequestParam("id") long id, @ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException, NoSuchProviderException {
+		Date dNow = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+		Dega degaOld = new Dega();
+		degaOld = degaService.getByID(id);
+		String date= ft.format(dNow);
+		dega.setKrijimiDeges(degaOld.getKrijimiDeges());
+		dega.setModifikimiDeges(date);
+//		dega.setKrijimiDeges(krijimiDeges);
 		degaService.update(dega);
 		String user = principal.getName();
 		gjeneroPdf = new GjeneroPdf(user);
 		gjeneroPdf.gjeneroPdf(dega);
+		System.out.println("FIUUUUUUUUUUUUUU");
+		
 //		/*gjeneroPdf.sendReport(session, filename, extraMessage, user, password, principal, dega);*/
 		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/modifikoDegen")
 	public String handleModifyDege(@RequestParam("id") long id, Dega dega) throws ParseException, IOException, NoSuchProviderException {
+		Date dNow = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+		
+		String date= ft.format(dNow);
+//		dega.getKrijimiDeges();
+		dega.setModifikimiDeges(date);
 		gjeneroPdf.gjeneroPdf(dega);
 	    degaService.update(id);
 	    return "redirect:/updateKey";

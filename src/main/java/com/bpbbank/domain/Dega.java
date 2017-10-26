@@ -38,12 +38,16 @@ public class Dega {
 	private String kodetDigjitaleKasaforte1 = "";
 	@Column(name = "kodet_digjitale_kasaforte_2", nullable = true)
 	private String kodetDigjitaleKasaforte2;
+	@Column(name = "krijimi_deges", nullable = true)
+	private String krijimiDeges ="";
+	@Column(name = "modifikimi_deges", nullable = true)
+	private String modifikimiDeges ="";
 
 //	private long nrKolones;
 
 	public Dega(String dega, String pergjegjesiIDeges, String celesiIHyrjesDege, String kodiAlarmitDege,
 			String celesiIDeresAtm, String celesiIServerRoom, String celesiTrezor, String kodiAlarmitTrezor,
-			String celesiSef1, String celesiSef2, String kodiShiferSef, Dega dega1, String kodetDigjitaleKasaforte1, String kodetDigjitaleKasaforte2) {
+			String celesiSef1, String celesiSef2, String kodiShiferSef, Dega dega1, String kodetDigjitaleKasaforte1, String kodetDigjitaleKasaforte2, String modifikimiDeges, String krijimiDeges) {
 		super();
 		this.dega = dega;
 		this.pergjegjesiIDeges = pergjegjesiIDeges;
@@ -58,6 +62,8 @@ public class Dega {
 		this.celesiSef2 = celesiSef2;
 		this.kodetDigjitaleKasaforte1 = kodetDigjitaleKasaforte1;
 		this.kodetDigjitaleKasaforte2 = kodetDigjitaleKasaforte2;
+		this.modifikimiDeges = modifikimiDeges;
+		this.krijimiDeges = krijimiDeges;
 	}
 
 	public Dega() {
@@ -66,6 +72,18 @@ public class Dega {
 
 	public String getCelesiIDeresAtm() {
 		return celesiIDeresAtm;
+	}
+	public String getKrijimiDeges() {
+		return krijimiDeges;
+	}
+	public void setKrijimiDeges(String krijimiDeges) {
+		this.krijimiDeges = krijimiDeges;
+	}
+	public String getModifikimiDeges() {
+		return modifikimiDeges;
+	}
+	public void setModifikimiDeges(String modifikimiDeges) {
+		this.modifikimiDeges = modifikimiDeges;
 	}
 
 	public void setCelesiIDeresAtm(String celesiIDeresAtm) {
