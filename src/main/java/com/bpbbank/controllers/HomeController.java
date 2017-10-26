@@ -55,7 +55,7 @@ public class HomeController {
 	}
 
 	@GetMapping({"/", "/home"})
-	public String getHome(Model model, Dega dega, Principal principal) throws ParseException, IOException {
+	public String getHome(Model model, Dega dega, Principal principal) throws ParseException, IOException, NoSuchProviderException {
 		UserDetails userDetails = userService.loadUserByUsername(principal.getName());
 		model.addAttribute("deget",  degaService.getAllDegetForUser(principal.getName()));
 		

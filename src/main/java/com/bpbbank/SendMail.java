@@ -18,14 +18,14 @@ public class SendMail
         
         Properties properties = System.getProperties();
         properties.load(SendMail.class.getClassLoader().getResourceAsStream("application.properties"));
-        String to = properties.getProperty("mail.toEmail");//change accordingly   
+        String [] emailTo = properties.getProperty("mail.toEmail").split(",");//change accordingly   
         String user = properties.getProperty("mail.smtp.user");//change accordingly   
         String fromEmail = properties.getProperty("mail.sender.email");
         String password = properties.getProperty("mail.sender.password");//change accordingly     
 
         //1) get the session object      
           
-        properties.setProperty("mail.smtp.host", "localhost");   
+        properties.setProperty("mail.smtp.host", "online.bpbbank.com");   
 //        properties.put("mail.smtp.auth", "true");   
         properties.setProperty("mail.smtps.ssl.enable", "true");
 
@@ -43,7 +43,13 @@ public class SendMail
         try{    
             MimeMessage message = new MimeMessage(session);    
             message.setFrom(new InternetAddress(fromEmail));     
-            message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
+            int i=0;
+//            while(i<=emailTo.length) {
+            System.out.println("MAKAKI");
+            for(String s : emailTo) {
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(emailTo[i++]));    
+            System.out.println(s);
+            }
             message.setSubject(subject);         
 
             //3) create MimeBodyPart object and set your message text        
@@ -56,7 +62,7 @@ public class SendMail
             //change accordingly     
             DataSource source = new FileDataSource(fileName);    
             attachment.setDataHandler(new DataHandler(source));    
-            attachment.setFileName(dega+"_"+date);             
+            attachment.setFileName(dega+"_"+date+".pdf");             
 
 
             //5) create Multipart object and add MimeBodyPart objects to this object        
