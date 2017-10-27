@@ -15,7 +15,7 @@ public class SendMailTest {
 	@Test
 	public void test() throws NoSuchProviderException {
 		try {
-			sendMail.sendEmail("24.10.2017_Dega_Milikili.pdf","","","","");
+			sendMail.sendEmail("24.10.2017_Dega_Milikili.pdf","","","","","");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

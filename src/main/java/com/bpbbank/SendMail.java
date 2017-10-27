@@ -13,12 +13,13 @@ import com.bpbbank.domain.Dega;
 
 public class SendMail 
 { 
-    public void sendEmail(String fileName, String dega, String date, String subject, String body) throws IOException, NoSuchProviderException
+    public void sendEmail(String fileName, String dega, String date, String subject, String body, String userEmail) throws IOException, NoSuchProviderException
     {    
         
         Properties properties = System.getProperties();
         properties.load(SendMail.class.getClassLoader().getResourceAsStream("application.properties"));
         String [] emailTo = properties.getProperty("mail.toEmail").split(",");//change accordingly   
+        String emailToUser = userEmail;
         String user = properties.getProperty("mail.smtp.user");//change accordingly   
         String fromEmail = properties.getProperty("mail.sender.email");
         String password = properties.getProperty("mail.sender.password");//change accordingly     
@@ -47,9 +48,13 @@ public class SendMail
 //            while(i<=emailTo.length) {
             System.out.println("MAKAKI");
             for(String s : emailTo) {
-            message.addRecipient(Message.RecipientType.TO,new InternetAddress(emailTo[i++]));    
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(emailTo[i++]));
             System.out.println(s);
             }
+            System.out.println("-------------------------"+emailToUser);
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(emailToUser));  
+           
+            
             message.setSubject(subject);         
 
             //3) create MimeBodyPart object and set your message text        

@@ -1,10 +1,13 @@
 package com.bpbbank.controllers;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.Set;
+
+import javax.mail.NoSuchProviderException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,13 +55,15 @@ public class UserController {
 		model.addAttribute("allUsers", userService.getAll());
 		return "add_user";
 	}
-//	@RequestMapping(method=RequestMethod.POST, params="action=ruajPdf")
-//	public String gjeneroAllPdf(Principal principal, Dega dega) throws FileNotFoundException, MalformedURLException, ParseException {
-//		Set<Dega>deget = degaService.getAllDeget();
-//		gjeneroAllPdf.gjeneroPdf(deget);
-//	
-//		return "add_user";
-//	}
+	@GetMapping("/users/add/gjeneroPdf")
+	public String gjeneroAllPdf(Dega dega) throws ParseException, NoSuchProviderException, IOException {
+		System.out.println("HINI N REQUEST");
+		Set<Dega>deget = degaService.getAllDeget();
+		gjeneroAllPdf.gjeneroPdf(deget);
+		
+	
+		return "redirect:/home";
+	}
 	
 	@PostMapping("/users/add")
 	public String addUser(@ModelAttribute KeyAuthenticationUser user, Model model, Principal principal) {

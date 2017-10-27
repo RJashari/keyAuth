@@ -2,6 +2,7 @@ package com.bpbbank;
 
 
 
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,10 +20,11 @@ import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import org.hibernate.property.access.spi.GetterMethodImpl;
 import org.springframework.stereotype.Component;
 
 import com.bpbbank.domain.Dega;
-
+import com.bpbbank.domain.KeyAuthenticationUser;
 //import org.apache.log4j.Logger;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.geom.PageSize;
@@ -50,13 +52,16 @@ public class GjeneroAllPdf {
 	private String dayOfModification = ft1.format(dateNow);
 	
 
-	private String user;// = "Rinor Jashari";
+	private String user;
+	public String email;
 	
 	 private static final Logger LOGGER = Logger.getLogger(GjeneroAllPdf.class.getName());
 
-	public GjeneroAllPdf(String user) {
+	public GjeneroAllPdf(String user, String email) {
 		
 		this.user = user;
+		this.email = email;
+	
 	}
 	public GjeneroAllPdf() {
 		
@@ -73,7 +78,8 @@ public class GjeneroAllPdf {
 		.append(".pdf")
 		.toString();
 		
-		
+		KeyAuthenticationUser userEmail = new KeyAuthenticationUser();
+		String email = userEmail.getEmail();
 		PdfWriter pdfWriter;
 		pdfWriter = new PdfWriter(fileName);
 		PdfDocument pdfDocument = new PdfDocument(pdfWriter);
@@ -106,9 +112,10 @@ public class GjeneroAllPdf {
         document.add(header);
         document.add(new LineSeparator(new SolidLine()));
         document.add(headerParagraf);
+
 		
         Table t = new Table(new float[]{80.0f, 100.0f});
-        Table t1 = new Table(new float[]{180.0f,180.0f,180.0f});
+        Table t1 = new Table(new float[]{250.0f,250.0f,250.0f});
         Table t2 = new Table(new float[]{80.0f, 200.0f});
 //        Table t3 = new Table(new float[]{265.0f,65.0f,65.0f,65.0f,65.0f});
 //        Table t4 = new Table(new float[]{80.0f, 100.0f, 40.0f, 80.0f});
@@ -166,6 +173,7 @@ public class GjeneroAllPdf {
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("z.Partin Halimi")
 				.setPaddingTop(30.0f)
+				.setPaddingLeft(50.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
 				.setHeight(20.0f)
@@ -175,6 +183,7 @@ public class GjeneroAllPdf {
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("z/znj. ___________________")
 				.setPaddingTop(30.0f)
+				.setPaddingLeft(50.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
 				.setHeight(20.0f)
@@ -184,6 +193,7 @@ public class GjeneroAllPdf {
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("z/znj. ___________________")
 				.setPaddingTop(30.0f)
+				.setPaddingLeft(50.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
 				.setHeight(20.0f)
@@ -193,6 +203,7 @@ public class GjeneroAllPdf {
 		cell.add(new Paragraph("______________________")
 				.setBorder(Border.NO_BORDER)
 				.setPaddingTop(5.0f)
+				.setPaddingLeft(50.0f)
 				.setBold()
                 .setFontSize(10.0f));
 		t1.addCell(cell);
@@ -200,6 +211,7 @@ public class GjeneroAllPdf {
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("  ________________________")
 				.setPaddingTop(5.0f)
+				.setPaddingLeft(50.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
                 .setFontSize(10.0f));
@@ -208,6 +220,7 @@ public class GjeneroAllPdf {
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("  ________________________")
 				.setPaddingTop(5.0f)
+				.setPaddingLeft(50.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
                 .setFontSize(10.0f));
@@ -224,13 +237,13 @@ public class GjeneroAllPdf {
 		document.close();
 		
 		SendMail sendMail = new SendMail();
-		sendMail.sendEmail(fileName,"TeGjithaDeget", dayOfModification, subjectEmail, bodyEmail);
+		sendMail.sendEmail(fileName,"TeGjithaDeget", dayOfModification, subjectEmail, bodyEmail, email);
 		
 		return fileName;
 	}
 	protected Table getTransactionsTable(Set<Dega> deget) {
         LOGGER.info("Writing transactions in pdf.");
-        Table table = new Table(new float[]{60,60,60,60,60,60,60,60,60,60,60,60,60});
+        Table table = new Table(new float[]{50,50,50,50,50,50,50,50,50,50,50,50,50,50,50});
         table
          		 .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Dega: ").setBold().setFontSize(8.0f).setTextAlignment(TextAlignment.CENTER))
         		 .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Përgjegjësi i Degës: ").setBold().setFontSize(8.0f).setTextAlignment(TextAlignment.CENTER))
@@ -244,7 +257,9 @@ public class GjeneroAllPdf {
         		 .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi Alarmit Trezor: ").setBold().setFontSize(8.0f).setTextAlignment(TextAlignment.CENTER))
         		 .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodi Shifër i Kasafortës: ").setBold().setFontSize(8.0f).setTextAlignment(TextAlignment.CENTER))
         		 .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodet digjitale kasafortë 1: ").setBold().setFontSize(8.0f).setTextAlignment(TextAlignment.CENTER))
-        		 .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodet digjitale kasafortë 2: ").setBold().setFontSize(8.0f).setTextAlignment(TextAlignment.CENTER));
+        		 .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodet digjitale kasafortë 2: ").setBold().setFontSize(8.0f).setTextAlignment(TextAlignment.CENTER))
+        		 .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Data e krijimit: ").setBold().setFontSize(8.0f).setTextAlignment(TextAlignment.CENTER))
+        		 .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Data e modifikimit: ").setBold().setFontSize(8.0f).setTextAlignment(TextAlignment.CENTER));
                  
                 deget.forEach((dega) -> {
                 	table
@@ -261,7 +276,10 @@ public class GjeneroAllPdf {
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiAlarmitTrezor()+"").setFontSize(7.0f).setTextAlignment(TextAlignment.CENTER))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodiShiferSef()+"").setFontSize(7.0f).setTextAlignment(TextAlignment.CENTER))
                 	.addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodetDigjitaleKasaforte1()+"").setFontSize(7.0f).setTextAlignment(TextAlignment.CENTER))
-                	.addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodetDigjitaleKasaforte2()+"").setFontSize(7.0f).setTextAlignment(TextAlignment.CENTER));
+                	.addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodetDigjitaleKasaforte2()+"").setFontSize(7.0f).setTextAlignment(TextAlignment.CENTER))
+                	.addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKrijimiDeges()+"").setFontSize(7.0f).setTextAlignment(TextAlignment.CENTER))
+                	.addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getModifikimiDeges()+"").setFontSize(7.0f).setTextAlignment(TextAlignment.CENTER));
+                	
                     
                 });
         table.setBorderBottom(new SolidBorder(0.5f));

@@ -25,12 +25,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bpbbank.GjeneroAddPdf;
 import com.bpbbank.GjeneroAllPdf;
 import com.bpbbank.GjeneroPdf;
 import com.bpbbank.dao.DegaDao;
 import com.bpbbank.domain.Dega;
+import com.bpbbank.domain.KeyAuthenticationUser;
 import com.bpbbank.service.DegaService;
 import com.bpbbank.service.KeyAuthenticationUserService;
 
@@ -71,6 +73,18 @@ public class HomeController {
 		}
 		return "s";
 	}
+	@PostMapping(value="/result")
+	public String postGjeneroPdf(Model model, Dega dega, Principal principal,KeyAuthenticationUser user) throws NoSuchProviderException, ParseException, IOException
+	{
+		Set<Dega>deget = degaService.getAllDeget();
+		String username = principal.getName();
+		user = userService.getByUsername(username);
+		
+		gjeneroAllPdf = new GjeneroAllPdf(principal.getName(),user.getEmail());
+		gjeneroAllPdf.gjeneroPdf(deget);
+		
+		return "s";
+	}
 
 
 	@GetMapping("/addKey")
@@ -80,9 +94,12 @@ public class HomeController {
 
 	}
 	@PostMapping("/addKey")
-	public String keySubmit(@ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException, NoSuchProviderException {
+	public String keySubmit(@ModelAttribute Dega dega, Model model, Principal principal,KeyAuthenticationUser user) throws ParseException, IOException, NoSuchProviderException {
 		Date dNow = new Date();
 		SimpleDateFormat ft = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+		
+		
+
 		String date= ft.format(dNow);
 		if(dega.getKrijimiDeges().isEmpty() || dega.getKrijimiDeges().equals("")) {
 			dega.setKrijimiDeges(date);
@@ -95,8 +112,10 @@ public class HomeController {
 		}
 		
 		degaService.save(dega);
-		String user = principal.getName();
-		gjeneroAddPdf = new GjeneroAddPdf(user);
+		String username = principal.getName();
+		user = userService.getByUsername(username);
+		String email  = user.getEmail();
+		gjeneroAddPdf = new GjeneroAddPdf(username,email);
 		gjeneroAddPdf.gjeneroAddPdf(dega);
 		
 		model.addAttribute("deget",  degaService.getAllDeget());
@@ -114,7 +133,7 @@ public class HomeController {
 
 	}
 	@PostMapping("/updateKey")
-	public String keyUpdate(@RequestParam("id") long id, @ModelAttribute Dega dega, Model model, Principal principal) throws ParseException, IOException, NoSuchProviderException {
+	public String keyUpdate(@RequestParam("id") long id, @ModelAttribute Dega dega, Model model, Principal principal, KeyAuthenticationUser user) throws ParseException, IOException, NoSuchProviderException {
 		Date dNow = new Date();
 		SimpleDateFormat ft = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
 		Dega degaOld = new Dega();
@@ -124,8 +143,9 @@ public class HomeController {
 		dega.setModifikimiDeges(date);
 //		dega.setKrijimiDeges(krijimiDeges);
 		degaService.update(dega);
-		String user = principal.getName();
-		gjeneroPdf = new GjeneroPdf(user);
+		String username = principal.getName();
+		user = userService.getByUsername(username);
+		gjeneroPdf = new GjeneroPdf(username, user.getEmail());
 		gjeneroPdf.gjeneroPdf(dega);
 		System.out.println("FIUUUUUUUUUUUUUU");
 		

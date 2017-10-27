@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.bpbbank.domain.Dega;
+import com.bpbbank.domain.KeyAuthenticationUser;
 //import org.apache.log4j.Logger;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -53,13 +54,15 @@ public class GjeneroPdf {
 	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\modifikoDegen\\";
 	private String dayOfModification = ft1.format(dateNow);
 
-	private String user;// = "Rinor Jashari";
+	private String user;
+	public String email;
 	
 	
 	private static final Logger LOGGER = Logger.getLogger(GjeneroPdf.class.getName());
 
-	public GjeneroPdf(String user) {
+	public GjeneroPdf(String user, String email) {
 		this.user = user;
+		this.email = email;
 	}
 	public GjeneroPdf() {
 		
@@ -78,7 +81,8 @@ public class GjeneroPdf {
 		.append(".pdf")
 		.toString();
 		
-		
+		KeyAuthenticationUser userEmail = new KeyAuthenticationUser();
+		String email = userEmail.getEmail();
 		PdfWriter pdfWriter;
 		pdfWriter = new PdfWriter(fileName);
 		PdfDocument pdfDocument = new PdfDocument(pdfWriter);
@@ -229,7 +233,7 @@ public class GjeneroPdf {
 		document.close();
 		
 		SendMail sendMail = new SendMail();
-		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail);
+		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail, email);
 		
 		return fileName;
 	}
@@ -265,8 +269,11 @@ public class GjeneroPdf {
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodet digjitale kasafortë 1: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodetDigjitaleKasaforte1()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
                     .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Kodet digjitale kasafortë 2: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
-                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodetDigjitaleKasaforte2()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT));;
-                    
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKodetDigjitaleKasaforte2()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Data e Krijimit: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getKrijimiDeges()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add("Data e Modifikimit: ").setFontSize(10.0f).setTextAlignment(TextAlignment.LEFT))
+                    .addCell(this.getCellWithDefaultParameters().setHeight(5.0f).add(dega.getModifikimiDeges()+"").setFontSize(10.0f).setTextAlignment(TextAlignment.RIGHT));;
         
         table.setBorderBottom(new SolidBorder(0.5f));
         return table;
