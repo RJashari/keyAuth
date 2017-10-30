@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bpbbank.GjeneroAddPdf;
 import com.bpbbank.GjeneroAllPdf;
 import com.bpbbank.GjeneroPdf;
+import com.bpbbank.GjeneroPdfDega;
 import com.bpbbank.dao.DegaDao;
 import com.bpbbank.domain.Dega;
 import com.bpbbank.domain.KeyAuthenticationUser;
@@ -47,6 +48,8 @@ public class HomeController {
 	DegaService degaService;
 	@Autowired
 	GjeneroPdf gjeneroPdf;
+	@Autowired
+	GjeneroPdfDega gjeneroPdfDega;
 	@Autowired
 	GjeneroAddPdf gjeneroAddPdf;
 	@Autowired
@@ -73,17 +76,35 @@ public class HomeController {
 		}
 		return "s";
 	}
-	@PostMapping(value="/result")
-	public String postGjeneroPdf(Model model, Dega dega, Principal principal,KeyAuthenticationUser user) throws NoSuchProviderException, ParseException, IOException
-	{
-		Set<Dega>deget = degaService.getAllDeget();
+//	@PostMapping(value="/result")
+//	public String postGjeneroPdf(Model model, Dega dega, Principal principal,KeyAuthenticationUser user) throws NoSuchProviderException, ParseException, IOException
+//	{
+//		Set<Dega>deget = degaService.getAllDeget();
+//		String username = principal.getName();
+//		user = userService.getByUsername(username);
+//		
+//		gjeneroAllPdf = new GjeneroAllPdf(principal.getName(),user.getEmail());
+//		gjeneroAllPdf.gjeneroPdf(deget);
+//		
+//		return "s";
+//	}
+	@GetMapping("/gjeneroPdfDega")
+	public String getGjeneroPdfDega(@RequestParam("id") long id, Model model,Dega dega, Principal principal,KeyAuthenticationUser user) throws NoSuchProviderException, ParseException, IOException {
+		model.addAttribute("dega", degaService.getByID(id));
+		System.out.println("DEGA ID: "+id);
+		System.out.println("HINI N GET");
+		dega = degaService.getByID(id);
+		System.out.println("+++++++++++++++++++dega: "+dega);
 		String username = principal.getName();
+		System.out.println("--------------------- USERNAME : "+username);
 		user = userService.getByUsername(username);
-		
-		gjeneroAllPdf = new GjeneroAllPdf(principal.getName(),user.getEmail());
-		gjeneroAllPdf.gjeneroPdf(deget);
-		
-		return "s";
+		System.out.println("------------------------ USER"+user);
+		String email = user.getEmail();
+		System.out.println(email);
+		gjeneroPdfDega = new GjeneroPdfDega(username, email);//email po vjen null
+		gjeneroPdfDega.gjeneroPdf(dega);
+		return "redirect:/home";
+
 	}
 
 
@@ -113,7 +134,9 @@ public class HomeController {
 		
 		degaService.save(dega);
 		String username = principal.getName();
+		System.out.println("-----------------------username: "+username);
 		user = userService.getByUsername(username);
+		System.out.println("-----------------USER: "+user);
 		String email  = user.getEmail();
 		gjeneroAddPdf = new GjeneroAddPdf(username,email);
 		gjeneroAddPdf.gjeneroAddPdf(dega);

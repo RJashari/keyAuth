@@ -61,7 +61,7 @@ public class UserController {
 		Set<Dega>deget = degaService.getAllDeget();
 		gjeneroAllPdf.gjeneroPdf(deget);
 		
-	
+	//emailen spi shkon bonja qahren
 		return "redirect:/home";
 	}
 	
