@@ -63,45 +63,29 @@ public class HomeController {
 	}
 
 	@GetMapping({"/", "/home"})
-	public String getHome(Model model, Dega dega, Principal principal) throws ParseException, IOException, NoSuchProviderException {
+	public String getHome(Model model, Dega dega, Principal principal, KeyAuthenticationUser user) throws ParseException, IOException, NoSuchProviderException {
 		UserDetails userDetails = userService.loadUserByUsername(principal.getName());
 		model.addAttribute("deget",  degaService.getAllDegetForUser(principal.getName()));
+		String username = principal.getName().trim();
+		model.addAttribute("user", username);
+		System.out.println("-------------------- username "+username);
 		
 		SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority("ADMIN");
 		if(userDetails.getAuthorities().contains(adminAuthority)){
 			model.addAttribute("deget",  degaService.getAllDeget());
-//			Set<Dega>deget = degaService.getAllDeget();
-//			gjeneroAllPdf = new GjeneroAllPdf(principal.getName());
-//			gjeneroAllPdf.gjeneroPdf(deget);
+
 		}
 		return "s";
 	}
-//	@PostMapping(value="/result")
-//	public String postGjeneroPdf(Model model, Dega dega, Principal principal,KeyAuthenticationUser user) throws NoSuchProviderException, ParseException, IOException
-//	{
-//		Set<Dega>deget = degaService.getAllDeget();
-//		String username = principal.getName();
-//		user = userService.getByUsername(username);
-//		
-//		gjeneroAllPdf = new GjeneroAllPdf(principal.getName(),user.getEmail());
-//		gjeneroAllPdf.gjeneroPdf(deget);
-//		
-//		return "s";
-//	}
+
 	@GetMapping("/gjeneroPdfDega")
 	public String getGjeneroPdfDega(@RequestParam("id") long id, Model model,Dega dega, Principal principal,KeyAuthenticationUser user) throws NoSuchProviderException, ParseException, IOException {
 		model.addAttribute("dega", degaService.getByID(id));
-		System.out.println("DEGA ID: "+id);
-		System.out.println("HINI N GET");
 		dega = degaService.getByID(id);
-		System.out.println("+++++++++++++++++++dega: "+dega);
 		String username = principal.getName();
-		System.out.println("--------------------- USERNAME : "+username);
 		user = userService.getByUsername(username);
-		System.out.println("------------------------ USER"+user);
 		String email = user.getEmail();
-		System.out.println(email);
-		gjeneroPdfDega = new GjeneroPdfDega(username, email);//email po vjen null
+		gjeneroPdfDega = new GjeneroPdfDega(username, email);
 		gjeneroPdfDega.gjeneroPdf(dega);
 		return "redirect:/home";
 

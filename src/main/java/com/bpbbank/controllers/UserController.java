@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bpbbank.GjeneroAllPdf;
+import com.bpbbank.GjeneroPdfDega;
 import com.bpbbank.dao.impl.KeyAuthenticationUserDaoImpl;
 import com.bpbbank.domain.Dega;
 import com.bpbbank.domain.KeyAuthenticationUser;
@@ -56,9 +57,14 @@ public class UserController {
 		return "add_user";
 	}
 	@GetMapping("/users/add/gjeneroPdf")
-	public String gjeneroAllPdf(Dega dega) throws ParseException, NoSuchProviderException, IOException {
+	public String gjeneroAllPdf(Dega dega, KeyAuthenticationUser user,Principal principal) throws ParseException, NoSuchProviderException, IOException {
 		System.out.println("HINI N REQUEST");
+		
 		Set<Dega>deget = degaService.getAllDeget();
+		String username = principal.getName();
+		user = userService.getByUsername(username);
+		String email = user.getEmail();
+		gjeneroAllPdf= new GjeneroAllPdf(deget, email);
 		gjeneroAllPdf.gjeneroPdf(deget);
 		
 	//emailen spi shkon bonja qahren

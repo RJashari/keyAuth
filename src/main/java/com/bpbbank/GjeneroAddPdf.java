@@ -143,7 +143,7 @@ public class GjeneroAddPdf {
 		
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph(user)
+		cell.add(new Paragraph(this.getEmriMbiemri(user))
 				.setBorder(Border.NO_BORDER)
 				.setPaddingBottom(10.0f)
 				.setTextAlignment(TextAlignment.LEFT)
@@ -161,7 +161,7 @@ public class GjeneroAddPdf {
 		t1.addCell(cell);
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("z/znj. ___________________")
+		cell.add(new Paragraph("z/znj. "+ this.getEmriMbiemri(user))
 				.setPaddingTop(30.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
@@ -333,7 +333,27 @@ public class GjeneroAddPdf {
 		
 		return fileName;
     }
-	
+    public String getEmriMbiemri(String username) {
+    	
+    	String [] fjalet = username.split("\\.");
+    	System.out.println(fjalet);
+    	String emri = fjalet[0];
+    	String mbiemri = fjalet[1];
+    		
+    		
+        	
+        	char first = Character.toUpperCase(emri.charAt(0));
+        	emri = first + emri.substring(1);
+        	char second = Character.toUpperCase(mbiemri.charAt(0));
+        	mbiemri = second + mbiemri.substring(1);
+        	
+        	String usernameReplaced = emri+" "+mbiemri;
+        	
+        	System.out.println(usernameReplaced);
+    	
+    	return usernameReplaced;
+    		
+    }
 	
 	
 }

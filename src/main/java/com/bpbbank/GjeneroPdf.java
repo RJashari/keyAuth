@@ -80,9 +80,8 @@ public class GjeneroPdf {
 		.append(dega.getDega())
 		.append(".pdf")
 		.toString();
+	
 		
-		KeyAuthenticationUser userEmail = new KeyAuthenticationUser();
-		String email = userEmail.getEmail();
 		PdfWriter pdfWriter;
 		pdfWriter = new PdfWriter(fileName);
 		PdfDocument pdfDocument = new PdfDocument(pdfWriter);
@@ -110,7 +109,7 @@ public class GjeneroPdf {
 		Paragraph headerParagraf = new Paragraph();
         headerParagraf.setWidthPercent(100);
         headerParagraf.setTextAlignment(TextAlignment.CENTER);
-        headerParagraf.add("Modifikimi i Deges "+dega.getDega()+" nga "+user);//statement
+        headerParagraf.add("Modifikimi i Deges "+dega.getDega()+" nga "+this.getEmriMbiemri(user));//statement
         headerParagraf.setBold();
         document.add(header);
         document.add(new LineSeparator(new SolidLine()));
@@ -149,7 +148,7 @@ public class GjeneroPdf {
 		
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph(user)
+		cell.add(new Paragraph(this.getEmriMbiemri(user))
 				.setBorder(Border.NO_BORDER)
 				.setTextAlignment(TextAlignment.LEFT)
 				.setFontSize(8.0f));
@@ -182,7 +181,7 @@ public class GjeneroPdf {
 		t1.addCell(cell);
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("z/znj. ___________________")
+		cell.add(new Paragraph("z/znj. "+ this.getEmriMbiemri(user))
 				.setPaddingTop(30.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
@@ -350,6 +349,27 @@ public class GjeneroPdf {
 				.toString();
 		
 		return fileName;
+    }
+    public String getEmriMbiemri(String username) {
+    	
+    	String [] fjalet = username.split("\\.");
+    	System.out.println(fjalet);
+    	String emri = fjalet[0];
+    	String mbiemri = fjalet[1];
+    		
+    		
+        	
+        	char first = Character.toUpperCase(emri.charAt(0));
+        	emri = first + emri.substring(1);
+        	char second = Character.toUpperCase(mbiemri.charAt(0));
+        	mbiemri = second + mbiemri.substring(1);
+        	
+        	String usernameReplaced = emri+" "+mbiemri;
+        	
+        	System.out.println(usernameReplaced);
+    	
+    	return usernameReplaced;
+    		
     }
 	
 	

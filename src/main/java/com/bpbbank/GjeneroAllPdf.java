@@ -52,14 +52,14 @@ public class GjeneroAllPdf {
 	private String dayOfModification = ft1.format(dateNow);
 	
 
-	private String user;
+	private Set <Dega> deget;
 	public String email;
 	
 	 private static final Logger LOGGER = Logger.getLogger(GjeneroAllPdf.class.getName());
 
-	public GjeneroAllPdf(String user, String email) {
+	public GjeneroAllPdf(Set<Dega> deget, String email) {
 		
-		this.user = user;
+		this.deget = deget;
 		this.email = email;
 	
 	}
@@ -78,8 +78,8 @@ public class GjeneroAllPdf {
 		.append(".pdf")
 		.toString();
 		
-		KeyAuthenticationUser userEmail = new KeyAuthenticationUser();
-		String email = userEmail.getEmail();
+//		KeyAuthenticationUser userEmail = new KeyAuthenticationUser();
+//		String email = userEmail.getEmail();
 		PdfWriter pdfWriter;
 		pdfWriter = new PdfWriter(fileName);
 		PdfDocument pdfDocument = new PdfDocument(pdfWriter);
@@ -303,45 +303,26 @@ public class GjeneroAllPdf {
         cell.setBorderTop(new SolidBorder(0.5f));
         return cell;
     }
-    private MimeMessage getMailMessage(GjeneroAllPdf gjeneroPdf,Principal principal, Session session, String extraMessage,Dega dega) throws IOException {
-        MimeMessage message = new MimeMessage(session);
-        
-        Properties properties = System.getProperties();
-        properties.load(GjeneroAllPdf.class.getClassLoader().getResourceAsStream("application.properties"));
-        try {
-            message.setFrom("menaxhimicelsave@bpbbank.com");
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(properties.getProperty("send.to.email")));
-            message.setSubject("Pranimi/Dorezimi i kodeve ose celsave");
- 
-            MimeBodyPart attachment = new MimeBodyPart();
-            DataSource source = new FileDataSource(locationForPdf);
-            attachment.setDataHandler(new DataHandler(source));
-            attachment.setFileName(locationForPdf+"");
- 
-            MimeBodyPart textPart = new MimeBodyPart();
-            textPart.setText(extraMessage, "utf-8", "html");
-             
-            Multipart wholeMessage = new MimeMultipart();
-            wholeMessage.addBodyPart(attachment);
-            wholeMessage.addBodyPart(textPart);
-            message.setContent(wholeMessage);
-        } catch (MessagingException e) {
-            LOGGER.info("Failed to generate a mime message for  " + principal.getName()  + " for Branch " + dega.getDega()+ e);
-        }
-        return message;
+    
+    public String getEmriMbiemri(String username) {
+    	
+    	String [] fjalet = username.split("\\.");
+    	System.out.println(fjalet);
+    	String emri = fjalet[0];
+    	String mbiemri = fjalet[1];
+    		
+    		
+        	
+        	char first = Character.toUpperCase(emri.charAt(0));
+        	emri = first + emri.substring(1);
+        	char second = Character.toUpperCase(mbiemri.charAt(0));
+        	mbiemri = second + mbiemri.substring(1);
+        	
+        	String usernameReplaced = emri+" "+mbiemri;
+        	
+        	System.out.println(usernameReplaced);
+    	
+    	return usernameReplaced;
+    		
     }
-    public void sendReport(Session session, GjeneroAllPdf filename, String extraMessage, String user, String password, Principal principal, Dega dega) throws IOException {
-        LOGGER.info("Sending email for changes in KeyAuthentification by: " + principal.getName()+"for Branch: " + dega.getDega());
-        MimeMessage message = this.getMailMessage(filename,principal,  session, extraMessage, dega);
-        try {
-            Transport.send(message, user, password);
-            
-        } catch (MessagingException e) {
-           
-            LOGGER.info("Failed to send report for modification by: " +principal.getName() + " for Branch " + dega.getDega()+ e);
-        }
-    }
-	
-	
-	
 }

@@ -78,7 +78,7 @@ public class KeyAuthenticationUser {
 		this.userRole = userRole;
 	}
 
-	@Column(name = "e_mail", nullable = true)
+	@Column(name = "e_mail", nullable = false)
 	public String getEmail() {
 		return email;
 	}

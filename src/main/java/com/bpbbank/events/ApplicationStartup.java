@@ -30,7 +30,9 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 			KeyAuthenticationUser user = new KeyAuthenticationUser("admin", "$2a$10$5kCKO/IAcqcrAy0IzrHFK.kEVBeBKVn8j/m4xcN7TTBhb1RJ3GJ7S", true);
 			UserRole userRole = new UserRole(user, UserRoleNames.ADMIN.name());
 			user.getUserRole().add(userRole);
+			user.setEmail("rinor.jashari@bpbbank.com");//me properties
 			service.saveUser(user);
+			
 		}
 	}
 
