@@ -31,6 +31,7 @@ import com.bpbbank.GjeneroAddPdf;
 import com.bpbbank.GjeneroAllPdf;
 import com.bpbbank.GjeneroPdf;
 import com.bpbbank.GjeneroPdfDega;
+import com.bpbbank.GjeneroPdfDelete;
 import com.bpbbank.dao.DegaDao;
 import com.bpbbank.domain.Dega;
 import com.bpbbank.domain.KeyAuthenticationUser;
@@ -54,6 +55,8 @@ public class HomeController {
 	GjeneroAddPdf gjeneroAddPdf;
 	@Autowired
 	GjeneroAllPdf gjeneroAllPdf;
+	@Autowired
+	GjeneroPdfDelete gjeneroPdfDelete;
 	
 	public String krijimiDeges;
 	@GetMapping("/login")
@@ -129,7 +132,13 @@ public class HomeController {
 		return "redirect:/home";
 	}
 	@RequestMapping(method = RequestMethod.GET, path="/fshijDegen")
-	public String handleDeleteDega(@RequestParam("id") long id) {
+	public String handleDeleteDega(@RequestParam("id") long id,Dega dega, Principal principal, KeyAuthenticationUser user) throws NoSuchProviderException, ParseException, IOException {
+		
+		String username = principal.getName();
+		user = userService.getByUsername(username);
+		dega = degaService.getByID(id);
+		gjeneroPdfDelete = new GjeneroPdfDelete(username, user.getEmail());
+		gjeneroPdfDelete.gjeneroPdf(dega);
 	    degaService.remove(id);
 	    return "redirect:/home";
 	}
@@ -149,11 +158,12 @@ public class HomeController {
 		dega.setKrijimiDeges(degaOld.getKrijimiDeges());
 		dega.setModifikimiDeges(date);
 //		dega.setKrijimiDeges(krijimiDeges);
-		degaService.update(dega);
 		String username = principal.getName();
 		user = userService.getByUsername(username);
 		gjeneroPdf = new GjeneroPdf(username, user.getEmail());
 		gjeneroPdf.gjeneroPdf(dega);
+		degaService.update(dega);
+		
 		System.out.println("FIUUUUUUUUUUUUUU");
 		
 //		/*gjeneroPdf.sendReport(session, filename, extraMessage, user, password, principal, dega);*/

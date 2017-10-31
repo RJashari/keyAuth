@@ -48,7 +48,7 @@ public class GjeneroAllPdf {
 
 	Date dateNow = new Date();
 	SimpleDateFormat ft1 = new SimpleDateFormat("dd_MM_yyyy");
-	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\gjithaDeget\\";
+	private String locationForPdf ;//= "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\gjithaDeget\\";
 	private String dayOfModification = ft1.format(dateNow);
 	
 
@@ -70,6 +70,11 @@ public class GjeneroAllPdf {
 	
 	public String gjeneroPdf(Set <Dega> deget) throws ParseException, IOException, NoSuchProviderException {
 		
+		Properties properties = System.getProperties();
+        properties.load(GjeneroPdf.class.getClassLoader().getResourceAsStream("application.properties"));
+		locationForPdf = properties.getProperty("locationForPdfGjeneroGjithaDeget");
+		System.out.println(locationForPdf);
+		
 		String fileName = new StringBuilder()
 		.append(locationForPdf)
 		.append(dayOfModification)
@@ -78,8 +83,7 @@ public class GjeneroAllPdf {
 		.append(".pdf")
 		.toString();
 		
-//		KeyAuthenticationUser userEmail = new KeyAuthenticationUser();
-//		String email = userEmail.getEmail();
+
 		PdfWriter pdfWriter;
 		pdfWriter = new PdfWriter(fileName);
 		PdfDocument pdfDocument = new PdfDocument(pdfWriter);
@@ -108,6 +112,7 @@ public class GjeneroAllPdf {
         headerParagraf.setWidthPercent(100);
         headerParagraf.setTextAlignment(TextAlignment.CENTER);
         headerParagraf.add("Pasqyrimi i të gjitha degëve");//statement
+        String emriAdmin = properties.getProperty("admin.full.name");
         headerParagraf.setBold();
         document.add(header);
         document.add(new LineSeparator(new SolidLine()));
@@ -117,6 +122,7 @@ public class GjeneroAllPdf {
         Table t = new Table(new float[]{80.0f, 100.0f});
         Table t1 = new Table(new float[]{250.0f,250.0f,250.0f});
         Table t2 = new Table(new float[]{80.0f, 200.0f});
+        Table t3 = new Table(new float[]{270.0f, 280.0f});
 //        Table t3 = new Table(new float[]{265.0f,65.0f,65.0f,65.0f,65.0f});
 //        Table t4 = new Table(new float[]{80.0f, 100.0f, 40.0f, 80.0f});
         Table t5 = new Table(new float[]{65.0f, 80.0f});
@@ -171,14 +177,15 @@ public class GjeneroAllPdf {
 //		
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("z.Partin Halimi")
+		cell.add(new Paragraph("z/znj. "+emriAdmin)
 				.setPaddingTop(30.0f)
 				.setPaddingLeft(50.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
 				.setHeight(20.0f)
                 .setFontSize(10.0f));
-		t1.addCell(cell);
+		t3.addCell(cell);
+		
 		
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("z/znj. ___________________")
@@ -188,17 +195,7 @@ public class GjeneroAllPdf {
 				.setBold()
 				.setHeight(20.0f)
                 .setFontSize(10.0f));
-		t1.addCell(cell);
-		
-		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("z/znj. ___________________")
-				.setPaddingTop(30.0f)
-				.setPaddingLeft(50.0f)
-				.setBorder(Border.NO_BORDER)
-				.setBold()
-				.setHeight(20.0f)
-                .setFontSize(10.0f));
-		t1.addCell(cell);
+		t3.addCell(cell);
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("______________________")
 				.setBorder(Border.NO_BORDER)
@@ -206,7 +203,8 @@ public class GjeneroAllPdf {
 				.setPaddingLeft(50.0f)
 				.setBold()
                 .setFontSize(10.0f));
-		t1.addCell(cell);
+		t3.addCell(cell);
+		
 		
 		cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph("  ________________________")
@@ -215,16 +213,7 @@ public class GjeneroAllPdf {
 				.setBorder(Border.NO_BORDER)
 				.setBold()
                 .setFontSize(10.0f));
-		t1.addCell(cell);
-		
-		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("  ________________________")
-				.setPaddingTop(5.0f)
-				.setPaddingLeft(50.0f)
-				.setBorder(Border.NO_BORDER)
-				.setBold()
-                .setFontSize(10.0f));
-		t1.addCell(cell);
+		t3.addCell(cell);
 		
 		
 		document.add(t2);
@@ -233,7 +222,7 @@ public class GjeneroAllPdf {
 			
 		document.add(this.getTransactionsTable(deget));		
 		
-		document.add(t1);
+		document.add(t3);
 		document.close();
 		
 		SendMail sendMail = new SendMail();

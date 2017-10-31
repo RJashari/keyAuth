@@ -51,7 +51,7 @@ public class GjeneroPdfDega {
 	
 	Date dateNow = new Date();
 	SimpleDateFormat ft1 = new SimpleDateFormat("dd.MM.yyyy");
-	private String locationForPdf = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\gjeneroPdfDegen\\";
+	private String locationForPdf;// = "C:\\Users\\rinor.jashari\\Documents\\2017_11_08\\rinorTest\\gjeneroPdfDegen\\";
 	private String dayOfModification = ft1.format(dateNow);
 
 	private String user;
@@ -70,6 +70,11 @@ public class GjeneroPdfDega {
 	
 	
 	public String gjeneroPdf(Dega dega) throws ParseException, IOException, NoSuchProviderException {
+		
+		Properties properties = System.getProperties();
+        properties.load(GjeneroPdf.class.getClassLoader().getResourceAsStream("application.properties"));
+		locationForPdf = properties.getProperty("locationForPdfGjeneroPdfDegen");
+		System.out.println(locationForPdf);
 		
 		String fileName = new StringBuilder()
 		.append(locationForPdf)
@@ -109,7 +114,14 @@ public class GjeneroPdfDega {
 		Paragraph headerParagraf = new Paragraph();
         headerParagraf.setWidthPercent(100);
         headerParagraf.setTextAlignment(TextAlignment.CENTER);
-        headerParagraf.add("Gjenerimi i pdf per degën "+dega.getDega()+" nga "+user);//statement
+        String emriAdmin = properties.getProperty("admin.full.name");
+        if(user.equals("admin")){
+        	
+        	headerParagraf.add("Gjenerimi i pdf per degën "+dega.getDega()+" nga "+emriAdmin);//statement
+        }else {
+        	 headerParagraf.add("Gjenerimi i pdf per degën "+dega.getDega()+" nga "+this.getEmriMbiemri(user));//statement
+        }
+        
         headerParagraf.setBold();
         document.add(header);
         document.add(new LineSeparator(new SolidLine()));
@@ -122,6 +134,7 @@ public class GjeneroPdfDega {
 //        Table t4 = new Table(new float[]{80.0f, 100.0f, 40.0f, 80.0f});
         Table t5 = new Table(new float[]{65.0f, 80.0f});
         
+        if(!user.equals("admin")) {
     	String pershkrimi = "Përshkrimi: ";
     	Cell cell = this.getCellWithDefaultParametersUpper();
 		cell.add(new Paragraph(pershkrimi)
@@ -172,7 +185,7 @@ public class GjeneroPdfDega {
 		
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("z.Partin Halimi")
+		cell.add(new Paragraph("z/znj. "+emriAdmin)
 				.setPaddingTop(30.0f)
 				.setBorder(Border.NO_BORDER)
 				.setBold()
@@ -220,6 +233,110 @@ public class GjeneroPdfDega {
 				.setBold()
                 .setFontSize(10.0f));
 		t1.addCell(cell);
+		
+        }
+        else {
+        	
+        	String pershkrimi = "Përshkrimi: ";
+        	Cell cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph(pershkrimi)
+    				.setPaddingTop(10.0f)
+    				.setBold()
+    				.setBorder(Border.NO_BORDER)
+                    .setFontSize(8.0f));
+    		t2.addCell(cell);
+    		
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph("Gjenerimi i pdf për degën: "+dega.getDega()+"nga "+this.getEmriMbiemri(user))
+    				.setPaddingTop(10.0f)
+    				.setBorder(Border.NO_BORDER)
+                    .setFontSize(8.0f));
+    		t2.addCell(cell);
+
+    		String labelUser = "Përdoruesi: ";
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph(labelUser)
+    				.setBold()
+    				.setBorder(Border.NO_BORDER)
+    				.setFontSize(8.0f));
+    		t.addCell(cell);
+    		
+    		
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph(emriAdmin)
+    				.setBorder(Border.NO_BORDER)
+    				.setTextAlignment(TextAlignment.LEFT)
+    				.setFontSize(8.0f));
+    		t.addCell(cell);
+    		
+    		String labelDega = "Dega: ";
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph(labelDega)
+    				.setPaddingBottom(20.0f)
+    				.setBold()
+    				.setBorder(Border.NO_BORDER)
+                    .setFontSize(8.0f));
+    		t.addCell(cell);
+    		
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph(dega.getDega())
+    				.setPaddingBottom(20.0f)
+    				.setBorder(Border.NO_BORDER)
+                    .setFontSize(8.0f));
+    		t.addCell(cell);
+    		
+    		
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph("z/znj. "+emriAdmin)
+    				.setPaddingTop(30.0f)
+    				.setBorder(Border.NO_BORDER)
+    				.setBold()
+    				.setHeight(20.0f)
+                    .setFontSize(10.0f));
+    		t1.addCell(cell);
+    		
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph("z/znj. "+ this.getEmriMbiemri(user))
+    				.setPaddingTop(30.0f)
+    				.setBorder(Border.NO_BORDER)
+    				.setBold()
+    				.setHeight(20.0f)
+                    .setFontSize(10.0f));
+    		t1.addCell(cell);
+    		
+    		String pergjegjesiIDeges = dega.getPergjegjesiIDeges();
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph("z/znj. "+this.getEmriMbiemri(pergjegjesiIDeges))
+    				.setPaddingTop(30.0f)
+    				.setBorder(Border.NO_BORDER)
+    				.setBold()
+    				.setHeight(20.0f)
+                    .setFontSize(10.0f));
+    		t1.addCell(cell);
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph("______________________")
+    				.setBorder(Border.NO_BORDER)
+    				.setPaddingTop(5.0f)
+    				.setBold()
+                    .setFontSize(10.0f));
+    		t1.addCell(cell);
+    		
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph("  ________________________")
+    				.setPaddingTop(5.0f)
+    				.setBorder(Border.NO_BORDER)
+    				.setBold()
+                    .setFontSize(10.0f));
+    		t1.addCell(cell);
+    		
+    		cell = this.getCellWithDefaultParametersUpper();
+    		cell.add(new Paragraph("  ________________________")
+    				.setPaddingTop(5.0f)
+    				.setBorder(Border.NO_BORDER)
+    				.setBold()
+                    .setFontSize(10.0f));
+    		t1.addCell(cell);
+        }
 		
 		
 		document.add(t2);
