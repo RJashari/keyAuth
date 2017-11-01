@@ -56,13 +56,14 @@ public class GjeneroPdfDega {
 
 	private String user;
 	public String email;
-	
+	public String emailPergjegjesi;
 	
 	private static final Logger LOGGER = Logger.getLogger(GjeneroPdfDega.class.getName());
 
-	public GjeneroPdfDega(String user, String email) {
+	public GjeneroPdfDega(String user, String email, String emailPergjegjesi) {
 		this.user = user;
 		this.email = email;
+		this.emailPergjegjesi =emailPergjegjesi;
 	}
 	public GjeneroPdfDega() {
 		
@@ -100,9 +101,9 @@ public class GjeneroPdfDega {
 		
 		Date dNow = new Date();
 		SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		
-		String subjectEmail = "Gjenerimi per mbajtësit e çelësave të degës";
-		String bodyEmail ="Gjenerimi per mbajtësit e çelësave të degës \""+dega.getDega()+"\" në datën: "+dayOfModification; 
+		String emailToPergjegjesi = this.getEmriMbiemri(dega.getPergjegjesiIDeges());
+		String subjectEmail = "Gjenerimi për mbajtësit e çelësave të degës";
+		String bodyEmail ="Gjenerimi për mbajtësit e çelësave të degës \""+dega.getDega()+"\" në datën: "+dayOfModification; 
 		
 		String dataEShtypjes = "Data e shtypjes";
 		document.add(new Paragraph(dataEShtypjes + "              " + ft.format(dNow))
@@ -117,9 +118,9 @@ public class GjeneroPdfDega {
         String emriAdmin = properties.getProperty("admin.full.name");
         if(user.equals("admin")){
         	
-        	headerParagraf.add("Gjenerimi i pdf per degën "+dega.getDega()+" nga "+emriAdmin);//statement
+        	headerParagraf.add("Gjenerimi i Pdf për degën "+dega.getDega()+" nga "+emriAdmin);//statement
         }else {
-        	 headerParagraf.add("Gjenerimi i pdf per degën "+dega.getDega()+" nga "+this.getEmriMbiemri(user));//statement
+        	 headerParagraf.add("Gjenerimi i Pdf për degën "+dega.getDega()+" nga "+this.getEmriMbiemri(user));//statement
         }
         
         headerParagraf.setBold();
@@ -145,7 +146,7 @@ public class GjeneroPdfDega {
 		t2.addCell(cell);
 		
 		cell = this.getCellWithDefaultParametersUpper();
-		cell.add(new Paragraph("Gjenerimi i pdf për degën: "+dega.getDega()+"nga "+this.getEmriMbiemri(user))
+		cell.add(new Paragraph("Gjenerimi i pdf për degën: "+dega.getDega())
 				.setPaddingTop(10.0f)
 				.setBorder(Border.NO_BORDER)
                 .setFontSize(8.0f));
@@ -247,7 +248,7 @@ public class GjeneroPdfDega {
     		t2.addCell(cell);
     		
     		cell = this.getCellWithDefaultParametersUpper();
-    		cell.add(new Paragraph("Gjenerimi i pdf për degën: "+dega.getDega()+"nga "+this.getEmriMbiemri(user))
+    		cell.add(new Paragraph("Gjenerimi i pdf për degën: "+dega.getDega()+"nga "+emriAdmin)
     				.setPaddingTop(10.0f)
     				.setBorder(Border.NO_BORDER)
                     .setFontSize(8.0f));
@@ -294,9 +295,9 @@ public class GjeneroPdfDega {
     				.setHeight(20.0f)
                     .setFontSize(10.0f));
     		t1.addCell(cell);
-    		
+    		String pergjegjesiIDeges = dega.getPergjegjesiIDeges();
     		cell = this.getCellWithDefaultParametersUpper();
-    		cell.add(new Paragraph("z/znj. "+ this.getEmriMbiemri(user))
+    		cell.add(new Paragraph("z/znj. "+ this.getEmriMbiemri(pergjegjesiIDeges))
     				.setPaddingTop(30.0f)
     				.setBorder(Border.NO_BORDER)
     				.setBold()
@@ -304,9 +305,9 @@ public class GjeneroPdfDega {
                     .setFontSize(10.0f));
     		t1.addCell(cell);
     		
-    		String pergjegjesiIDeges = dega.getPergjegjesiIDeges();
+
     		cell = this.getCellWithDefaultParametersUpper();
-    		cell.add(new Paragraph("z/znj. "+this.getEmriMbiemri(pergjegjesiIDeges))
+    		cell.add(new Paragraph("z/znj. ___________________")
     				.setPaddingTop(30.0f)
     				.setBorder(Border.NO_BORDER)
     				.setBold()
@@ -349,7 +350,7 @@ public class GjeneroPdfDega {
 		document.close();
 		
 		SendMail sendMail = new SendMail();
-		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail, email);
+		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail, email,emailPergjegjesi , user);
 		
 		return fileName;
 	}

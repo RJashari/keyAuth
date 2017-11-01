@@ -56,14 +56,16 @@ public class GjeneroPdf {
 	private String dayOfModification = ft1.format(dateNow);
 
 	private String user;
+	public String emailPergjegjesi;
 	public String email;
 	
 	
 	private static final Logger LOGGER = Logger.getLogger(GjeneroPdf.class.getName());
 
-	public GjeneroPdf(String user, String email) {
+	public GjeneroPdf(String user, String email, String emailPergjegjesi) {
 		this.user = user;
 		this.email = email;
+		this.emailPergjegjesi = emailPergjegjesi;
 	}
 	public GjeneroPdf() {
 		
@@ -100,7 +102,7 @@ public class GjeneroPdf {
 		
 		Date dNow = new Date();
 		SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		
+		String emailToPergjegjesi = dega.getPergjegjesiIDeges();
 		String subjectEmail = "Modifikimi i degës";
 		String bodyEmail ="Modifikimi i degës \""+dega.getDega()+"\" në datën: "+dayOfModification; 
 		
@@ -357,7 +359,7 @@ public class GjeneroPdf {
 		document.close();
 		
 		SendMail sendMail = new SendMail();
-		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail, email);
+		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail, email, emailPergjegjesi,user);
 		
 		return fileName;
 	}

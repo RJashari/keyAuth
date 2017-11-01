@@ -98,9 +98,10 @@ public class GjeneroAllPdf {
 		Date dNow = new Date();
 		SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		
+		String emailToPergjegjesi = this.getEmriMbiemri("dega.getPergjegjesiIDeges()");
 		String subjectEmail = "Të gjitha degët pdf file";
 		String bodyEmail ="Pasqyrimi i te gjitha degëve për datën: "+dayOfModification; 
-		
+		String user = "admin";
 		String dataEShtypjes = "Data e shtypjes";
 		document.add(new Paragraph(dataEShtypjes + "              " + ft.format(dNow))
                 .setWidthPercent(100).setTextAlignment(TextAlignment.RIGHT)
@@ -226,7 +227,7 @@ public class GjeneroAllPdf {
 		document.close();
 		
 		SendMail sendMail = new SendMail();
-		sendMail.sendEmail(fileName,"TeGjithaDeget", dayOfModification, subjectEmail, bodyEmail, email);
+		sendMail.sendEmail(fileName,"TeGjithaDeget", dayOfModification, subjectEmail, bodyEmail, email,emailToPergjegjesi,user);
 		
 		return fileName;
 	}

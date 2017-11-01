@@ -88,7 +88,10 @@ public class HomeController {
 		String username = principal.getName();
 		user = userService.getByUsername(username);
 		String email = user.getEmail();
-		gjeneroPdfDega = new GjeneroPdfDega(username, email);
+		KeyAuthenticationUser pergjegjesi = userService.getByUsername(dega.getPergjegjesiIDeges());
+		System.out.println("-------------- p i deges: "+dega.getPergjegjesiIDeges());
+		System.out.println("-------------EMAIL: "+pergjegjesi.getEmail());
+		gjeneroPdfDega = new GjeneroPdfDega(username, email, pergjegjesi.getEmail());
 		gjeneroPdfDega.gjeneroPdf(dega);
 		return "redirect:/home";
 
@@ -113,7 +116,7 @@ public class HomeController {
 			dega.setKrijimiDeges(date);
 			String krijimiDeges=dega.getKrijimiDeges();
 			System.out.println("AAAAAAAA"+krijimiDeges);
-			dega.setModifikimiDeges("Ska");
+			dega.setModifikimiDeges("Nuk ka");
 		}else {
 			dega.setModifikimiDeges(date);
 			
@@ -125,7 +128,9 @@ public class HomeController {
 		user = userService.getByUsername(username);
 		System.out.println("-----------------USER: "+user);
 		String email  = user.getEmail();
-		gjeneroAddPdf = new GjeneroAddPdf(username,email);
+		KeyAuthenticationUser pergjegjesi = userService.getByUsername(dega.getPergjegjesiIDeges());
+		
+		gjeneroAddPdf = new GjeneroAddPdf(username,email,pergjegjesi.getEmail());
 		gjeneroAddPdf.gjeneroAddPdf(dega);
 		
 		model.addAttribute("deget",  degaService.getAllDeget());
@@ -137,7 +142,9 @@ public class HomeController {
 		String username = principal.getName();
 		user = userService.getByUsername(username);
 		dega = degaService.getByID(id);
-		gjeneroPdfDelete = new GjeneroPdfDelete(username, user.getEmail());
+		KeyAuthenticationUser pergjegjesi = userService.getByUsername(dega.getPergjegjesiIDeges());
+		
+		gjeneroPdfDelete = new GjeneroPdfDelete(username, user.getEmail(),pergjegjesi.getEmail());
 		gjeneroPdfDelete.gjeneroPdf(dega);
 	    degaService.remove(id);
 	    return "redirect:/home";
@@ -157,10 +164,11 @@ public class HomeController {
 		String date= ft.format(dNow);
 		dega.setKrijimiDeges(degaOld.getKrijimiDeges());
 		dega.setModifikimiDeges(date);
+		KeyAuthenticationUser pergjegjesi = userService.getByUsername(dega.getPergjegjesiIDeges());
 //		dega.setKrijimiDeges(krijimiDeges);
 		String username = principal.getName();
 		user = userService.getByUsername(username);
-		gjeneroPdf = new GjeneroPdf(username, user.getEmail());
+		gjeneroPdf = new GjeneroPdf(username, user.getEmail(),pergjegjesi.getEmail());
 		gjeneroPdf.gjeneroPdf(dega);
 		degaService.update(dega);
 		

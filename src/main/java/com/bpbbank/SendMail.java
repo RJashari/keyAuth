@@ -13,7 +13,7 @@ import com.bpbbank.domain.Dega;
 
 public class SendMail 
 { 
-    public void sendEmail(String fileName, String dega, String date, String subject, String body, String userEmail) throws IOException, NoSuchProviderException
+    public void sendEmail(String fileName, String dega, String date, String subject, String body, String userEmail, String emailToPergjegjesi, String perdoruesi) throws IOException, NoSuchProviderException
     {    
         
         Properties properties = System.getProperties();
@@ -46,6 +46,7 @@ public class SendMail
             message.setFrom(new InternetAddress(fromEmail));     
             int i=0;
 //            while(i<=emailTo.length) {
+            System.out.println(emailToPergjegjesi);
             System.out.println("MAKAKI");
             for(String s : emailTo) {
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(emailTo[i++]));
@@ -53,7 +54,11 @@ public class SendMail
             }
             System.out.println("-------------------------"+emailToUser);
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(emailToUser));  
-           
+            
+            if(perdoruesi.equals("admin") && !dega.equals("TeGjithaDeget")) {
+            System.out.println("++++++++++++ pergjegjesi"+emailToPergjegjesi);
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(emailToPergjegjesi));
+            }
             
             message.setSubject(subject);         
 

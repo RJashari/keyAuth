@@ -49,13 +49,15 @@ public class GjeneroAddPdf {
 
 	public String user;
 	public String email;
+	public String emailPergjegjesi;
 	
 	 private static final Logger LOGGER = Logger.getLogger(GjeneroAddPdf.class.getName());
 
-	public GjeneroAddPdf(String user, String email) {
+	public GjeneroAddPdf(String user, String email, String emailPergjegjesi) {
 		
 		this.user = user;
 		this.email = email;
+		this.emailPergjegjesi= emailPergjegjesi;
 	}
 	public GjeneroAddPdf() {
 		
@@ -97,6 +99,10 @@ public class GjeneroAddPdf {
 		
 		String subjectEmail = "Shtim i degës";
 		String bodyEmail ="Shtimi i Degës \""+dega.getDega()+"\" në datën: "+dayOfModification; 
+		
+		
+		String emailToPergjegjesi = this.getEmriMbiemri(dega.getPergjegjesiIDeges());
+		System.out.println("--------------------"+emailToPergjegjesi);
 		
 		String dataEShtypjes = "Data e shtypjes";
 		document.add(new Paragraph(dataEShtypjes + "              " + ft.format(dNow))
@@ -321,7 +327,7 @@ public class GjeneroAddPdf {
 		
 		System.out.println("-0-------------------"+email);
 		SendMail sendMail = new SendMail();
-		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail,email);
+		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail,email, emailPergjegjesi,user);
 		System.out.println("u qu");
 		
 		

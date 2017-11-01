@@ -16,7 +16,7 @@
            <div style="width:100%; background-color:#eaeaee; float:left">
           
             <div>
-            <table th:if="${not #sets.isEmpty(deget)}" style="width: 100%; border:1px double #eaeaea; border-radius:15px; text-align: center;font-size: 12px; float:left;  font-family: 'Arial'">
+            <table  style="width: 100%; border:1px double #eaeaea; border-radius:15px; text-align: center;font-size: 12px; float:left;  font-family: 'Arial'">
            
            <thead style='width: 85%; border: 1px; border-color:black; border-style: double; text-align: center; font-size: 12px; font-family: "Arial"'>
 	            <tr style="height:15px">
@@ -48,7 +48,7 @@
 	            </tr>
             </thead>
            
-	         <tbody>
+	         <tbody th:if="${not #sets.isEmpty(deget)}">
 	            <tr th:if="${user == 'admin'}" style="height: 35px"  th:each="dega, iteStat : ${deget}">
 	                <td style=" width: 2%; background-color: #ffb366" th:text="${dega.id}"></td>
 	                <td style=" width: 10%; background-color: #f0f5f5" th:text="${dega.dega}" ></td>

@@ -54,14 +54,14 @@ public class GjeneroPdfDelete {
 
 	private String user;
 	public String email;
-	
+	public String emailPergjegjesi;
 	 private static final Logger LOGGER = Logger.getLogger(GjeneroPdfDelete.class.getName());
 
-	public GjeneroPdfDelete(String user, String email) {
+	public GjeneroPdfDelete(String user, String email, String emailPergjegjesi) {
 		
 		this.user = user;
 		this.email = email;
-	
+		this.emailPergjegjesi =emailPergjegjesi;
 	}
 	public GjeneroPdfDelete() {
 		
@@ -241,7 +241,7 @@ public class GjeneroPdfDelete {
 		document.close();
 		
 		SendMail sendMail = new SendMail();
-		sendMail.sendEmail(fileName,"TeGjithaDeget", dayOfModification, subjectEmail, bodyEmail, email);
+		sendMail.sendEmail(fileName,dega.getDega(), dayOfModification, subjectEmail, bodyEmail, email, emailPergjegjesi,user);
 		
 		return fileName;
 	}
